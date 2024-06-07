@@ -8,13 +8,13 @@ using UnityEngine;
 
 public class BackgroundScroll : MonoBehaviour
 {
-    private Renderer renderer;
+    private Renderer render;
     public float scrollSpeed;
 
     // Start is called before the first frame update
     void Start()
     {
-        renderer = GetComponent<Renderer>();
+        render = GetComponent<Renderer>();
     }
 
     // Update is called once per frame
@@ -25,6 +25,6 @@ public class BackgroundScroll : MonoBehaviour
         Vector2 offsetMove = new Vector2(move, move);
 
         // offsetMove로 설정한 값 만큼 배경 움직임
-        renderer.sharedMaterial.SetTextureOffset("_MainTex", offsetMove);
+        render.sharedMaterial.SetTextureOffset("_MainTex", offsetMove);
     }
 }
