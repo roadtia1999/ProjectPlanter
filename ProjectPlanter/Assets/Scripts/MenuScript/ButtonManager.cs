@@ -5,6 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class ButtonManager : MonoBehaviour
 {
+    public GameObject SettingsBoard;
+    public GameObject SoundsBoard;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,5 +33,17 @@ public class ButtonManager : MonoBehaviour
     public void PlantdexButtonClicked()
     {
         SceneManager.LoadScene("DexScene");
+    }
+
+    public void SoundsButtonClicked()
+    {
+        SettingsBoard.SetActive(false);
+        SoundsBoard.SetActive(true);
+    }
+
+    public void SoundsOptionExit()
+    {
+        SettingsBoard.SetActive(true);
+        SoundsBoard.SetActive(false);
     }
 }

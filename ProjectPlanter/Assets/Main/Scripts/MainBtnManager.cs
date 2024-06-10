@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MainBtnManager : MonoBehaviour
@@ -75,6 +76,18 @@ public class MainBtnManager : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         Destroy(canInstance);
+    }
+
+    public void MenuBtnClick()
+    {
+        /*// 다음 Scene의 이름을 적어주세요
+        string nextSceneName = "MenuScene";
+
+        // 해당 Scene으로 이동합니다.
+        SceneManager.LoadScene(nextSceneName);*/
+
+
+        SceneManager.LoadScene("MenuScene");
     }
 
 }
