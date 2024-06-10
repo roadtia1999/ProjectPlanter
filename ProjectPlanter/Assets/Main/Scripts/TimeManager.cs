@@ -3,20 +3,21 @@ using System;
 
 public class TimeManager : MonoBehaviour
 {
+    public static TimeManager instance;
+
+
     // 게임 시작 시간
     public DateTime lastTime;
 
-    // 게임 이어서 시작한 시간
-    public DateTime keepStartTime;
-
-    public DateTime GameTime;
-
     // 저장된 데이터 있는지 확인 
-    private bool IsSave;
+    public bool IsSave;
 
+    // 시간 차이 값을 저장할 변수
+    public TimeSpan timeDifference;
 
-    void Start()
+    private void Awake()
     {
+        instance = this;
         // SavedTime 있는지 찾기
         IsSave = PlayerPrefs.HasKey("SavedTime");
 
@@ -24,7 +25,7 @@ public class TimeManager : MonoBehaviour
         if (!IsSave)
         {
             Debug.Log("저장된 데이터가 없습니다.");
-            
+
         }
 
         // 게임 다시 시작시 시간 저장 
@@ -49,21 +50,18 @@ public class TimeManager : MonoBehaviour
             // 현재 시작 시간도 DateTime으로 변환
             DateTime startTime = DateTime.Parse(startDateTimeString);
 
-            // 시간 차이 계산
-            TimeSpan timeDifference = startTime - lastTime;
+            // 시간 차이 계산 후 클래스 레벨 변수에 저장
+            timeDifference = startTime - lastTime;
 
             // 시간 차이 출력
             Debug.Log("시간 차이: " + timeDifference);
 
-            /*// 시간 차이가 1시간 이상일 때 랜덤 이벤트 발생
-            if (timeDifference.TotalHours >= 1)
-            {
-                TriggerRandomEvent();
-            }*/
 
         }
-      
     }
+
+
+
     // 알파
     // 종료시 타임 저장 메서드
     void OnApplicationQuit()
@@ -75,12 +73,4 @@ public class TimeManager : MonoBehaviour
         PlayerPrefs.SetString("SavedTime", lastDateTimeString);
     }
 
-/*    void Update()
-    {
-        // 게임이 진행되는 동안의 경과 시간
-        TimeSpan elapsedTime = DateTime.Now - gameStartTime;
-
-        // 여기서 경과 시간을 필요한 형태로 사용할 수 있습니다.
-        Debug.Log("Elapsed time: " + elapsedTime);
-    }*/
 }
