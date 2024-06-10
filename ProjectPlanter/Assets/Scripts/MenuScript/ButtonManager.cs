@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 
 // 설정 메뉴의 각종 버튼 기능을 구현한 코드입니다
@@ -11,6 +12,7 @@ public class ButtonManager : MonoBehaviour
 {
     public GameObject SettingsBoard;
     public GameObject SoundsBoard;
+    public Slider volumeSlider;
 
     // Start is called before the first frame update
     void Start()
@@ -49,5 +51,10 @@ public class ButtonManager : MonoBehaviour
     {
         SettingsBoard.SetActive(true);
         SoundsBoard.SetActive(false);
+    }
+
+    public void VolumeSliderValueChanged() // 볼륨 슬라이더 움직였을 때
+    {
+        PlayerPrefs.SetFloat("volume", volumeSlider.value);
     }
 }
