@@ -17,6 +17,7 @@ public class TimeManager : MonoBehaviour
 
     void Start()
     {
+        // SavedTime 있는지 찾기
         IsSave = PlayerPrefs.HasKey("SavedTime");
 
         // save가 없다면 만일을 위해 time 초기화.
@@ -25,27 +26,52 @@ public class TimeManager : MonoBehaviour
             Debug.Log("저장된 데이터가 없습니다.");
             
         }
+
+        // 게임 다시 시작시 시간 저장 
+        // --> 알파값과 비교 후 경과 시간만큼 트리거 작동.
         string startDateTimeString = DateTime.Now.ToString();
+        Debug.Log(startDateTimeString + "    다시 시작 값 저장");
         PlayerPrefs.SetString("KeepSavedTime", startDateTimeString);
+
+
+        // 알파
         // 이전에 저장된 시간 불러오기
+        // 시작시 전에 종료 시간 불러오기 확인.
         string savedTimeString = PlayerPrefs.GetString("SavedTime");
+        Debug.Log(savedTimeString + "   저장시간 불러오기");
+
+
         if (!string.IsNullOrEmpty(savedTimeString))
         {
             // 이전에 저장된 시간이 있다면 불러와서 DateTime으로 변환
             lastTime = DateTime.Parse(savedTimeString);
 
-            string KeepsavedTimeString = PlayerPrefs.GetString("KeepSavedTime");
-            keepStartTime = DateTime.Parse(KeepsavedTimeString);
+            // 현재 시작 시간도 DateTime으로 변환
+            DateTime startTime = DateTime.Parse(startDateTimeString);
 
-            /*GameTime = keepStartTime - lastTime;*/
+            // 시간 차이 계산
+            TimeSpan timeDifference = startTime - lastTime;
+
+            // 시간 차이 출력
+            Debug.Log("시간 차이: " + timeDifference);
+
+            /*// 시간 차이가 1시간 이상일 때 랜덤 이벤트 발생
+            if (timeDifference.TotalHours >= 1)
+            {
+                TriggerRandomEvent();
+            }*/
+
         }
       
     }
-
+    // 알파
+    // 종료시 타임 저장 메서드
     void OnApplicationQuit()
     {
         // 게임 종료 시 현재 시간 저장
         string lastDateTimeString = DateTime.Now.ToString();
+        // 종료시에 시간 저장 확인.
+        Debug.Log(lastDateTimeString + "    종료시간 저장");
         PlayerPrefs.SetString("SavedTime", lastDateTimeString);
     }
 
