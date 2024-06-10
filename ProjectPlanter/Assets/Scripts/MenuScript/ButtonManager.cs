@@ -2,11 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+
+
+// 설정 메뉴의 각종 버튼 기능을 구현한 코드입니다
+
 
 public class ButtonManager : MonoBehaviour
 {
     public GameObject SettingsBoard;
     public GameObject SoundsBoard;
+    public Slider volumeSlider;
 
     // Start is called before the first frame update
     void Start()
@@ -20,30 +26,35 @@ public class ButtonManager : MonoBehaviour
         
     }
 
-    public void ExitButtonClicked()
+    public void ExitButtonClicked() // 나가기 버튼 클릭
     {
         Application.Quit();
     }
 
-    public void PlantersButtonClicked()
+    public void PlantersButtonClicked() // 메인으로 돌아가기 클릭
     {
         SceneManager.LoadScene("_MainScene");
     }
 
-    public void PlantdexButtonClicked()
+    public void PlantdexButtonClicked() // 식물도감 버튼 클릭
     {
         SceneManager.LoadScene("DexScene");
     }
 
-    public void SoundsButtonClicked()
+    public void SoundsButtonClicked() // 소리 메뉴 버튼 클릭
     {
         SettingsBoard.SetActive(false);
         SoundsBoard.SetActive(true);
     }
 
-    public void SoundsOptionExit()
+    public void SoundsOptionExit() // 소리 메뉴 나가기 버튼 클릭
     {
         SettingsBoard.SetActive(true);
         SoundsBoard.SetActive(false);
+    }
+
+    public void VolumeSliderValueChanged() // 볼륨 슬라이더 움직였을 때
+    {
+        PlayerPrefs.SetFloat("volume", volumeSlider.value);
     }
 }
