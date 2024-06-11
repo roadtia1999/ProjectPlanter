@@ -13,11 +13,13 @@ public class ButtonManager : MonoBehaviour
     public GameObject SettingsBoard;
     public GameObject SoundsBoard;
     public Slider volumeSlider;
+    public Toggle DisableMuteToggle;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        // 볼륨 슬라이더 값을 현재 볼륨에 맞추기
+        volumeSlider.value = PlayerPrefs.GetFloat("volume");
     }
 
     // Update is called once per frame
@@ -56,5 +58,17 @@ public class ButtonManager : MonoBehaviour
     public void VolumeSliderValueChanged() // 볼륨 슬라이더 움직였을 때
     {
         PlayerPrefs.SetFloat("volume", volumeSlider.value);
+    }
+
+    public void DisableMuteToggled()
+    {
+        if (DisableMuteToggle.isOn)
+        {
+            PlayerPrefs.SetInt("disableMute", 1);
+        }
+        else
+        {
+            PlayerPrefs.SetInt("disableMute", 0);
+        }
     }
 }

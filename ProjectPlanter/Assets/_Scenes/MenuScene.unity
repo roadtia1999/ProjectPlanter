@@ -1509,7 +1509,19 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2144918269}
+        m_TargetAssemblyTypeName: ButtonManager, Assembly-CSharp
+        m_MethodName: DisableMuteToggled
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 0
 --- !u!1 &685962002
 GameObject:
@@ -3299,7 +3311,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SettingsBoard: {fileID: 1435412844}
   SoundsBoard: {fileID: 1747438598}
-  volumeSlider: {fileID: 0}
+  volumeSlider: {fileID: 481568011}
+  DisableMuteToggle: {fileID: 676786807}
 --- !u!4 &2144918270
 Transform:
   m_ObjectHideFlags: 0
