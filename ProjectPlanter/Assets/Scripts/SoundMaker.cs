@@ -21,6 +21,8 @@ public class SoundMaker : MonoBehaviour
         backgroundMusic.volume = volume;
         buttonClick.volume = volume;
         backgroundMusic.volume = volume;
+
+        backgroundMusic.Play();
     }
 
     // Update is called once per frame
