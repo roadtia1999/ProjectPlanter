@@ -17,6 +17,7 @@ public class SoundMaker : MonoBehaviour
 
     private static SoundMaker instance = null;
     public static float volume;
+    private bool foc;
 
     private void Awake()
     {
@@ -39,6 +40,7 @@ public class SoundMaker : MonoBehaviour
     {
         volume = PlayerPrefs.GetFloat("volume");
         SetVolume();
+        foc = true;
 
         // BGM 스타트
         backgroundMusic.loop = true;
@@ -49,7 +51,7 @@ public class SoundMaker : MonoBehaviour
     void Update()
     {
         //  볼륨이 변할 수 있는 메뉴 씬에선 지속적으로 볼륨 변경
-        if (SceneManager.GetActiveScene().name == "MenuScene")
+        if (SceneManager.GetActiveScene().name == "MenuScene" && foc)
         {
             volume = PlayerPrefs.GetFloat("volume");
             SetVolume();
@@ -93,15 +95,17 @@ public class SoundMaker : MonoBehaviour
     // 비활성화 시 음소거 코드
     private void OnApplicationFocus(bool focus)
     {
+        // 설정에서 비활성화 시 음소거를 설정한 경우에만 실행
         if (PlayerPrefs.GetInt("disableMute") == 1)
         {
             float volumeF;
+            foc = focus; // Update의 음량 설정보다 우선시
 
-            if (!focus)
+            if (!focus) // 비활성화 시 음소거
             {
                 volumeF = 0;
             }
-            else
+            else // 활성화 시 원래 볼륨으로 되돌림
             {
                 volumeF = PlayerPrefs.GetFloat("volume");
             }
