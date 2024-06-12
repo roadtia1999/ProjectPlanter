@@ -15,7 +15,7 @@ MonoBehaviour:
   itemType: 1
   itemId: 0
   itemName: Bee
-  itmeDesc: "\uBC8C\uC774 \uB180\uB7EC \uC654\uB2E4."
+  itemDesc: "\uBC8C \uB4F1\uC7A5."
   itemIcon: {fileID: 1408335638, guid: 19b190b70d0fecc42a52a7ddeb37e441, type: 3}
   EventPrefab: {fileID: 5801328009670530610, guid: 790be231d4ff95e4193fd76950ec5a1b, type: 3}
   TimeZone: 30

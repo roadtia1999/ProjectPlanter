@@ -273,7 +273,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &119004124
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1043,7 +1043,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &637851913
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1108,7 +1108,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 637851915}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1480454273}
+        m_TargetAssemblyTypeName: MainBtnManager, Assembly-CSharp
+        m_MethodName: BubleCilck
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 637851914}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &637851915
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1191,7 +1203,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28436b98432371049a9ace1616e0a27c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Event_prefab: []
+  Event_prefab:
+  - {fileID: 5801328009670530610, guid: 790be231d4ff95e4193fd76950ec5a1b, type: 3}
+  - {fileID: 6865545680217356552, guid: 8233a7cfef20a674bbef5777e59b9fd1, type: 3}
   Plant_prefab: []
 --- !u!1 &669086409
 GameObject:
@@ -1883,7 +1897,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canPrefab: {fileID: 1692392960009092233, guid: b390c0da6ececf44dadff74c78adcb57, type: 3}
   firstButtonClicked: {fileID: 1322285489}
-  handPrefab: {fileID: 0}
+  handPrefab: {fileID: 2739081855050027984, guid: 16e08f71d90519f47a339c5d9d1e09fc, type: 3}
+  seedPrefab: {fileID: 9213043645334093031, guid: a569f94a8ffa86b428737cbdc6d41eab, type: 3}
   canvas: {fileID: 225422433}
 --- !u!4 &1480454274
 Transform:
@@ -2305,7 +2320,7 @@ GameObject:
   - component: {fileID: 1878999584}
   - component: {fileID: 1878999583}
   m_Layer: 5
-  m_Name: WateringCan_Bg
+  m_Name: Option_Bg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
