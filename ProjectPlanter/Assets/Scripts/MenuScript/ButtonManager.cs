@@ -40,7 +40,7 @@ public class ButtonManager : MonoBehaviour
 
     public void PlantdexButtonClicked() // 식물도감 버튼 클릭
     {
-        SceneManager.LoadScene("DexScene");
+        SceneManager.LoadScene("PlantDexScene");
     }
 
     public void SoundsButtonClicked() // 소리 메뉴 버튼 클릭
