@@ -60,7 +60,7 @@ public class ButtonManager : MonoBehaviour
         PlayerPrefs.SetFloat("volume", volumeSlider.value);
     }
 
-    public void DisableMuteToggled()
+    public void DisableMuteToggled() // 비활성화 시 음소거 토글 눌렀을 때
     {
         if (DisableMuteToggle.isOn)
         {

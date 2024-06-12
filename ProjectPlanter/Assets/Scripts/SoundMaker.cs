@@ -24,7 +24,7 @@ public class SoundMaker : MonoBehaviour
 
         // 사운드 게임오브젝트는 모든 씬에서 돌려쓴다
 
-        if (instance != null)
+        if (instance != null) // 메인 씬으로 돌아와서, SoundMaker오브젝트가 중복되어 존재할 경우를 방지
         {
             Destroy(gameObject);
         }
@@ -50,7 +50,8 @@ public class SoundMaker : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //  볼륨이 변할 수 있는 메뉴 씬에선 지속적으로 볼륨 변경
+        // 볼륨이 변할 수 있는 메뉴 씬에선 지속적으로 볼륨 변경
+        // 비활성화 시 음소거 옵션이 활성화 된 경우 그 쪽을 우선시
         if (SceneManager.GetActiveScene().name == "MenuScene" && foc)
         {
             volume = PlayerPrefs.GetFloat("volume");
@@ -77,7 +78,7 @@ public class SoundMaker : MonoBehaviour
                     if (button != null)
                     {
                         buttonClick.Play();
-                        return;
+                        break;
                     }
                 }
 
