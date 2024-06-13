@@ -24,7 +24,12 @@ public class BackgroundScroll : MonoBehaviour
         float move = Mathf.Repeat(Time.time * scrollSpeed, 1);
         Vector2 offsetMove = new Vector2(move, move);
 
+        /* Legacy 코드, Merge 오류가 잦아 삭제
         // offsetMove로 설정한 값 만큼 배경 움직임
         render.sharedMaterial.SetTextureOffset("_MainTex", offsetMove);
+        */
+
+        // offsetMove로 설정한 값 만큼 배경 움직임
+        render.material.SetTextureOffset("_MainTex", offsetMove);
     }
 }
