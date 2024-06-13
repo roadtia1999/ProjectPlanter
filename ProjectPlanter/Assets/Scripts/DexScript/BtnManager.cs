@@ -6,34 +6,75 @@ using UnityEngine.SceneManagement;
 
 public class BtnManager : MonoBehaviour
 {
-    public GameObject pr1;
-    public GameObject pr2;
+    private int currentPage = 1;
+    private int totalPage = 6;
+
+    public Button btnNext;
+    public Button btnPrev;
+
+    public GameObject plantPr1;
+    public GameObject plantPr2;
     public GameObject evText1;
     public GameObject evText2;
     public GameObject GameObject;
 
     private void Start()
     {
-        GameObject = GetComponent<GameObject>();    
+        GameObject = GetComponent<GameObject>();
+
+        this.btnNext.onClick.AddListener(() =>
+            { this.NextPage(); });
+
+        this.btnPrev.onClick.AddListener(() =>
+        { this.PrevPage(); });
     }
     public void ExitDex()
     {
+        // 메뉴 씬으로 나가기
         SceneManager.LoadScene("MenuScene");
     }
 
-    public void FirstPage()
+    public void NextPage()
     {
-        pr1.gameObject.SetActive(true);
-        pr2.gameObject.SetActive(false);
-        evText1.gameObject.SetActive(true);
-        evText2.gameObject.SetActive(false);
+        if (this.currentPage == this.totalPage)
+        {
+            return;
+        }
+        this.currentPage++;
+
+        Debug.LogFormat("currentPage: {0}, totalPage: {1}", 
+            this.currentPage, this.totalPage);
+
+        if (this.currentPage == this.totalPage)
+        {
+            this.btnNext.gameObject.SetActive(false);
+        }
+        else
+        {
+            this.btnNext.gameObject.SetActive(true);
+        }
+        this.btnPrev.gameObject.SetActive(true);
     }
 
-    public void SecondPage()
+    public void PrevPage()
     {
-        pr1.gameObject.SetActive(false);
-        pr2.gameObject.SetActive(true);
-        evText1.gameObject.SetActive(false);
-        evText2.gameObject.SetActive(true);
+        if (this.currentPage == 1)
+        {
+            return;
+        }
+        this.currentPage--;
+
+        Debug.LogFormat("currentPage: {0}, totalPage: {1}",
+            this.currentPage, this.totalPage);
+
+        if (this.currentPage == 1)
+        {
+            this.btnPrev.gameObject.SetActive(false);
+        }
+        else
+        {
+            this.btnPrev.gameObject.SetActive(true);
+        }
+        this.btnNext.gameObject.SetActive(true);
     }
 }
