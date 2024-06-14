@@ -31,14 +31,23 @@ public class SceneFade : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        // 씬이 전환되는것을 감지하고, 페이드 아웃 코드를 실행하기 위한 준비
+        SceneManager.sceneLoaded += OnSceneLoad;
+    }
+
+    private void OnDisable()
+    {
+        // 혹여나 게임오브젝트 파괴 시 페이드 인/아웃 비활성화
+        SceneManager.sceneLoaded -= OnSceneLoad;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         // 페이드 인/아웃에 사용될 이미지를 가져온다
         fadeImage = GetComponentInChildren<Image>();
-
-        // 씬이 전환되는것을 감지하고, 페이드 아웃 코드를 실행하기 위한 준비
-        SceneManager.sceneLoaded += OnSceneLoad;
     }
 
     // Update is called once per frame
@@ -53,9 +62,14 @@ public class SceneFade : MonoBehaviour
         ao = SceneManager.LoadSceneAsync(scene.buildIndex);
         ao.allowSceneActivation = false;
 
+        // 로딩이 시작되면 다른 오브젝트 클릭 금지
+        fadeImage.raycastTarget = true;
+
         // 페이드 인/아웃 코드 실행
-        StartCoroutine(SceneChangeSequence());
+        // StartCoroutine(SceneChangeSequence());
     }
+
+    /*
 
     // 페이드 인/아웃 코드
     IEnumerator SceneChangeSequence()
@@ -72,6 +86,9 @@ public class SceneFade : MonoBehaviour
             fadeImage.color = imageColor;
             yield return null;
         }
+        imageColor.a = 1f; // 오차 없애기 위해 while문이 끝나도 다시 한번 실행
+        fadeImage.color = imageColor;
+        fadeTimeElapse = 0f; // 시간 카운트 초기화
 
         // 다음 씬 로드 완료까지 대기
         while(!ao.isDone)
@@ -80,6 +97,21 @@ public class SceneFade : MonoBehaviour
         }
         ao.allowSceneActivation = true;
 
+        // 지정된 시간 동안 페이드 인
+        while (fadeTimeElapse < fadeDuration)
+        {
+            fadeTimeElapse += Time.deltaTime;
+            imageColor.a = Mathf.Clamp01(1f - (fadeTimeElapse / fadeDuration));
+            fadeImage.color = imageColor;
+            yield return null;
+        }
+        imageColor.a = 0f; // 오차 없애기 위해 while문이 끝나도 다시 한번 실행
+        fadeImage.color = imageColor;
+        fadeImage.raycastTarget = false; // 다른 오브젝트를 클릭 가능하게 설정
+
         yield return null;
     }
+
+    */
+
 }
