@@ -12,16 +12,51 @@ public class MainBtnManager : MonoBehaviour
     public Button firstButtonClicked;
     private bool CanClicked = false;
 
-    [Header("# Can")]
+    [Header("# Hand")]
     public GameObject handPrefab;
     private GameObject handInstance;
     private bool handClicked = false;
 
-    [Header("# Can")]
+    [Header("# Seed")]
     public GameObject seedPrefab;
     private GameObject seedInstance;
+    public bool seedPlanted;
+/*    public GameObject x;*/
+    public Sprite Seed; // 변경할 씨앗 이미지 스프라이트
+    // 클릭된 버블의 인덱스
+    public int bubleIndex;
 
     public Canvas canvas;
+
+    void Start()
+    {
+        // 0 1 2 각 버튼 체크.
+        for (int i = 0; i < 3; i++)
+        {
+            seedPlanted = PlayerPrefs.HasKey("Button Buble" + i + "Clicked" + i);
+
+            // 심어져있는지 체크
+            // 심어져있다면
+            if (seedPlanted)
+            {
+                // 0값 받아오기.
+                int value = PlayerPrefs.GetInt("Button Buble" + i + "Clicked" + i);
+
+                if (value == 0)
+                {
+                    GameObject bubleObject = GameObject.Find("Button Buble" + i);
+                    if (bubleObject !=null)
+                    {
+                        bubleObject.SetActive(false);
+                    }
+                }
+
+            }
+
+        }
+
+    }
+
 
     // 버튼 클릭 시
     public void CanBtnClicked()
@@ -79,6 +114,14 @@ public class MainBtnManager : MonoBehaviour
     }
 
     // 말풍선 클릭시 --
+    public void BubleIndex(int btnIndex)
+    {
+        //화분 potx 구하기.
+        bubleIndex = btnIndex;
+        
+
+    }
+
     public void BubleCilck(Button clickedButton)
     {
         handClicked = true;
@@ -91,7 +134,7 @@ public class MainBtnManager : MonoBehaviour
 
         if (handClicked)
         {
-            Debug.Log("if문 실행");
+            
             // 클릭된 버튼의 RectTransform을 불러오기
             RectTransform btnRectTransform = clickedButton.GetComponent<RectTransform>();
 
@@ -109,12 +152,13 @@ public class MainBtnManager : MonoBehaviour
 
             // 1.5초 후에 hand 오브젝트 a 값 서서히 다운
             StartCoroutine(FadeOutHand(1.5f));
-            Plantingseed(clickedButton);
+            Plantingseed();
 
             clickedButton.gameObject.SetActive(false);
+            PlayerPrefs.SetInt(clickedButton.name + "Clicked" +bubleIndex, 0); // 버튼 상태 저장 false
             // 상태 초기화
             handClicked = false;
-            Debug.Log("false로 초기화");
+            
         }
 
 
@@ -141,31 +185,37 @@ public class MainBtnManager : MonoBehaviour
 
 
 
-    // 씨앗 image 활성화
-    public void Plantingseed(Button clickedBtn)
+
+
+    // 씨앗 image 활성화1
+    public void Plantingseed()
     {
-        if (seedInstance == null)
+        GameObject seedObject = GameObject.Find("seed" + bubleIndex);
+        
+        if (seedObject != null)
         {
-            seedInstance = Instantiate(seedPrefab, canvas.transform);
+            seedObject.GetComponent<Image>().sprite = Seed;
+            
+        }
+        else
+        {
+            Debug.Log("nullllll");
         }
 
-        RectTransform btnRectTransform = clickedBtn.GetComponent<RectTransform>();
-
-        // seed 오브젝트의 RectTransform을 불러오기.
-        RectTransform seedRectTransform = seedInstance.GetComponent<RectTransform>();
-
-        // 버튼의 위치를 기준으로 seed 오브젝트의 위치를 설정합니다.
-        Vector3 newPosition = seedRectTransform.anchoredPosition;
-        newPosition.x = btnRectTransform.anchoredPosition.x + 7f;
-        newPosition.y = btnRectTransform.anchoredPosition.y + -160f; 
-        seedRectTransform.anchoredPosition = newPosition;
-
-        
-        seedInstance.SetActive(true);
-
+    }
+    
+    public void PlantedSeed()
+    {
+   
+     /*   //씨앗 심어짐 === 참 
+        seedPlanted = !seedPlanted;
+        // PlayerPrefs에 저장
+        PlayerPrefs.SetInt("IsSeedPlanted", seedPlanted ? 1 : 0); //true 이면 1 false 0*/
 
 
     }
+
+
 
 
 }

@@ -117,22 +117,22 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Put_Seed 1_0
+      name: Seed
       rect:
         serializedVersion: 2
-        x: 11
-        y: 47
-        width: 40
-        height: 17
+        x: 18
+        y: 50
+        width: 27
+        height: 15
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3b7e2bd662c314c4298d0a7ec7d67f3d
-      internalID: 1412021727
+      spriteID: 8874a7a499e45c14784f281f9cb148a5
+      internalID: -323837509
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Put_Seed 1_0: 1412021727
+      Seed: -323837509
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

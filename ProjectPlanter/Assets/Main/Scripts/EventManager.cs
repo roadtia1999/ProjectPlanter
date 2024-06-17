@@ -42,7 +42,7 @@ public class EventManager : MonoBehaviour
         name = "Event " + itemData[randomEvent].itemName;
         transform.parent = canvas.transform; // 캔버스 트랜스폼을 설정
         transform.localPosition = Vector3.zero;
-        Debug.Log(transform + " 위치");
+        
 
         id = itemData[randomEvent].itemId;
         prefabId = itemData[randomEvent].itemId; // prefabId 설정
