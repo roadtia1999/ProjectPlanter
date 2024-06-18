@@ -15,6 +15,8 @@ public class TimeManager : MonoBehaviour
     // 시간 차이 값을 저장할 변수
     public TimeSpan timeDifference;
 
+
+
     private void Awake()
     {
         instance = this;
@@ -60,6 +62,9 @@ public class TimeManager : MonoBehaviour
         }
     }
 
+
+
+ 
 
 
     // 알파

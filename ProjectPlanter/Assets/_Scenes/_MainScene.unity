@@ -154,14 +154,14 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 997290615}
+  - {fileID: 962515392}
   - {fileID: 1998906206}
   m_Father: {fileID: 225422434}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -252, y: -429}
+  m_AnchoredPosition: {x: -252, y: -368}
   m_SizeDelta: {x: 327.4626, y: 284.81}
   m_Pivot: {x: 0.50000024, y: 0.5000001}
 --- !u!114 &60429823
@@ -923,6 +923,7 @@ GameObject:
   - component: {fileID: 593142601}
   - component: {fileID: 593142603}
   - component: {fileID: 593142602}
+  - component: {fileID: 593142604}
   m_Layer: 5
   m_Name: seed2
   m_TagString: Untagged
@@ -947,7 +948,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 7, y: 190}
+  m_AnchoredPosition: {x: 7, y: 142}
   m_SizeDelta: {x: 29.4434, y: 22.5034}
   m_Pivot: {x: 0.5, y: 0.49999872}
 --- !u!114 &593142602
@@ -988,6 +989,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 593142600}
   m_CullTransparentMesh: 1
+--- !u!114 &593142604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 593142600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: caf8ab13d03e0284fba6f7aa4218eb32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SeedSpr: {fileID: -323837509, guid: 77126e126038ebf42838fa33345f45c5, type: 3}
+  PlantingAfter: 
+  PlantingAfterString: 
+  itemData: {fileID: 11400000, guid: fc8d2f7255a649948bc7eb5329f17a53, type: 2}
+  growthTime: 0
 --- !u!1 &594838343
 GameObject:
   m_ObjectHideFlags: 0
@@ -1074,7 +1092,7 @@ GameObject:
   - component: {fileID: 637851915}
   - component: {fileID: 637851914}
   m_Layer: 5
-  m_Name: Button Buble0
+  m_Name: Button Buble2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1093,12 +1111,12 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1141188637}
-  m_Father: {fileID: 1848809563}
+  m_Father: {fileID: 1936153236}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -5.4608154, y: 298.95465}
+  m_AnchoredPosition: {x: -1.0001831, y: 335.99997}
   m_SizeDelta: {x: 268.158, y: 210.508}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &637851914
@@ -1152,7 +1170,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -1683,7 +1701,7 @@ GameObject:
   - component: {fileID: 962515394}
   - component: {fileID: 962515393}
   m_Layer: 5
-  m_Name: Button Buble2
+  m_Name: Button Buble1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1702,12 +1720,12 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 215133420}
-  m_Father: {fileID: 1936153236}
+  m_Father: {fileID: 60429822}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 2.000061, y: 347}
+  m_AnchoredPosition: {x: 4.0000916, y: 306.10004}
   m_SizeDelta: {x: 268.158, y: 210.508}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &962515393
@@ -1761,7 +1779,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 2
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -1829,7 +1847,7 @@ GameObject:
   - component: {fileID: 997290617}
   - component: {fileID: 997290616}
   m_Layer: 5
-  m_Name: Button Buble1
+  m_Name: Button Buble0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1848,12 +1866,12 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1197620998}
-  m_Father: {fileID: 60429822}
+  m_Father: {fileID: 1848809563}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 2.0000305, y: 314.95474}
+  m_AnchoredPosition: {x: 6.4188843, y: 362}
   m_SizeDelta: {x: 268.158, y: 210.508}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &997290616
@@ -1907,7 +1925,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
+          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -2316,7 +2334,9 @@ MonoBehaviour:
   handPrefab: {fileID: 2739081855050027984, guid: 16e08f71d90519f47a339c5d9d1e09fc, type: 3}
   seedPrefab: {fileID: 9213043645334093031, guid: a569f94a8ffa86b428737cbdc6d41eab, type: 3}
   seedPlanted: 0
-  Seed: {fileID: -323837509, guid: 77126e126038ebf42838fa33345f45c5, type: 3}
+  SeedSpr: {fileID: -323837509, guid: 77126e126038ebf42838fa33345f45c5, type: 3}
+  itemData: {fileID: 0}
+  growthTime: 0
   bubleIndex: 0
   canvas: {fileID: 225422433}
 --- !u!4 &1480454274
@@ -2528,6 +2548,7 @@ GameObject:
   - component: {fileID: 1846099469}
   - component: {fileID: 1846099471}
   - component: {fileID: 1846099470}
+  - component: {fileID: 1846099472}
   m_Layer: 5
   m_Name: seed0
   m_TagString: Untagged
@@ -2552,7 +2573,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 5, y: 131}
+  m_AnchoredPosition: {x: 4.999939, y: 176.99997}
   m_SizeDelta: {x: 29.4434, y: 22.5034}
   m_Pivot: {x: 0.5, y: 0.49999872}
 --- !u!114 &1846099470
@@ -2593,6 +2614,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1846099468}
   m_CullTransparentMesh: 1
+--- !u!114 &1846099472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1846099468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: caf8ab13d03e0284fba6f7aa4218eb32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SeedSpr: {fileID: -323837509, guid: 77126e126038ebf42838fa33345f45c5, type: 3}
+  PlantingAfter: 
+  PlantingAfterString: 
+  itemData: {fileID: 11400000, guid: fc8d2f7255a649948bc7eb5329f17a53, type: 2}
+  growthTime: 0
 --- !u!1 &1848809562
 GameObject:
   m_ObjectHideFlags: 0
@@ -2624,14 +2662,14 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 637851913}
+  - {fileID: 997290615}
   - {fileID: 1846099469}
   m_Father: {fileID: 225422434}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -734.4189, y: -412.99994}
+  m_AnchoredPosition: {x: -734.4189, y: -425}
   m_SizeDelta: {x: 279.087, y: 338.309}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1848809564
@@ -2722,7 +2760,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c634d5c5eb896434396269ce2f8b32ae, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 947095239ed07b04fad524c304394d4c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2848,15 +2886,15 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 962515392}
+  - {fileID: 637851913}
   - {fileID: 593142601}
   m_Father: {fileID: 225422434}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 272, y: -377}
-  m_SizeDelta: {x: 467.8151, y: 371.1055}
+  m_AnchoredPosition: {x: 172, y: -406}
+  m_SizeDelta: {x: 301.1618, y: 371.1055}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1936153237
 MonoBehaviour:
@@ -2934,7 +2972,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 947095239ed07b04fad524c304394d4c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c634d5c5eb896434396269ce2f8b32ae, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2963,6 +3001,7 @@ GameObject:
   - component: {fileID: 1998906206}
   - component: {fileID: 1998906208}
   - component: {fileID: 1998906207}
+  - component: {fileID: 1998906209}
   m_Layer: 5
   m_Name: seed1
   m_TagString: Untagged
@@ -2987,7 +3026,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 8.100098, y: 136.4}
+  m_AnchoredPosition: {x: 8.0000305, y: 124}
   m_SizeDelta: {x: 29.4434, y: 22.5034}
   m_Pivot: {x: 0.5, y: 0.49999872}
 --- !u!114 &1998906207
@@ -3028,3 +3067,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1998906205}
   m_CullTransparentMesh: 1
+--- !u!114 &1998906209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1998906205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: caf8ab13d03e0284fba6f7aa4218eb32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SeedSpr: {fileID: -323837509, guid: 77126e126038ebf42838fa33345f45c5, type: 3}
+  PlantingAfter: 
+  PlantingAfterString: 
+  itemData: {fileID: 11400000, guid: fc8d2f7255a649948bc7eb5329f17a53, type: 2}
+  growthTime: 0

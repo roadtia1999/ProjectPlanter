@@ -19,10 +19,14 @@ public class MainBtnManager : MonoBehaviour
 
     [Header("# Seed")]
     public GameObject seedPrefab;
-    private GameObject seedInstance;
+    /*private GameObject seedInstance;*/
     public bool seedPlanted;
-/*    public GameObject x;*/
-    public Sprite Seed; // 변경할 씨앗 이미지 스프라이트
+    public Sprite SeedSpr; // 변경할 씨앗 이미지 스프라이트
+
+    [Header("# ItemData")]
+    public ItemData itemData;
+    public float growthTime;
+
     // 클릭된 버블의 인덱스
     public int bubleIndex;
 
@@ -30,11 +34,12 @@ public class MainBtnManager : MonoBehaviour
 
     void Start()
     {
+
         // 0 1 2 각 버튼 체크.
         for (int i = 0; i < 3; i++)
         {
             seedPlanted = PlayerPrefs.HasKey("Button Buble" + i + "Clicked" + i);
-
+            GameObject seedObject = GameObject.Find("seed" + i);
             // 심어져있는지 체크
             // 심어져있다면
             if (seedPlanted)
@@ -45,8 +50,9 @@ public class MainBtnManager : MonoBehaviour
                 if (value == 0)
                 {
                     GameObject bubleObject = GameObject.Find("Button Buble" + i);
-                    if (bubleObject !=null)
+                    if (bubleObject != null)
                     {
+                        seedObject.GetComponent<Image>().sprite = SeedSpr;
                         bubleObject.SetActive(false);
                     }
                 }
@@ -56,6 +62,13 @@ public class MainBtnManager : MonoBehaviour
         }
 
     }
+
+    private void Update()
+    {
+        growthTime -= Time.deltaTime;
+
+    }
+
 
 
     // 버튼 클릭 시
@@ -142,10 +155,10 @@ public class MainBtnManager : MonoBehaviour
             RectTransform HandRectTransform = handInstance.GetComponent<RectTransform>();
 
             // 버튼의 위치를 기준으로 Can 오브젝트의 위치를 설정합니다.
-            Vector3 newPosition = HandRectTransform.anchoredPosition;
-            newPosition.x = btnRectTransform.anchoredPosition.x + 10f;
-            newPosition.y = btnRectTransform.anchoredPosition.y + -40f; 
-            HandRectTransform.anchoredPosition = newPosition;
+            Vector3 newPosition = btnRectTransform.position;
+            newPosition.y -= 40f; // 버튼의 높이만큼 아래로 이동
+            HandRectTransform.position = newPosition;
+
 
             // hand 오브젝트를 활성화합니다.
             handInstance.SetActive(true);
@@ -168,6 +181,7 @@ public class MainBtnManager : MonoBehaviour
     private IEnumerator FadeOutHand(float duration)
     {
         CanvasGroup canvasGroup = handInstance.GetComponent<CanvasGroup>();
+        canvasGroup.alpha = 1.0f;
         float startAlpha = canvasGroup.alpha;
         float rate = 1.0f / duration;
         float progress = 0.0f;
@@ -188,13 +202,17 @@ public class MainBtnManager : MonoBehaviour
 
 
     // 씨앗 image 활성화1
+    //
     public void Plantingseed()
     {
         GameObject seedObject = GameObject.Find("seed" + bubleIndex);
-        
+
+   
+
         if (seedObject != null)
         {
-            seedObject.GetComponent<Image>().sprite = Seed;
+            seedObject.GetComponent<Image>().sprite = SeedSpr;
+            Debug.Log("씨앗 심기 실행");
             
         }
         else
@@ -202,18 +220,14 @@ public class MainBtnManager : MonoBehaviour
             Debug.Log("nullllll");
         }
 
-    }
-    
-    public void PlantedSeed()
-    {
-   
-     /*   //씨앗 심어짐 === 참 
-        seedPlanted = !seedPlanted;
-        // PlayerPrefs에 저장
-        PlayerPrefs.SetInt("IsSeedPlanted", seedPlanted ? 1 : 0); //true 이면 1 false 0*/
+        // growthtime 가져오기
+        // 씨앗 스프라이트 변경될때 growthtime 부여.
+        Seed.instance.InsertTimeData();
+
 
 
     }
+
 
 
 
