@@ -11,9 +11,8 @@ using UnityEngine.UI;
 public class SceneFade : MonoBehaviour
 {
     private static SceneFade instance = null;
-    private Image fadeImage;
+    public Image fadeImage;
     public float fadeDuration;
-    AsyncOperation ao;
 
     private void Awake()
     {
@@ -31,23 +30,10 @@ public class SceneFade : MonoBehaviour
         }
     }
 
-    private void OnEnable()
-    {
-        // 씬이 전환되는것을 감지하고, 페이드 아웃 코드를 실행하기 위한 준비
-        SceneManager.sceneLoaded += OnSceneLoad;
-    }
-
-    private void OnDisable()
-    {
-        // 혹여나 게임오브젝트 파괴 시 페이드 인/아웃 비활성화
-        SceneManager.sceneLoaded -= OnSceneLoad;
-    }
-
     // Start is called before the first frame update
     void Start()
     {
-        // 페이드 인/아웃에 사용될 이미지를 가져온다
-        fadeImage = GetComponentInChildren<Image>();
+        
     }
 
     // Update is called once per frame
@@ -56,21 +42,97 @@ public class SceneFade : MonoBehaviour
         
     }
 
-    private void OnSceneLoad(Scene scene, LoadSceneMode mode) // 씬 로드가 감지된 경우
+    // 외부에서 씬 전환 호출하는 프로젝트 전용 코드
+    public static void SceneChange(string nextScene)
     {
-        // 페이드 아웃 완료 전에 씬 로드 금지
-        ao = SceneManager.LoadSceneAsync(scene.buildIndex);
+        SceneFade sf = new SceneFade();
+        sf.Change(nextScene);
+    }
+
+    // 씬 전환을 담당하는 코드
+    public void Change(string nextScene)
+    {
+        // 백그라운드에서 씬 전환 시작
+        AsyncOperation ao = SceneManager.LoadSceneAsync(nextScene);
         ao.allowSceneActivation = false;
 
-        // 로딩이 시작되면 다른 오브젝트 클릭 금지
+        // 씬 전환 시작시 다른 조작 불가능
         fadeImage.raycastTarget = true;
 
-        // 페이드 인/아웃 코드 실행
-        // StartCoroutine(SceneChangeSequence());
+        // 페이드 아웃
+        StartCoroutine(FadeOut());
+
+        // 다음 씬이 로딩 완료될 때까지 대기
+        StartCoroutine(HoldForLoading(ao));
+
+        // 다음 씬 로드 완료 시 페이드 인
+        StartCoroutine(FadeIn());
+
+        // 다른 오브젝트를 클릭 가능하게 설정
+        fadeImage.raycastTarget = false;  
     }
+
+    IEnumerator HoldForLoading(AsyncOperation ao)
+    {
+        while (!ao.isDone)
+        {
+            yield return null;
+        }
+        ao.allowSceneActivation = true;
+    }
+
+    IEnumerator FadeOut() // 페이드 아웃 코드
+    {
+        float fadeTimeElapse = 0f;
+        Color imageColor = fadeImage.color;
+        imageColor.a = 0f;
+
+        // 지정된 시간 동안 페이드 아웃
+        while (fadeTimeElapse < fadeDuration)
+        {
+            fadeTimeElapse += Time.deltaTime;
+            imageColor.a = Mathf.Clamp01(fadeTimeElapse / fadeDuration);
+            fadeImage.color = imageColor;
+            yield return null;
+        }
+        imageColor.a = 1f; // 오차 없애기 위해 while문이 끝나도 다시 한번 실행
+        fadeImage.color = imageColor;
+    }
+
+    IEnumerator FadeIn()
+    {
+        float fadeTimeElapse = 0f;
+        Color imageColor = fadeImage.color;
+        imageColor.a = 1f;
+
+        // 지정된 시간 동안 페이드 인
+        while (fadeTimeElapse < fadeDuration)
+        {
+            fadeTimeElapse += Time.deltaTime;
+            imageColor.a = Mathf.Clamp01(1f - (fadeTimeElapse / fadeDuration));
+            fadeImage.color = imageColor;
+            yield return null;
+        }
+        imageColor.a = 0f; // 오차 없애기 위해 while문이 끝나도 다시 한번 실행
+        fadeImage.color = imageColor;
+    }
+
+
+
+
+
 
     /*
 
+    private void OnStartLoadingScene(Scene current, Scene next) // 씬 로드가 감지된 경우
+    {
+        // 로딩이 시작되면 다른 오브젝트 클릭 금지
+        fadeImage.raycastTarget = true;
+
+        // 페이드 아웃 코드 실행 (페이드 아웃
+        // StartCoroutine(SceneChangeSequence());
+    }
+    
     // 페이드 인/아웃 코드
     IEnumerator SceneChangeSequence()
     {
