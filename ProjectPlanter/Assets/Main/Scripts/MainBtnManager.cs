@@ -32,7 +32,7 @@ public class MainBtnManager : MonoBehaviour
 
     public Canvas canvas;
 
-    void Start()
+    private void Awake()
     {
 
         // 0 1 2 각 버튼 체크.
@@ -60,12 +60,6 @@ public class MainBtnManager : MonoBehaviour
             }
 
         }
-
-    }
-
-    private void Update()
-    {
-        growthTime -= Time.deltaTime;
 
     }
 
@@ -222,7 +216,7 @@ public class MainBtnManager : MonoBehaviour
 
         // growthtime 가져오기
         // 씨앗 스프라이트 변경될때 growthtime 부여.
-        Seed.instance.InsertTimeData();
+        /*Seed.instance.InsertTimeData();*/
 
 
 

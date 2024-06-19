@@ -33,7 +33,6 @@ public class TimeManager : MonoBehaviour
         // 게임 다시 시작시 시간 저장 
         // --> 알파값과 비교 후 경과 시간만큼 트리거 작동.
         string startDateTimeString = DateTime.Now.ToString();
-        Debug.Log(startDateTimeString + "    다시 시작 값 저장");
         PlayerPrefs.SetString("KeepSavedTime", startDateTimeString);
 
 
@@ -41,7 +40,7 @@ public class TimeManager : MonoBehaviour
         // 이전에 저장된 시간 불러오기
         // 시작시 전에 종료 시간 불러오기 확인.
         string savedTimeString = PlayerPrefs.GetString("SavedTime");
-        Debug.Log(savedTimeString + "   저장시간 불러오기");
+        
 
 
         if (!string.IsNullOrEmpty(savedTimeString))
