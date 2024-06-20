@@ -10,7 +10,7 @@ public class Seed : MonoBehaviour
     public Sprite SeedSpr;
     public string PlantingAfter;
     public string PlantingAfterString;
-
+    
     public TimeSpan timeDif;
     public TimeSpan x;
 
@@ -24,11 +24,17 @@ public class Seed : MonoBehaviour
     public ItemData itemData;
     public float growthTime;
 
+    [Header("# FloweSprite")]
+
+    public Sprite Y_Freesia;
+    public Sprite Freesia;
+
+
     private void Awake()
     {
         instance = this;
 
-        InsertTimeData();
+        /*InsertTimeData();*/
         PlantingAfterString = DateTime.Now.ToString();
         Debug.Log(PlantingAfterString + " 씨앗 심고 종료 후 다시 시작");
         PlayerPrefs.SetString("PlantingAfterRestart", PlantingAfterString);
@@ -36,14 +42,18 @@ public class Seed : MonoBehaviour
 
         for (int i = 0; i < 3; i++)
         {
-            string savedTimeString = PlayerPrefs.GetString("PlantingAfterTime"+i);
-            Debug.Log(savedTimeString + "   저장시간 불러오기");
+            string PlantedTimeString = PlayerPrefs.GetString("PlantingAfterTime"+i);
+            Debug.Log(PlantedTimeString + " 씨앗별 저장된 시간");
+            if (PlantedTimeString == null)
+            {
+                continue;
+            }
 
-            if (!string.IsNullOrEmpty(savedTimeString))
+            if (!string.IsNullOrEmpty(PlantedTimeString))
             {
                 // 이전에 저장된 시간이 있다면 불러와서 DateTime으로 변환
-                seedlastTime = DateTime.Parse(savedTimeString);
-                Debug.Log(seedlastTime);
+                seedlastTime = DateTime.Parse(PlantedTimeString);
+                
                 // 현재 시작 시간도 DateTime으로 변환
                 DateTime startTime = DateTime.Parse(PlantingAfterString);
 
@@ -68,13 +78,45 @@ public class Seed : MonoBehaviour
 
     }
 
+
     void CheckTimeDifference(TimeSpan timeDiff)
     {
-        // 예: 시간 차이가 1시간 이상일 때 이벤트를 발생시킴
-        if (timeDiff.TotalHours >= 1)
+        // 예: 10 ~ 29
+        if (timeDiff.TotalSeconds >= 10 /*&& timeDiff.TotalSeconds < 30*/)
         {
-            Debug.Log("1시간 이상 경과");
-            // 이벤트 발생 코드 추가
+            Debug.Log("10초 이상 30초 미만 경과 -> 성장");
+
+            for (int i = 0; i < 3; i++)
+            {
+
+                GameObject seedObject = GameObject.Find("seed" + i);
+                GameObject Pot = GameObject.Find("Pot" + i);
+                GameObject Sprout = Pot.transform.Find("Sprout" + i).gameObject;
+                
+
+                // seed+i 찾기.
+                if (seedObject)
+                {
+                    Image seedImage = seedObject.GetComponent<Image>();
+                    Debug.Log("seedImage.sprite 타입: " + seedImage.sprite.GetType());
+                    Debug.Log("SeedSpr 타입: " + SeedSpr.GetType());
+                    if (seedImage.sprite == SeedSpr)
+                    {
+                        Debug.Log(seedImage.sprite + " 찾음@@@@@@!@");
+                        seedObject.AddComponent<CanvasGroup>();
+                        
+                        CanvasGroup SeedAlpha = seedObject.GetComponent<CanvasGroup>();
+                        SeedAlpha.alpha = 0;
+                        Debug.Log(SeedAlpha + " 00000");
+                        Sprout.SetActive(true);
+                    }
+                    else
+                    {
+                        Debug.Log(" 새싹 찾음");
+
+                    }
+                }
+            }
         }
     }
 
@@ -82,7 +124,7 @@ public class Seed : MonoBehaviour
 
 
 
-    // 한번만 실행
+   /* // 한번만 실행
     // == 이미지가 씨앗일때만 .실행. 
     public void InsertTimeData()
     {
@@ -118,6 +160,8 @@ public class Seed : MonoBehaviour
         }
       
     }
+
+    */
  
     // 씨앗 찾기.
     // 씨앗 심어진 후 종료.
@@ -125,19 +169,33 @@ public class Seed : MonoBehaviour
     {
         // 게임 종료 시 현재 시간 저장
         
-        PlantingAfter = DateTime.Now.ToString();
+            PlantingAfter = DateTime.Now.ToString();
         for (int i = 0; i < 3; i++)
         {
             GameObject seedObject = GameObject.Find("seed" + i);
 
+            // seed+i 찾기.
             if (seedObject)
             {
                 Image seedImage = seedObject.GetComponent<Image>();
 
+                //이미지 seed 인지 확인
                 if (seedImage.sprite == SeedSpr)
                 {
-                    PlayerPrefs.SetString("PlantingAfterTime" + i, PlantingAfter + i);
-                    Debug.Log(PlantingAfter + i + " 씨앗 심은 후 종료");
+                    // PlayerPrefs에서 값을 읽어옴
+                    string savedTime = PlayerPrefs.GetString("PlantingAfterTime" + i);
+
+                    // 값이 비어 있는지 확인
+                    if (string.IsNullOrEmpty(savedTime))
+                    {
+                        // PlantingAfterTime0 1 2 에 다른 값들 부여.
+                        PlayerPrefs.SetString("PlantingAfterTime" + i, PlantingAfter);
+                        Debug.Log("값 저장 저장");
+                    }
+                    else
+                    {
+                        Debug.Log("이미 저장된 값이 있습니다: " + savedTime);
+                    }
                 }
             }
         }
