@@ -41,7 +41,8 @@ public class BtnManager : MonoBehaviour
     public void ExitDex()
     {
         // 메뉴 씬으로 나가기
-        SceneManager.LoadScene("MenuScene");
+        SceneFade sf = GameObject.Find("FadeCanvas").GetComponent<SceneFade>();
+        sf.SceneChange("MenuScene");
     }
 
     public void NextPage()

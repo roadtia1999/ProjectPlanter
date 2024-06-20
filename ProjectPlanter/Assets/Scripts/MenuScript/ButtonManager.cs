@@ -45,6 +45,22 @@ public class ButtonManager : MonoBehaviour
         sf.SceneChange("PlantDexScene");
     }
 
+    public void EventdexButtonClicked() // 이벤트도감 버튼 클릭 (미완성)
+    {
+        // SceneFade sf = GameObject.Find("FadeCanvas").GetComponent<SceneFade>();
+        // sf.SceneChange("EventDexScene");
+
+        throw new System.NotImplementedException();
+    }
+
+    public void RecordsButtonClicked() // 관찰기록 버튼 클릭 (미완성)
+    {
+        // SceneFade sf = GameObject.Find("FadeCanvas").GetComponent<SceneFade>();
+        // sf.SceneChange("RecordScene");
+
+        throw new System.NotImplementedException();
+    }
+
     public void SoundsButtonClicked() // 소리 메뉴 버튼 클릭
     {
         SettingsBoard.SetActive(false);
