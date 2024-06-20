@@ -11,8 +11,9 @@ using UnityEngine.UI;
 public class SceneFade : MonoBehaviour
 {
     private static SceneFade instance = null;
-    public Image fadeImage;
+    private Image fadeImage;
     public float fadeDuration;
+    AsyncOperation ao;
 
     private void Awake()
     {
@@ -33,7 +34,7 @@ public class SceneFade : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        fadeImage = GetComponentInChildren<Image>();
     }
 
     // Update is called once per frame
@@ -42,43 +43,35 @@ public class SceneFade : MonoBehaviour
         
     }
 
-    // 외부에서 씬 전환 호출하는 프로젝트 전용 코드
-    public static void SceneChange(string nextScene)
-    {
-        SceneFade sf = new SceneFade();
-        sf.Change(nextScene);
-    }
-
     // 씬 전환을 담당하는 코드
-    public void Change(string nextScene)
+    public void SceneChange(string nextScene)
     {
         // 백그라운드에서 씬 전환 시작
-        AsyncOperation ao = SceneManager.LoadSceneAsync(nextScene);
+        ao = SceneManager.LoadSceneAsync(nextScene);
         ao.allowSceneActivation = false;
 
         // 씬 전환 시작시 다른 조작 불가능
         fadeImage.raycastTarget = true;
 
-        // 페이드 아웃
+        // 씬 전환 시작, 페이드 아웃
         StartCoroutine(FadeOut());
-
-        // 다음 씬이 로딩 완료될 때까지 대기
-        StartCoroutine(HoldForLoading(ao));
-
-        // 다음 씬 로드 완료 시 페이드 인
-        StartCoroutine(FadeIn());
 
         // 다른 오브젝트를 클릭 가능하게 설정
         fadeImage.raycastTarget = false;  
     }
 
-    IEnumerator HoldForLoading(AsyncOperation ao)
+    // 다음 씬이 로딩될 때까지 대기
+    IEnumerator HoldForLoading()
     {
-        while (!ao.isDone)
+        while (ao.progress < 0.9f)
         {
+            print(ao.progress);
             yield return null;
         }
         ao.allowSceneActivation = true;
+
+        // 다음 씬 로드 완료 시 페이드 인
+        StartCoroutine(FadeIn());
     }
 
     IEnumerator FadeOut() // 페이드 아웃 코드
@@ -97,6 +90,9 @@ public class SceneFade : MonoBehaviour
         }
         imageColor.a = 1f; // 오차 없애기 위해 while문이 끝나도 다시 한번 실행
         fadeImage.color = imageColor;
+
+        // 다음 씬이 로딩 완료될 때까지 대기
+        StartCoroutine(HoldForLoading());
     }
 
     IEnumerator FadeIn()
