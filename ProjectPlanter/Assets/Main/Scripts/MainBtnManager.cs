@@ -117,7 +117,8 @@ public class MainBtnManager : MonoBehaviour
     // 메뉴 씬 이동
     public void MenuBtnClick()
     {
-        SceneManager.LoadScene("MenuScene");
+        SceneFade sf = GameObject.Find("FadeCanvas").GetComponent<SceneFade>();
+        sf.SceneChange("MenuScene");
     }
 
     // 말풍선 클릭시 --

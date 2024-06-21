@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class BtnManager : MonoBehaviour
 {
     private int currentPage = 1;
-    private int totalPage = 6;
+    private int totalPage = 4;
 
     public Button btnNext;
     public Button btnPrev;
@@ -16,15 +16,11 @@ public class BtnManager : MonoBehaviour
     public GameObject plantPr2;
     public GameObject plantPr3;
     public GameObject plantPr4;
-    public GameObject plantPr5;
-    public GameObject plantPr6;
 
     public GameObject evText1;
     public GameObject evText2;
     public GameObject evText3;
     public GameObject evText4;
-    public GameObject evText5;
-    public GameObject evText6;
 
     public GameObject GameObject;
 
@@ -41,7 +37,8 @@ public class BtnManager : MonoBehaviour
     public void ExitDex()
     {
         // 메뉴 씬으로 나가기
-        SceneManager.LoadScene("MenuScene");
+        SceneFade sf = GameObject.Find("FadeCanvas").GetComponent<SceneFade>();
+        sf.SceneChange("MenuScene");
     }
 
     public void NextPage()
@@ -109,28 +106,6 @@ public class BtnManager : MonoBehaviour
             evText4.gameObject.SetActive(false);
         }
 
-        if (currentPage == 5)
-        {
-            plantPr5.gameObject.SetActive(true);
-            evText5.gameObject.SetActive(true);
-        }
-        else
-        {
-            plantPr5.gameObject.SetActive(false);
-            evText5.gameObject.SetActive(false);
-        }
-
-        if (currentPage == 6)
-        {
-            plantPr6.gameObject.SetActive(true);
-            evText6.gameObject.SetActive(true);
-        }
-        else
-        {
-            plantPr6.gameObject.SetActive(false);
-            evText6.gameObject.SetActive(false);
-        }
-
     }
     public void PrevPage()
     {
@@ -195,28 +170,6 @@ public class BtnManager : MonoBehaviour
         {
             plantPr4.gameObject.SetActive(false);
             evText4.gameObject.SetActive(false);
-        }
-
-        if (currentPage == 5)
-        {
-            plantPr5.gameObject.SetActive(true);
-            evText5.gameObject.SetActive(true);
-        }
-        else
-        {
-            plantPr5.gameObject.SetActive(false);
-            evText5.gameObject.SetActive(false);
-        }
-
-        if (currentPage == 6)
-        {
-            plantPr6.gameObject.SetActive(true);
-            evText6.gameObject.SetActive(true);
-        }
-        else
-        {
-            plantPr6.gameObject.SetActive(false);
-            evText6.gameObject.SetActive(false);
         }
     }
 }
