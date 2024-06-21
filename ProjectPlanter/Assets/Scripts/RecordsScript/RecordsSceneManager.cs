@@ -14,6 +14,10 @@ public class RecordsSceneManager : MonoBehaviour
     // 파일을 읽어오기 위해 파일이름을 저장
     private string[] fileNames;
 
+    // 읽어올 파일 및 파일명을 저장할 List
+    private List<Texture2D> recordList;
+    private List<string> recordDate;
+
     // 스크린샷을 띄워 줄 이미지;
     public Image recordsImage;
 
@@ -33,7 +37,24 @@ public class RecordsSceneManager : MonoBehaviour
         fileNames = Directory.GetFiles(Application.dataPath + "/RecordScreenshots/"); // 화면에 띄울 파일이 있는지 검색
         if (fileNames.Length > 0) // 파일이 있으면
         {
+            // 파일 전체에 대한 리스트화 실시
+            foreach (var file in fileNames)
+            {
+                // 파일명이 형식에 맞는 파일 걸러내기
+                if (file.Contains(".png") // png 파일일 때,
+                    && file.IndexOf("-") == 4 
+                    && file.LastIndexOf("-") == 7) // 날짜 형식의 파일명일 때 ex) 1972-11-21.png 
+                {
+                    // 이미지를 텍스쳐 형식으로 가져오기
+                    byte[] fileBytes = File.ReadAllBytes(file);
+                    Texture2D tex = new Texture2D(0, 0);
+                    tex.LoadImage(fileBytes);
 
+                    // 가져오기를 성공하면 리스트에 저장
+                    recordDate.Add(file);
+                    recordList.Add(tex);
+                }
+            }
         }
     }
 
