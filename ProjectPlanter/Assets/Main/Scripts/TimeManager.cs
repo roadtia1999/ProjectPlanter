@@ -30,31 +30,22 @@ public class TimeManager : MonoBehaviour
 
         }
 
-        // 게임 다시 시작시 시간 저장 
-        // --> 알파값과 비교 후 경과 시간만큼 트리거 작동.
-        string startDateTimeString = DateTime.Now.ToString();
-        PlayerPrefs.SetString("KeepSavedTime", startDateTimeString);
 
 
+    
         // 알파
         // 이전에 저장된 시간 불러오기
         // 시작시 전에 종료 시간 불러오기 확인.
         string savedTimeString = PlayerPrefs.GetString("SavedTime");
-        
-
 
         if (!string.IsNullOrEmpty(savedTimeString))
         {
             // 이전에 저장된 시간이 있다면 불러와서 DateTime으로 변환
             lastTime = DateTime.Parse(savedTimeString);
 
-            // 현재 시작 시간도 DateTime으로 변환
-            DateTime startTime = DateTime.Parse(startDateTimeString);
-
+            DateTime now = DateTime.Now;
             // 시간 차이 계산 후 클래스 레벨 변수에 저장
-            timeDifference = startTime - lastTime;
-
-
+            timeDifference = now - lastTime;
 
         }
     }
@@ -70,8 +61,6 @@ public class TimeManager : MonoBehaviour
     {
         // 게임 종료 시 현재 시간 저장
         string lastDateTimeString = DateTime.Now.ToString();
-        // 종료시에 시간 저장 확인.
-        Debug.Log(lastDateTimeString + "    종료시간 저장");
         PlayerPrefs.SetString("SavedTime", lastDateTimeString);
     }
 

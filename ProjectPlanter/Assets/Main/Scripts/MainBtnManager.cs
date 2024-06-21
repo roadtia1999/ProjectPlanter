@@ -6,11 +6,13 @@ using UnityEngine.UI;
 
 public class MainBtnManager : MonoBehaviour
 {
+    public static MainBtnManager instance;
+
     [Header("# Can")]
     public GameObject canPrefab;
     private GameObject canInstance;
-    public Button firstButtonClicked;
     private bool CanClicked = false;
+    public int[] stack = new int[3]; // 물뿌리게 스택 체크.
 
     [Header("# Hand")]
     public GameObject handPrefab;
@@ -20,20 +22,18 @@ public class MainBtnManager : MonoBehaviour
     [Header("# Seed")]
     public GameObject seedPrefab;
     /*private GameObject seedInstance;*/
-    public bool seedPlanted;
     public Sprite SeedSpr; // 변경할 씨앗 이미지 스프라이트
+    public bool seedPlanted; // 씨앗 심어져있는지 여부
 
-    [Header("# ItemData")]
-    public ItemData itemData;
-    public float growthTime;
-
+    [Header("etc")]
     // 클릭된 버블의 인덱스
     public int bubleIndex;
-
+    //캔버스
     public Canvas canvas;
-
+    
     private void Awake()
     {
+        instance = this;
 
         // 0 1 2 각 버튼 체크.
         for (int i = 0; i < 3; i++)
@@ -63,18 +63,41 @@ public class MainBtnManager : MonoBehaviour
 
     }
 
+    public void BubleIndex(int btnIndex)
+    {
+        //화분 potx 구하기.
+        bubleIndex = btnIndex;
 
+    }
 
     // 버튼 클릭 시
     public void CanBtnClicked()
     {
-        CanClicked = true;
-        Debug.Log("클릭됨");
+        
+        CanClicked = !CanClicked;
 
-        if (canInstance == null)
+        // CanClicked가 true일 때
+        if (CanClicked)
         {
-            canInstance = Instantiate(canPrefab, canvas.transform);
+            
+            if (canInstance == null)
+            {
+                canInstance = Instantiate(canPrefab, canvas.transform);
+            }
+            
         }
+        else
+        {
+            Destroy(canInstance); 
+            canInstance = null;   
+        }
+    }
+
+    // 스택 추가 부분
+    // stack[x] 를 어떻게 다른 스크립트로 끌고올지.
+    void CanStack()
+    {
+        stack[bubleIndex]++;
     }
 
     // Can 오브젝트를 해당 버튼 위에 배치
@@ -82,18 +105,17 @@ public class MainBtnManager : MonoBehaviour
     {
         if (CanClicked)
         {
-            Debug.Log("if문 실행");
             // 클릭된 버튼의 RectTransform을 불러오기
             RectTransform btnRectTransform = clickedButton.GetComponent<RectTransform>();
 
             // Can 오브젝트의 RectTransform을 불러오기.
             RectTransform canRectTransform = canInstance.GetComponent<RectTransform>();
 
-            // 버튼의 위치를 기준으로 Can 오브젝트의 위치를 설정합니다.
-            Vector3 newPosition = canRectTransform.anchoredPosition;
-            newPosition.x = btnRectTransform.anchoredPosition.x + 200f;
-            newPosition.y = btnRectTransform.anchoredPosition.y + 400f; // y 값을 버튼의 y 값에 400만큼 이동합니다.
-            canRectTransform.anchoredPosition = newPosition;
+            // 버튼의 위치를 기준으로 hand 오브젝트의 위치를 설정.
+            Vector3 newPosition = btnRectTransform.position;
+            newPosition.y += 200f; // 버튼의 높이만큼 아래로 이동
+            newPosition.x += 100f; // 버튼의 높이만큼 아래로 이동
+            canRectTransform.position = newPosition;
 
             // Can 오브젝트를 활성화합니다.
             canInstance.SetActive(true);
@@ -103,7 +125,6 @@ public class MainBtnManager : MonoBehaviour
 
             // 상태 초기화
             CanClicked = false;
-            Debug.Log("false로 초기화");
         }
     }
 
@@ -121,14 +142,8 @@ public class MainBtnManager : MonoBehaviour
         sf.SceneChange("MenuScene");
     }
 
-    // 말풍선 클릭시 --
-    public void BubleIndex(int btnIndex)
-    {
-        //화분 potx 구하기.
-        bubleIndex = btnIndex;
-        
+    // 말풍선 클릭시 -- index값 저장
 
-    }
 
     public void BubleCilck(Button clickedButton)
     {
@@ -146,16 +161,16 @@ public class MainBtnManager : MonoBehaviour
             // 클릭된 버튼의 RectTransform을 불러오기
             RectTransform btnRectTransform = clickedButton.GetComponent<RectTransform>();
 
-            // Can 오브젝트의 RectTransform을 불러오기.
+            // Hnad 오브젝트의 RectTransform을 불러오기.
             RectTransform HandRectTransform = handInstance.GetComponent<RectTransform>();
 
-            // 버튼의 위치를 기준으로 Can 오브젝트의 위치를 설정합니다.
+            // 버튼의 위치를 기준으로 hand 오브젝트의 위치를 설정.
             Vector3 newPosition = btnRectTransform.position;
             newPosition.y -= 40f; // 버튼의 높이만큼 아래로 이동
             HandRectTransform.position = newPosition;
 
 
-            // hand 오브젝트를 활성화합니다.
+            // hand 오브젝트를 활성화.
             handInstance.SetActive(true);
 
             // 1.5초 후에 hand 오브젝트 a 값 서서히 다운
@@ -192,38 +207,19 @@ public class MainBtnManager : MonoBehaviour
         handInstance.SetActive(false);
     }
 
-
-
-
-
     // 씨앗 image 활성화1
     //
     public void Plantingseed()
     {
         GameObject seedObject = GameObject.Find("seed" + bubleIndex);
 
-   
-
         if (seedObject != null)
         {
             seedObject.GetComponent<Image>().sprite = SeedSpr;
-            Debug.Log("씨앗 심기 실행");
             
         }
-        else
-        {
-            Debug.Log("nullllll");
-        }
-
-        // growthtime 가져오기
-        // 씨앗 스프라이트 변경될때 growthtime 부여.
-        /*Seed.instance.InsertTimeData();*/
-
-
 
     }
-
-
 
 
 
