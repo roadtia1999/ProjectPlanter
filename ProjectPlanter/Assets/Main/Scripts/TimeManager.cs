@@ -54,8 +54,6 @@ public class TimeManager : MonoBehaviour
             // 시간 차이 계산 후 클래스 레벨 변수에 저장
             timeDifference = startTime - lastTime;
 
-            // 시간 차이 출력
-            Debug.Log("시간 차이: " + timeDifference);
 
 
         }

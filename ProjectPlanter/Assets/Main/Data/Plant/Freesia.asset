@@ -21,3 +21,5 @@ MonoBehaviour:
   TimeZone: 0
   PlantPrefab: {fileID: 7799762508918966397, guid: fe3973859fc84a64880537360abb2e0b, type: 3}
   GrowthTime: 0
+  Y_Freesia: {fileID: 21300000, guid: 5d200c993ce705a4091271d1c6ea88b7, type: 3}
+  F_Freesia: {fileID: 21300000, guid: 168dfa1ae0c63224bb5a03168da8ad99, type: 3}
