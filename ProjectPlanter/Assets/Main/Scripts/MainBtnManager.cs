@@ -28,6 +28,8 @@ public class MainBtnManager : MonoBehaviour
     [Header("etc")]
     // 클릭된 버블의 인덱스
     public int bubleIndex;
+    // 클릭된 화분의 인덱스
+    public int potIndex;
     //캔버스
     public Canvas canvas;
     
@@ -40,6 +42,7 @@ public class MainBtnManager : MonoBehaviour
         {
             seedPlanted = PlayerPrefs.HasKey("Button Buble" + i + "Clicked" + i);
             GameObject seedObject = GameObject.Find("seed" + i);
+            GameObject PlantState = GameObject.Find("PlantState" + i);
             // 심어져있는지 체크
             // 심어져있다면
             if (seedPlanted)
@@ -53,6 +56,8 @@ public class MainBtnManager : MonoBehaviour
                     if (bubleObject != null)
                     {
                         seedObject.GetComponent<Image>().sprite = SeedSpr;
+                        //plantstate 활성화
+                        PlantState.SetActive(true);
                         bubleObject.SetActive(false);
                     }
                 }
@@ -60,15 +65,23 @@ public class MainBtnManager : MonoBehaviour
             }
 
         }
+        Debug.Log("BtnMag 실행@@@@");
 
     }
 
     public void BubleIndex(int btnIndex)
     {
-        //화분 potx 구하기.
+        //버블x 구하기.
         bubleIndex = btnIndex;
 
     }
+    public void PotIndex(int btnIndex)
+    {
+        //버블x 구하기.
+        potIndex = btnIndex;
+
+    }
+
 
     // 버튼 클릭 시
     public void CanBtnClicked()
@@ -97,7 +110,11 @@ public class MainBtnManager : MonoBehaviour
     // stack[x] 를 어떻게 다른 스크립트로 끌고올지.
     void CanStack()
     {
-        stack[bubleIndex]++;
+        int[] x = new int[3];
+        stack[potIndex]++;
+        x[potIndex] = stack[potIndex];
+        PlayerPrefs.SetInt("Stack"+potIndex , x[potIndex]);
+
     }
 
     // Can 오브젝트를 해당 버튼 위에 배치
@@ -105,6 +122,7 @@ public class MainBtnManager : MonoBehaviour
     {
         if (CanClicked)
         {
+            CanStack();
             // 클릭된 버튼의 RectTransform을 불러오기
             RectTransform btnRectTransform = clickedButton.GetComponent<RectTransform>();
 
