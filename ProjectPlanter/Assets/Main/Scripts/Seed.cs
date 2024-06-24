@@ -40,7 +40,7 @@ public class Seed : MonoBehaviour
         for (int i = 0; i < 3; i++)
         {
             string PlantedTimeString = PlayerPrefs.GetString("PlantingAfterTime"+i);
-            Debug.Log(PlantedTimeString + " 씨앗별 저장된 시간" + i);
+            
             if (PlantedTimeString == null)
             {
                 continue;
@@ -58,12 +58,13 @@ public class Seed : MonoBehaviour
                 timeDifference = startTime - seedlastTime;
 
                 // 시간 차이 출력
-                Debug.Log("씨앗 심은 후 : " + timeDifference);
+                
 
                 TimeDifChk(i);
 
             }
         }
+        Debug.Log("Seed 실행@@@@");
     }
 
     //Awake -> TimeDifChk -> TimeDifGrow -> CheckMethod -> CheckMethodXX
@@ -72,7 +73,7 @@ public class Seed : MonoBehaviour
     {
         GrowTime[i] += timeDifference;
         // x의 값을 확인하여 이벤트를 일으킴
-        Debug.Log(GrowTime[i] + "  GrowTIme["+i +"] 값 저장 ");
+        
         TimeDifGrow(GrowTime[i], i);
     }
 
@@ -111,7 +112,7 @@ public class Seed : MonoBehaviour
 
     void CheckMethod(int index, int duration)
     {
-        Debug.Log($"메서드 실행 {duration}초");
+        
         GameObject seedObject = GameObject.Find("seed" + index);
         GameObject Pot = GameObject.Find("Pot" + index);
         GameObject Sprout = Pot.transform.Find("Sprout" + index).gameObject;
@@ -194,7 +195,7 @@ public class Seed : MonoBehaviour
                     {
                         // PlantingAfterTime0 1 2 에 다른 값들 부여.
                         PlayerPrefs.SetString("PlantingAfterTime" + i, PlantingAfter);
-                        Debug.Log("값 저장 저장  " +i + savedTime);
+                        
                     }
                    
                 }
