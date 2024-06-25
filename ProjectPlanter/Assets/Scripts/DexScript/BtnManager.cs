@@ -68,8 +68,8 @@ public class BtnManager : MonoBehaviour
 
     private void SetNewData() // 현재 도감에 보이는 데이터를 갱신하는 코드
     {
-        Sprite newSprite = dexSprite.GetComponent<Sprite>();
-        newSprite = database[currentPage].itemIcon; // 스프라이트 부분 갱신
+        SpriteRenderer newSprite = dexSprite.GetComponent<SpriteRenderer>();
+        newSprite.sprite = database[currentPage].itemIcon; // 스프라이트 부분 갱신
         dexTitleText.text = database[currentPage].itemName; // 이름 부분 갱신
         dexDescText.text = database[currentPage].itemDesc; // 설명 부분 갱신
     }
