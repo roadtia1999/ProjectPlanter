@@ -9,6 +9,12 @@ public class EventManager : MonoBehaviour
 
     public int id;
     public int prefabId;
+    // 벌 동작
+    float moveDuration = 2f; // 이동 시간
+    float stopDuration = 1f; // 멈춤 시간
+    float moveSpeed = 100f; // 이동 속도
+    private RectTransform evBee; // Bee RectTransform
+    private Vector2 moveDirection; // 이동 방향
 
     public Canvas canvas;
 
@@ -63,7 +69,7 @@ public class EventManager : MonoBehaviour
         switch (randomEvent)
         {
             case 0: Bee(); break;
-            case 1: xxx(); break;
+            /*case 1: xxx(); break;*/
             default:  break;
         }
     }
@@ -73,10 +79,51 @@ public class EventManager : MonoBehaviour
     void Bee()
     {
         GameObject evBeeObject = PoolManager.instance.EventGet(prefabId);
-        RectTransform evBee = evBeeObject.GetComponent<RectTransform>();
+        evBee = evBeeObject.GetComponent<RectTransform>();
         evBeeObject.transform.SetParent(transform, false);
         evBee.anchoredPosition = Vector2.zero;
-        
+
+        StartCoroutine(MoveBee());
+
+    }
+
+    IEnumerator MoveBee()
+    {
+        while (true)
+        {
+            // 랜덤 방향 설정
+            moveDirection = UnityEngine.Random.insideUnitCircle.normalized;
+
+            // 왼쪽으로 이동할 때 이미지 방향을 반전시킵니다.
+            if (moveDirection.x < 0)
+            {
+                evBee.localScale = new Vector3(-1f, 1f, 1f); // x 스케일을 -1로 설정하여 이미지를 반전시킵니다.
+            }
+            else
+            {
+                evBee.localScale = Vector3.one; // 원래대로 복원합니다.
+            }
+
+            float elapsedTime = 0f;
+            while (elapsedTime < moveDuration)
+            {
+                if (evBee != null)
+                {
+                    // 이동 방향으로 Bee 위치 변경
+                    evBee.anchoredPosition += moveDirection * moveSpeed * Time.deltaTime;
+                }
+                else
+                {
+                    Debug.LogError("evBee is null during movement.");
+                    yield break; // 코루틴 종료
+                }
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
+
+            // 멈춤
+            yield return new WaitForSeconds(stopDuration);
+        }
     }
 
     void xxx()
