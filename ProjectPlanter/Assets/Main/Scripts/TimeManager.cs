@@ -48,7 +48,7 @@ public class TimeManager : MonoBehaviour
             timeDifference = now - lastTime;
 
         }
-        Debug.Log("Time ½ÇÇà@@@@");
+        
     }
 
 

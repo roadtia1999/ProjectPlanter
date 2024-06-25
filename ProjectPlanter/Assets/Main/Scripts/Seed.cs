@@ -64,7 +64,7 @@ public class Seed : MonoBehaviour
 
             }
         }
-        Debug.Log("Seed ½ÇÇà@@@@");
+        
     }
 
     //Awake -> TimeDifChk -> TimeDifGrow -> CheckMethod -> CheckMethodXX

@@ -37,6 +37,9 @@ public class MainBtnManager : MonoBehaviour
     {
         instance = this;
 
+        
+
+
         // 0 1 2 각 버튼 체크.
         for (int i = 0; i < 3; i++)
         {
@@ -65,7 +68,7 @@ public class MainBtnManager : MonoBehaviour
             }
 
         }
-        Debug.Log("BtnMag 실행@@@@");
+        
 
     }
 
@@ -134,6 +137,10 @@ public class MainBtnManager : MonoBehaviour
             newPosition.y += 200f; // 버튼의 높이만큼 아래로 이동
             newPosition.x += 100f; // 버튼의 높이만큼 아래로 이동
             canRectTransform.position = newPosition;
+
+            // 물을 원할때만 발동
+            PlantStateManager PlantStateMag = PlantStateManager.instance;
+            PlantStateMag.StateThirsty();
 
             // Can 오브젝트를 활성화합니다.
             canInstance.SetActive(true);
