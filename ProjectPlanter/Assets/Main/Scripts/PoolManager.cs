@@ -21,7 +21,7 @@ public class PoolManager : MonoBehaviour
         instance = this; // Singleton 인스턴스 설정
 
         //프리팹스 초기화
-        /*PlayerPrefs.DeleteAll();*/
+        PlayerPrefs.DeleteAll();
 
         Event_pool = new List<GameObject>[Event_prefab.Length];
 

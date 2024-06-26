@@ -68,7 +68,7 @@ public class Seed : MonoBehaviour
     }
 
     //Awake -> TimeDifChk -> TimeDifGrow -> CheckMethod -> CheckMethodXX
-    // x y z ¹è¿­·Î ¹­±â  ¹­¾î¼­ »Ì¾Æ¿À±â .
+    // x ¹è¿­·Î ¹­±â  ¹­¾î¼­ »Ì¾Æ¿À±â .
     void TimeDifChk(int i)
     {
         GrowTime[i] += timeDifference;

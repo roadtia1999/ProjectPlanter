@@ -30,22 +30,30 @@ public class MainBtnManager : MonoBehaviour
     public int bubleIndex;
     // 클릭된 화분의 인덱스
     public int potIndex;
+    // 클릭된 state의 인덱스
+    public int stateIndex;
     //캔버스
     public Canvas canvas;
-    
+    GameObject[] PlantState = new GameObject[3];
+    GameObject[] Pot = new GameObject[3];
+    public Sprite[] StateSpr;
+
+
+
+
     private void Awake()
     {
         instance = this;
-
-        
-
-
+        PlantState= new GameObject[3];
         // 0 1 2 각 버튼 체크.
         for (int i = 0; i < 3; i++)
         {
             seedPlanted = PlayerPrefs.HasKey("Button Buble" + i + "Clicked" + i);
+            Pot[i] = GameObject.Find("Pot" + i);
             GameObject seedObject = GameObject.Find("seed" + i);
-            GameObject PlantState = GameObject.Find("PlantState" + i);
+            PlantState[i] = Pot[i].transform.Find("PlantState" + i).gameObject;
+            
+           
             // 심어져있는지 체크
             // 심어져있다면
             if (seedPlanted)
@@ -60,7 +68,9 @@ public class MainBtnManager : MonoBehaviour
                     {
                         seedObject.GetComponent<Image>().sprite = SeedSpr;
                         //plantstate 활성화
-                        PlantState.SetActive(true);
+                        
+                        PlantState[i].SetActive(true);
+
                         bubleObject.SetActive(false);
                     }
                 }
@@ -69,6 +79,11 @@ public class MainBtnManager : MonoBehaviour
 
         }
         
+
+    }
+    private void Start()
+    {
+        stack = new int[3];
 
     }
 
@@ -80,8 +95,15 @@ public class MainBtnManager : MonoBehaviour
     }
     public void PotIndex(int btnIndex)
     {
-        //버블x 구하기.
+        //potx 구하기.
         potIndex = btnIndex;
+
+    }
+
+    public void StateIndex(int btnIndex)
+    {
+        //statex 구하기.
+        stateIndex = btnIndex;
 
     }
 
@@ -115,17 +137,17 @@ public class MainBtnManager : MonoBehaviour
     {
         int[] x = new int[3];
         stack[potIndex]++;
-        x[potIndex] = stack[potIndex];
+        x[potIndex] = stack[potIndex];   
         PlayerPrefs.SetInt("Stack"+potIndex , x[potIndex]);
-
     }
 
     // Can 오브젝트를 해당 버튼 위에 배치
     public void PlaceOnButton(Button clickedButton)
     {
+        
+        CanStack();
         if (CanClicked)
         {
-            CanStack();
             // 클릭된 버튼의 RectTransform을 불러오기
             RectTransform btnRectTransform = clickedButton.GetComponent<RectTransform>();
 
@@ -139,8 +161,7 @@ public class MainBtnManager : MonoBehaviour
             canRectTransform.position = newPosition;
 
             // 물을 원할때만 발동
-            PlantStateManager PlantStateMag = PlantStateManager.instance;
-            PlantStateMag.StateThirsty();
+            StateThirsty(clickedButton);
 
             // Can 오브젝트를 활성화합니다.
             canInstance.SetActive(true);
@@ -246,6 +267,26 @@ public class MainBtnManager : MonoBehaviour
 
     }
 
+
+
+
+    public void StateThirsty(Button clickedButton)
+    {
+        Image[] childImages = clickedButton.GetComponentsInChildren<Image>();
+
+        foreach (Image childImage in childImages)
+        {
+            if (childImage.sprite == StateSpr[3])
+            {
+
+                // 자식 오브젝트의 이미지를 행복 상태로 변경
+                childImage.sprite = StateSpr[1];
+
+                // 원하는 작업을 수행한 후 반복문을 종료합니다.
+                break;
+            }
+        }
+    }
 
 
 }

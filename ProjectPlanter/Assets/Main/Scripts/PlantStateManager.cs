@@ -14,7 +14,7 @@ public class PlantStateManager : MonoBehaviour
     //stack == 화분에 물뿌린 횟수
     int[] stack = new int[3];
     GameObject[] PlantState = new GameObject[3];
-
+    GameObject[] Pot = new GameObject[3];
     public Sprite[] StateSpr;
 
 
@@ -28,9 +28,11 @@ public class PlantStateManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
-
+        PlantState = new GameObject[3];
         for (int i = 0; i < 3; i++)
         {
+            Pot[i] = GameObject.Find("Pot" + i);
+            PlantState[i] = Pot[i].transform.Find("PlantState" + i).gameObject;
             x[i] = PlayerPrefs.GetString("PlantingAfterTime" + i);
             if (x[i] == null)
             {
@@ -38,37 +40,40 @@ public class PlantStateManager : MonoBehaviour
             }
             if (!string.IsNullOrEmpty(x[i]))
             {
+                
                 // 이전에 저장된 시간이 있다면 불러와서 DateTime으로 변환
                 chkDate = DateTime.Parse(x[i]);
 
                 DateTime now = DateTime.Now;
 
                 timeDifference = now - chkDate;
+                stack[i] = PlayerPrefs.GetInt("Stack" + i, 0); // 저장된 값이 없으면 0을 기본값으로 사용
+                State(i);
 
             }
-            stack[i] = PlayerPrefs.GetInt("Stack" + i, 0); // 저장된 값이 없으면 0을 기본값으로 사용
-            State(i);
             
             
         }
         
     }
 
-    // 문제 . continue로 피하려고 해도 state에 i값을 대입해서 심지 않은 화분에도 state변화
-
+    
+  
 
     //죽음 0 행복 1 아픔 2 목마름 3
     void State(int i)
     {
-        PlantState[i] = GameObject.Find("PlantState" + i);
-        GameObject Pot = GameObject.Find("Pot" + i);
-        GameObject Sprout = Pot.transform.Find("Sprout" + i).gameObject;
-        GameObject FreesiaDemo = Pot.transform.Find("FreesiaDemo" + i).gameObject;
+
+
+        GameObject Sprout = Pot[i].transform.Find("Sprout" + i).gameObject;
+        GameObject FreesiaDemo = Pot[i].transform.Find("FreesiaDemo" + i).gameObject;
 
 
         Image PlantImage = PlantState[i].GetComponent<Image>();
+
+
         /*if (timeDifference.TotalHours <= 24)*/
-            if (timeDifference.TotalSeconds <= 24)
+        if (timeDifference.TotalSeconds <= 24)
             {
             if (stack[i] ==1)
             {
@@ -102,10 +107,7 @@ public class PlantStateManager : MonoBehaviour
         /*else if (timeDifference.TotalHours > 48)*/
         else if (timeDifference.TotalSeconds > 48)
         {
-            if (i==2)
-            {
-                Debug.Log("3번째 씨앗 실행");
-            }
+            
             //죽음.
             PlantImage.sprite = StateSpr[0];
             // 2번 새싹 , 프리지아 데모.
@@ -116,21 +118,7 @@ public class PlantStateManager : MonoBehaviour
 
     }
 
-    public void StateThirsty()
-    {
-        for (int i = 0; i < 3; i++)
-        {
-            Image PlantImage = PlantState[i].GetComponent<Image>();
-            
-            if (PlantImage.sprite == StateSpr[3])
-            {
-                // 이 메서드 실행되면 행복으로 바꿈.
-                PlantImage.sprite = StateSpr[1];
 
-            }
-            
-        }
-    }
 
     public void StatePain(Button clickedButton)
     {
@@ -170,6 +158,7 @@ public class PlantStateManager : MonoBehaviour
 
             // 버튼의 위치를 기준으로 RefreshInstance의 위치를 설정
             Vector3 newPosition = btnRectTransform.position;
+            newPosition.x -= 100f; // 버튼의 높이만큼 아래로 이동
             newPosition.y -= 40f; // 버튼의 높이만큼 아래로 이동
             refreshRectTransform.position = newPosition;
 
