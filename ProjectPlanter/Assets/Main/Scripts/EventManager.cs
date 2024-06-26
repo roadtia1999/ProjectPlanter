@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EventManager : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class EventManager : MonoBehaviour
 
     public int id;
     public int prefabId;
+
     // 벌 동작
     float moveDuration = 2f; // 이동 시간
     float stopDuration = 1f; // 멈춤 시간
@@ -89,6 +91,17 @@ public class EventManager : MonoBehaviour
 
     IEnumerator MoveBee()
     {
+        Vector2 canvasSize = new Vector2(1024, 768); 
+        Vector2 beePosition;
+
+        // 캔버스 경계 구하기
+        float halfWidth = evBee.rect.width / 2;
+        float halfHeight = evBee.rect.height / 2;
+        float minX = -canvasSize.x / 2 + halfWidth;
+        float maxX = canvasSize.x / 2 - halfWidth;
+        float minY = -canvasSize.y / 2 + halfHeight;
+        float maxY = canvasSize.y / 2 - halfHeight;
+
         while (true)
         {
             // 랜덤 방향 설정
@@ -111,12 +124,19 @@ public class EventManager : MonoBehaviour
                 {
                     // 이동 방향으로 Bee 위치 변경
                     evBee.anchoredPosition += moveDirection * moveSpeed * Time.deltaTime;
+
+                    // 벌이 경계 밖으로 나가지 않게끔 조절
+                    beePosition = evBee.anchoredPosition;
+                    beePosition.x = Mathf.Clamp(beePosition.x, minX, maxX);
+                    beePosition.y = Mathf.Clamp(beePosition.y, minY, maxY);
+                    evBee.anchoredPosition = beePosition;
                 }
                 else
                 {
                     Debug.LogError("evBee is null during movement.");
                     yield break; // 코루틴 종료
                 }
+
                 elapsedTime += Time.deltaTime;
                 yield return null;
             }
