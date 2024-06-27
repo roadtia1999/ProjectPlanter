@@ -48,7 +48,6 @@ public class RecordsSceneManager : MonoBehaviour
             foreach (var file in fileNames)
             {
                 string fn = file.Replace(Application.dataPath + "/RecordScreenshots/", "");
-                print(fn);
 
                 // 파일명이 형식에 맞는 파일 걸러내기
                 if (fn.Contains(".png") // png 파일일 때,
