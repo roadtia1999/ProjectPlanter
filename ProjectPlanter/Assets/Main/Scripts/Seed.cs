@@ -20,13 +20,13 @@ public class Seed : MonoBehaviour
     //시간 차이 값.
     private TimeSpan timeDifference;
     private TimeSpan[] GrowTime = new TimeSpan[3];
-
+    int[] value = new int[3];
     [Header("# ItemData")]
     //스크랩터블 오브젝트 -- growthtime
     public ItemData itemData;
 
     int[] stack = new int[3];
-
+    int[] plantType = new int[3];
 
     private void Awake()
     {
@@ -60,6 +60,8 @@ public class Seed : MonoBehaviour
                 // 시간 차이 출력
 
                 stack[i] = PlayerPrefs.GetInt("Stack" + i, 0); // 저장된 값이 없으면 0을 기본값으로 사용
+                value[i] = PlayerPrefs.GetInt("PlantType"+i);
+
                 TimeDifChk(i);
 
             }
@@ -113,7 +115,15 @@ public class Seed : MonoBehaviour
         CheckMethod(index, 60);
     }
 
+    void Empt()
+    {
+        if (value[0] == plantType[0])
+        {
+            GetPlantSprite(0);
+        }
+    }
 
+    
 
     void CheckMethod(int index, int duration)
     {
@@ -143,6 +153,7 @@ public class Seed : MonoBehaviour
                         Plant.SetActive(true);
                         Plant.GetComponent<Image>().sprite = GetPlantSprite(0);
                     }
+                    Empt();
                 }
                 else if (duration == 60)
                 {
@@ -168,11 +179,17 @@ public class Seed : MonoBehaviour
                 return itemData.Y_Freesia;
             case 1:
                 return itemData.F_Freesia;
-            
+            /*case 2:
+                return //x() ;*/
+
             default:
                 return null;
         }
     }
+    /*Sprte x()
+    {
+        return itmeData.X;
+    }*/
 
     // 씨앗 찾기.
     // 씨앗 심어진 후 종료.
@@ -180,6 +197,8 @@ public class Seed : MonoBehaviour
     {
         // 게임 종료 시 현재 시간 저장
         PlantingAfter = DateTime.Now.ToString();
+        List<int> availableTypes = new List<int> { 0, 1, 2 }; // 사용 가능한 꽃 종류 리스트
+        System.Random rand = new System.Random(); // 랜덤 생성기
         for (int i = 0; i < 3; i++)
         {
             GameObject seedObject = GameObject.Find("seed" + i);
@@ -192,8 +211,19 @@ public class Seed : MonoBehaviour
                 //이미지 seed 인지 확인
                 if (seedImage.sprite == SeedSpr)
                 {
+                    // 남아 있는 꽃 종류에서 랜덤하게 선택
+                    int randomIndex = rand.Next(0, availableTypes.Count);
+                    plantType[i] = availableTypes[randomIndex];
+                    availableTypes.RemoveAt(randomIndex); // 선택된 꽃 종류 제거
+
+                    PlayerPrefs.SetInt("PlantType" + i, plantType[i]); // 꽃 종류 저장
+
+
+
                     // PlayerPrefs에서 값을 읽어옴
                     string savedTime = PlayerPrefs.GetString("PlantingAfterTime" + i);
+                    
+
 
                     // 값이 비어 있는지 확인
                     if (string.IsNullOrEmpty(savedTime))
