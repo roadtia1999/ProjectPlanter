@@ -24,8 +24,8 @@ public class Seed : MonoBehaviour
     [Header("# ItemData")]
     //스크랩터블 오브젝트 -- growthtime
     public ItemData itemData;
-    
 
+    int[] stack = new int[3];
 
 
     private void Awake()
@@ -35,7 +35,7 @@ public class Seed : MonoBehaviour
         /*InsertTimeData();*/
         PlantingAfterString = DateTime.Now.ToString();
         PlayerPrefs.SetString("PlantingAfterRestart", PlantingAfterString);
-
+        
 
         for (int i = 0; i < 3; i++)
         {
@@ -58,8 +58,8 @@ public class Seed : MonoBehaviour
                 timeDifference = startTime - seedlastTime;
 
                 // 시간 차이 출력
-                
 
+                stack[i] = PlayerPrefs.GetInt("Stack" + i, 0); // 저장된 값이 없으면 0을 기본값으로 사용
                 TimeDifChk(i);
 
             }
@@ -68,9 +68,14 @@ public class Seed : MonoBehaviour
     }
 
     //Awake -> TimeDifChk -> TimeDifGrow -> CheckMethod -> CheckMethodXX
-    // x 배열로 묶기  묶어서 뽑아오기 .
+    // x 배열로 묶기  묶어서 뽑아오기 . x[0] x[1]
     void TimeDifChk(int i)
     {
+        if (stack[i] !=1)
+        {
+            //물을 안주거나 너무 많이 줬다면 -10초로 성장 방지.
+            timeDifference = timeDifference - TimeSpan.FromSeconds(10);
+        }
         GrowTime[i] += timeDifference;
         // x의 값을 확인하여 이벤트를 일으킴
         
