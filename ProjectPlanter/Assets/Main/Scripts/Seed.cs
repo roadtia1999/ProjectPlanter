@@ -19,14 +19,22 @@ public class Seed : MonoBehaviour
     private DateTime seedlastTime;
     //시간 차이 값.
     private TimeSpan timeDifference;
-    private TimeSpan[] GrowTime = new TimeSpan[3];
-    int[] value = new int[3];
+
+
     [Header("# ItemData")]
     //스크랩터블 오브젝트 -- growthtime
     public ItemData itemData;
 
+
+    //[Header("# Arrangement")]
+    private TimeSpan[] GrowTime = new TimeSpan[3];
+    int[] value = new int[3];
     int[] stack = new int[3];
     int[] plantType = new int[3];
+    GameObject[] seedObject = new GameObject[3];
+    GameObject[] Pot = new GameObject[3];
+    GameObject[] Sprout = new GameObject[3];
+    GameObject[] Plant = new GameObject[3];
 
     private void Awake()
     {
@@ -39,6 +47,10 @@ public class Seed : MonoBehaviour
 
         for (int i = 0; i < 3; i++)
         {
+            seedObject[i] = GameObject.Find("seed" + i);
+            Pot[i] = GameObject.Find("Pot" + i);
+            Sprout[i] = Pot[i].transform.Find("Sprout" + i).gameObject;
+            Plant[i] = Pot[i].transform.Find("FreesiaDemo" + i).gameObject;
             string PlantedTimeString = PlayerPrefs.GetString("PlantingAfterTime"+i);
             
             if (PlantedTimeString == null)
@@ -115,54 +127,90 @@ public class Seed : MonoBehaviour
         CheckMethod(index, 60);
     }
 
-    void Empt()
+    void Empt(int index)
     {
-        if (value[0] == plantType[0])
+        if (value[index] == plantType[index])
         {
-            GetPlantSprite(0);
+            if (Plant[index])
+            {
+                Sprout[index].SetActive(false);
+                Plant[index].SetActive(true);
+                Plant[index].GetComponent<Image>().sprite = GetY_PlantSprite(value[index]);
+            }
+            
         }
     }
 
-    
+    void Empt2(int index)
+    {
+        if (value[index] == plantType[index])
+        {
+            if (Plant[index])
+            {
+                Sprout[index].SetActive(false);
+                Plant[index].SetActive(true);
+                Plant[index].GetComponent<Image>().sprite = GetF_PlantSprite(value[index]);
+            }
+
+        }
+    }
+
+    Sprite GetY_PlantSprite(int index)
+    {
+        switch (index)
+        {
+            case 0:
+                return itemData.Y_Freesia;
+            case 1:
+                return itemData.F_Freesia;
+            /*case 2: 
+                return y _xxx;*/
+
+            default:
+                return null;
+        }
+    }
+
+    Sprite GetF_PlantSprite(int index)
+    {
+        switch (index)
+        {
+            case 0:
+                return itemData.Y_Freesia;
+            case 1:
+                return itemData.F_Freesia;
+            /*case 2: 
+                return y _xxx;*/
+
+            default:
+                return null;
+        }
+    }
+
+
 
     void CheckMethod(int index, int duration)
     {
-        
-        GameObject seedObject = GameObject.Find("seed" + index);
-        GameObject Pot = GameObject.Find("Pot" + index);
-        GameObject Sprout = Pot.transform.Find("Sprout" + index).gameObject;
-        GameObject Plant = Pot.transform.Find("FreesiaDemo" + index).gameObject;
-
-        if (seedObject)
+                   
+        if (seedObject[index])
         {
-            Image seedImage = seedObject.GetComponent<Image>();
+            Image seedImage = seedObject[index].GetComponent<Image>();
             if (seedImage.sprite == SeedSpr)
             {
                 if (duration == 10)
                 {
-                    seedObject.AddComponent<CanvasGroup>();
-                    CanvasGroup SeedAlpha = seedObject.GetComponent<CanvasGroup>();
+                    seedObject[index].AddComponent<CanvasGroup>();
+                    CanvasGroup SeedAlpha = seedObject[index].GetComponent<CanvasGroup>();
                     SeedAlpha.alpha = 0;
-                    Sprout.SetActive(true);
+                    Sprout[index].SetActive(true);
                 }
                 else if (duration == 30)
                 {
-                    if (Plant)
-                    {
-                        Sprout.SetActive(false);
-                        Plant.SetActive(true);
-                        Plant.GetComponent<Image>().sprite = GetPlantSprite(0);
-                    }
-                    Empt();
+                    Empt(index);
                 }
                 else if (duration == 60)
                 {
-                    if (Plant)
-                    {
-                        Sprout.SetActive(false);
-                        Plant.SetActive(true);
-                        Plant.GetComponent<Image>().sprite = GetPlantSprite(1);
-                    }
+                    Empt2(index);
                 }
             }
         }
@@ -171,21 +219,9 @@ public class Seed : MonoBehaviour
    
 
 
-    Sprite GetPlantSprite(int index)
-    {
-        switch (index)
-        {
-            case 0:
-                return itemData.Y_Freesia;
-            case 1:
-                return itemData.F_Freesia;
-            /*case 2:
-                return //x() ;*/
 
-            default:
-                return null;
-        }
-    }
+
+
     /*Sprte x()
     {
         return itmeData.X;
@@ -201,12 +237,11 @@ public class Seed : MonoBehaviour
         System.Random rand = new System.Random(); // 랜덤 생성기
         for (int i = 0; i < 3; i++)
         {
-            GameObject seedObject = GameObject.Find("seed" + i);
 
             // seed+i 찾기.
-            if (seedObject)
+            if (seedObject[i])
             {
-                Image seedImage = seedObject.GetComponent<Image>();
+                Image seedImage = seedObject[i].GetComponent<Image>();
 
                 //이미지 seed 인지 확인
                 if (seedImage.sprite == SeedSpr)
