@@ -127,7 +127,7 @@ public class Seed : MonoBehaviour
         CheckMethod(index, 60);
     }
 
-    void Empt(int index)
+    void RandomY_Flower(int index)
     {
         if (value[index] == plantType[index])
         {
@@ -141,7 +141,7 @@ public class Seed : MonoBehaviour
         }
     }
 
-    void Empt2(int index)
+    void Random_Flower(int index)
     {
         if (value[index] == plantType[index])
         {
@@ -155,16 +155,17 @@ public class Seed : MonoBehaviour
         }
     }
 
+    // 0==프리지아 1. 장미  2. 수국 
     Sprite GetY_PlantSprite(int index)
     {
         switch (index)
         {
             case 0:
-                return itemData.Y_Freesia;
+                return itemData.FlowerSp[0];
             case 1:
-                return itemData.F_Freesia;
-            /*case 2: 
-                return y _xxx;*/
+                return itemData.FlowerSp[1];
+            case 2:
+                return itemData.FlowerSp[2];
 
             default:
                 return null;
@@ -176,11 +177,11 @@ public class Seed : MonoBehaviour
         switch (index)
         {
             case 0:
-                return itemData.Y_Freesia;
+                return itemData.FlowerSp[3];
             case 1:
-                return itemData.F_Freesia;
-            /*case 2: 
-                return y _xxx;*/
+                return itemData.FlowerSp[4];
+            case 2:
+                return itemData.FlowerSp[5];
 
             default:
                 return null;
@@ -206,11 +207,11 @@ public class Seed : MonoBehaviour
                 }
                 else if (duration == 30)
                 {
-                    Empt(index);
+                    RandomY_Flower(index);
                 }
                 else if (duration == 60)
                 {
-                    Empt2(index);
+                    Random_Flower(index);
                 }
             }
         }
@@ -251,8 +252,7 @@ public class Seed : MonoBehaviour
                     plantType[i] = availableTypes[randomIndex];
                     availableTypes.RemoveAt(randomIndex); // 선택된 꽃 종류 제거
 
-                    PlayerPrefs.SetInt("PlantType" + i, plantType[i]); // 꽃 종류 저장
-
+                  
 
 
                     // PlayerPrefs에서 값을 읽어옴
@@ -265,7 +265,13 @@ public class Seed : MonoBehaviour
                     {
                         // PlantingAfterTime0 1 2 에 다른 값들 부여.
                         PlayerPrefs.SetString("PlantingAfterTime" + i, PlantingAfter);
-                        
+
+
+
+                        PlayerPrefs.SetInt("PlantType" + i, plantType[i]); // 꽃 종류 저장
+                        Debug.Log("PlantType" + i + " 저장된 값: " + PlayerPrefs.GetInt("PlantType" + i)); // 저장된 값을 출력
+
+
                     }
                    
                 }

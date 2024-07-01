@@ -1144,7 +1144,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SeedSpr: {fileID: -323837509, guid: 77126e126038ebf42838fa33345f45c5, type: 3}
-  itemData: {fileID: 11400000, guid: fc8d2f7255a649948bc7eb5329f17a53, type: 2}
+  itemData: {fileID: 11400000, guid: ae8ec9d562c38834a86ba8f68fe9ebbb, type: 2}
 --- !u!1 &637851912
 GameObject:
   m_ObjectHideFlags: 0
@@ -3246,7 +3246,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 4.999939, y: 176.99997}
+  m_AnchoredPosition: {x: 5, y: 176.99994}
   m_SizeDelta: {x: 29.4434, y: 22.5034}
   m_Pivot: {x: 0.5, y: 0.49999872}
 --- !u!114 &1846099470
@@ -3300,7 +3300,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SeedSpr: {fileID: -323837509, guid: 77126e126038ebf42838fa33345f45c5, type: 3}
-  itemData: {fileID: 11400000, guid: fc8d2f7255a649948bc7eb5329f17a53, type: 2}
+  itemData: {fileID: 11400000, guid: ae8ec9d562c38834a86ba8f68fe9ebbb, type: 2}
 --- !u!1 &1848809562
 GameObject:
   m_ObjectHideFlags: 0
@@ -3768,7 +3768,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SeedSpr: {fileID: -323837509, guid: 77126e126038ebf42838fa33345f45c5, type: 3}
-  itemData: {fileID: 11400000, guid: fc8d2f7255a649948bc7eb5329f17a53, type: 2}
+  itemData: {fileID: 11400000, guid: ae8ec9d562c38834a86ba8f68fe9ebbb, type: 2}
 --- !u!1 &2051749740
 GameObject:
   m_ObjectHideFlags: 0

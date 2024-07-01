@@ -81,7 +81,7 @@ public class PlantStateManager : MonoBehaviour
                 PlantImage.sprite = StateSpr[1];
             }
 
-            else if (stack[i] >1)
+            else if (stack[i] >2)
             {
                 //state = pain
                 PlantImage.sprite = StateSpr[2];
@@ -97,7 +97,7 @@ public class PlantStateManager : MonoBehaviour
         }
         // 하루 미접속.
         /*else if (24< timeDifference.TotalHours && timeDifference.TotalHours<48)*/
-        else if (24 < timeDifference.TotalSeconds && timeDifference.TotalSeconds < 48)
+        else if (60 < timeDifference.TotalSeconds && timeDifference.TotalSeconds < 110)
         {
             //아픔
             PlantImage.sprite = StateSpr[2];
@@ -105,7 +105,7 @@ public class PlantStateManager : MonoBehaviour
 
         //2일동안 미접속 이라면
         /*else if (timeDifference.TotalHours > 48)*/
-        else if (timeDifference.TotalSeconds > 48)
+        else if (timeDifference.TotalSeconds > 110)
         {
             
             //죽음.
@@ -116,6 +116,37 @@ public class PlantStateManager : MonoBehaviour
         }
 
 
+        // state 작동 코드 수정
+   /*     if (stack[i] == 1)
+        {
+            if (timeDifference.TotalSeconds < 150)
+            {
+                //state hppy
+            }
+            else
+            {
+                //죽음
+            }
+
+        }
+        else if (stack[i] >= 2)
+        {
+            //state pain
+            if (timeDifference.TotalSeconds < 150)
+            {
+                //state dead
+            }
+
+        }
+
+        else if (stack[i] == 0)
+        {
+            // 목마름 
+            if (timeDifference.TotalSeconds < 150)
+            {
+                //state dead
+            }
+        }*/
     }
 
 
