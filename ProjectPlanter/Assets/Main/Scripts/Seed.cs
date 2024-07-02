@@ -38,6 +38,7 @@ public class Seed : MonoBehaviour
 
     private void Awake()
     {
+        /*Debug.Log("seed 스크립트 실행");*/
         instance = this;
 
         /*InsertTimeData();*/
@@ -50,7 +51,8 @@ public class Seed : MonoBehaviour
             seedObject[i] = GameObject.Find("seed" + i);
             Pot[i] = GameObject.Find("Pot" + i);
             Sprout[i] = Pot[i].transform.Find("Sprout" + i).gameObject;
-            Plant[i] = Pot[i].transform.Find("FreesiaDemo" + i).gameObject;
+            Plant[i] = Pot[i].transform.Find("FlowerDemo" + i).gameObject;
+            
             string PlantedTimeString = PlayerPrefs.GetString("PlantingAfterTime"+i);
             
             if (PlantedTimeString == null)
@@ -73,7 +75,7 @@ public class Seed : MonoBehaviour
 
                 stack[i] = PlayerPrefs.GetInt("Stack" + i, 0); // 저장된 값이 없으면 0을 기본값으로 사용
                 value[i] = PlayerPrefs.GetInt("PlantType"+i);
-
+                Debug.Log(value[i] + "value" +i + "값@@@@@");
                 TimeDifChk(i);
 
             }
@@ -98,9 +100,14 @@ public class Seed : MonoBehaviour
 
 
     //시간 조건에 따라 성장 메서드 실행
+    //10~29 새싹     60> Flower
+    //30~60 Y_Flower
     void TimeDifGrow(TimeSpan timeDiff, int index)
     {
         // 예: 10 ~ 29
+        //2일. 1~2일 새싹 및 Y_Flower 3일 꽃.
+
+        
         if (timeDiff.TotalSeconds >= 10 && timeDiff.TotalSeconds < 30)
             CheckMethod10sec(index);
 
@@ -134,7 +141,9 @@ public class Seed : MonoBehaviour
             if (Plant[index])
             {
                 Sprout[index].SetActive(false);
+               
                 Plant[index].SetActive(true);
+                
                 Plant[index].GetComponent<Image>().sprite = GetY_PlantSprite(value[index]);
             }
             
@@ -149,6 +158,10 @@ public class Seed : MonoBehaviour
             {
                 Sprout[index].SetActive(false);
                 Plant[index].SetActive(true);
+                if (Plant[index])
+                {
+                    Debug.Log(Plant[index] + " 이새뀌");
+                }
                 Plant[index].GetComponent<Image>().sprite = GetF_PlantSprite(value[index]);
             }
 
@@ -217,16 +230,6 @@ public class Seed : MonoBehaviour
         }
     }
 
-   
-
-
-
-
-
-    /*Sprte x()
-    {
-        return itmeData.X;
-    }*/
 
     // 씨앗 찾기.
     // 씨앗 심어진 후 종료.

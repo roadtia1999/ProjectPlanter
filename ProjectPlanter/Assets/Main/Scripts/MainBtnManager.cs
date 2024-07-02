@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -139,6 +140,10 @@ public class MainBtnManager : MonoBehaviour
         stack[potIndex]++;
         x[potIndex] = stack[potIndex];   
         PlayerPrefs.SetInt("Stack"+potIndex , x[potIndex]);
+
+        string currentTime = DateTime.Now.ToString();
+        PlayerPrefs.SetString("StackTime" + potIndex, currentTime);
+
     }
 
     // Can 오브젝트를 해당 버튼 위에 배치

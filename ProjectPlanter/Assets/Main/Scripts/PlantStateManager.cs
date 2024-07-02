@@ -10,13 +10,15 @@ public class PlantStateManager : MonoBehaviour
 
     public DateTime chkDate;
     private TimeSpan timeDifference;
-    string[] x = new string[3];
+
+    [Header("# Array")]
     //stack == 화분에 물뿌린 횟수
     int[] stack = new int[3];
+    string[] x = new string[3];
+    public Sprite[] StateSpr;
     GameObject[] PlantState = new GameObject[3];
     GameObject[] Pot = new GameObject[3];
-    public Sprite[] StateSpr;
-
+    TimeSpan[] timeDif = new TimeSpan[3];
 
     [Header("# Refresh")]
     public GameObject RefreshPrefab;
@@ -27,6 +29,7 @@ public class PlantStateManager : MonoBehaviour
     //plantstate 말풍선 == mainbtemag 에서 활성화
     private void Awake()
     {
+        /*Debug.Log("state 스크립트 실행");*/
         instance = this;
         PlantState = new GameObject[3];
         for (int i = 0; i < 3; i++)
@@ -34,10 +37,7 @@ public class PlantStateManager : MonoBehaviour
             Pot[i] = GameObject.Find("Pot" + i);
             PlantState[i] = Pot[i].transform.Find("PlantState" + i).gameObject;
             x[i] = PlayerPrefs.GetString("PlantingAfterTime" + i);
-            if (x[i] == null)
-            {
-                continue;
-            }
+
             if (!string.IsNullOrEmpty(x[i]))
             {
                 
@@ -48,6 +48,7 @@ public class PlantStateManager : MonoBehaviour
 
                 timeDifference = now - chkDate;
                 stack[i] = PlayerPrefs.GetInt("Stack" + i, 0); // 저장된 값이 없으면 0을 기본값으로 사용
+                CheckAndResetStack(i);
                 State(i);
 
             }
@@ -57,8 +58,26 @@ public class PlantStateManager : MonoBehaviour
         
     }
 
-    
-  
+
+    void CheckAndResetStack(int index)
+    {
+        string stackTimeKey = "StackTime" + index;
+
+        if (PlayerPrefs.HasKey(stackTimeKey))
+        {
+            string storedTime = PlayerPrefs.GetString(stackTimeKey);
+            DateTime lastSavedTime = DateTime.Parse(storedTime);
+            timeDif[index] += DateTime.Now - lastSavedTime;
+            /*Debug.Log(timeDif[index] + " 스택 저장값 ++ "+index);*/
+            /*if (timeDifference.TotalHours >= 24)*/
+            if (timeDif[index].TotalSeconds > 60)
+            {
+                PlayerPrefs.SetInt("Stack" + index, 0);
+                // 잘 동작 함
+                /*Debug.Log("스택 초기화 ");*/
+            }
+        }
+    }
 
     //죽음 0 행복 1 아픔 2 목마름 3
     void State(int i)
@@ -66,14 +85,14 @@ public class PlantStateManager : MonoBehaviour
 
 
         GameObject Sprout = Pot[i].transform.Find("Sprout" + i).gameObject;
-        GameObject FreesiaDemo = Pot[i].transform.Find("FreesiaDemo" + i).gameObject;
+        GameObject FlowerDemo = Pot[i].transform.Find("FlowerDemo" + i).gameObject;
 
 
         Image PlantImage = PlantState[i].GetComponent<Image>();
 
 
         /*if (timeDifference.TotalHours <= 24)*/
-        if (timeDifference.TotalSeconds <= 24)
+        if (timeDifference.TotalSeconds <= 50)
             {
             if (stack[i] ==1)
             {
@@ -81,7 +100,7 @@ public class PlantStateManager : MonoBehaviour
                 PlantImage.sprite = StateSpr[1];
             }
 
-            else if (stack[i] >2)
+            else if (stack[i] >1)
             {
                 //state = pain
                 PlantImage.sprite = StateSpr[2];
@@ -97,56 +116,27 @@ public class PlantStateManager : MonoBehaviour
         }
         // 하루 미접속.
         /*else if (24< timeDifference.TotalHours && timeDifference.TotalHours<48)*/
-        else if (60 < timeDifference.TotalSeconds && timeDifference.TotalSeconds < 110)
-        {
-            //아픔
-            PlantImage.sprite = StateSpr[2];
-        }
+        /*        else if (60 < timeDifference.TotalSeconds && timeDifference.TotalSeconds < 110)
+                {
+                    //아픔
+                    PlantImage.sprite = StateSpr[2];
+                }*/
 
         //2일동안 미접속 이라면
         /*else if (timeDifference.TotalHours > 48)*/
-        else if (timeDifference.TotalSeconds > 110)
+        /*else if (timeDifference.TotalSeconds > 110)*/
+        else if (timeDifference.TotalSeconds > 60)
         {
-            
+
             //죽음.
             PlantImage.sprite = StateSpr[0];
+            
             // 2번 새싹 , 프리지아 데모.
             Sprout.SetActive(false);
-            FreesiaDemo.SetActive(false);
+            FlowerDemo.SetActive(false);
+            
         }
-
-
-        // state 작동 코드 수정
-   /*     if (stack[i] == 1)
-        {
-            if (timeDifference.TotalSeconds < 150)
-            {
-                //state hppy
-            }
-            else
-            {
-                //죽음
-            }
-
-        }
-        else if (stack[i] >= 2)
-        {
-            //state pain
-            if (timeDifference.TotalSeconds < 150)
-            {
-                //state dead
-            }
-
-        }
-
-        else if (stack[i] == 0)
-        {
-            // 목마름 
-            if (timeDifference.TotalSeconds < 150)
-            {
-                //state dead
-            }
-        }*/
+            
     }
 
 
