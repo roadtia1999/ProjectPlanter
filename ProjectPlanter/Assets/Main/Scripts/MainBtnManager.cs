@@ -31,8 +31,7 @@ public class MainBtnManager : MonoBehaviour
     public int bubleIndex;
     // 클릭된 화분의 인덱스
     public int potIndex;
-    // 클릭된 state의 인덱스
-    public int stateIndex;
+
     //캔버스
     public Canvas canvas;
     GameObject[] PlantState = new GameObject[3];
@@ -101,12 +100,7 @@ public class MainBtnManager : MonoBehaviour
 
     }
 
-    public void StateIndex(int btnIndex)
-    {
-        //statex 구하기.
-        stateIndex = btnIndex;
 
-    }
 
 
     // 버튼 클릭 시
@@ -274,7 +268,9 @@ public class MainBtnManager : MonoBehaviour
 
 
 
-
+    //목마름은 애초에 0이였기에 발생되고
+    //이 메서드를 실행시키려면 목마름 상태에서 물을 주는거기에
+    //스택은 올라가게 되있다. 그래서 stack을 초기화 하는것보다 이게 좋은듯 싶다.
     public void StateThirsty(Button clickedButton)
     {
         Image[] childImages = clickedButton.GetComponentsInChildren<Image>();
@@ -293,5 +289,7 @@ public class MainBtnManager : MonoBehaviour
         }
     }
 
+
+ 
 
 }

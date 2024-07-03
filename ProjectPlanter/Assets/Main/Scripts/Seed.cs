@@ -75,7 +75,7 @@ public class Seed : MonoBehaviour
 
                 stack[i] = PlayerPrefs.GetInt("Stack" + i, 0); // 저장된 값이 없으면 0을 기본값으로 사용
                 value[i] = PlayerPrefs.GetInt("PlantType"+i);
-                Debug.Log(value[i] + "value" +i + "값@@@@@");
+                /*Debug.Log(value[i] + "value" +i + "값@@@@@");*/
                 TimeDifChk(i);
 
             }
@@ -136,36 +136,43 @@ public class Seed : MonoBehaviour
 
     void RandomY_Flower(int index)
     {
-        if (value[index] == plantType[index])
-        {
+      
             if (Plant[index])
             {
                 Sprout[index].SetActive(false);
                
                 Plant[index].SetActive(true);
-                
-                Plant[index].GetComponent<Image>().sprite = GetY_PlantSprite(value[index]);
+
+            /*Plant[index].GetComponent<Image>().sprite = GetY_PlantSprite(value[index]);*/
+            Sprite yPlantSprite = GetY_PlantSprite(value[index]);
+            if (yPlantSprite != null)
+            {
+                Plant[index].GetComponent<Image>().sprite = yPlantSprite;
             }
-            
+
         }
+            
+        
     }
 
     void Random_Flower(int index)
     {
-        if (value[index] == plantType[index])
+     
+        if (Plant[index])
         {
-            if (Plant[index])
+            Sprout[index].SetActive(false);
+            Plant[index].SetActive(true);
+
+            /*Plant[index].GetComponent<Image>().sprite = GetF_PlantSprite(value[index]);*/
+            Sprite fPlantSprite = GetF_PlantSprite(value[index]);
+            if (fPlantSprite != null)
             {
-                Sprout[index].SetActive(false);
-                Plant[index].SetActive(true);
-                if (Plant[index])
-                {
-                    Debug.Log(Plant[index] + " 이새뀌");
-                }
-                Plant[index].GetComponent<Image>().sprite = GetF_PlantSprite(value[index]);
+                Plant[index].GetComponent<Image>().sprite = fPlantSprite;
             }
 
         }
+
+        
     }
 
     // 0==프리지아 1. 장미  2. 수국 
@@ -233,6 +240,10 @@ public class Seed : MonoBehaviour
 
     // 씨앗 찾기.
     // 씨앗 심어진 후 종료.
+    // 문제점? 특이점
+    // 씨앗을 따로 따로 심으면 리스트가 새로 또 만들어지기때문에 
+    // 중복된 씨앗 나올 수 도 있음
+    // 개인저그올 나쁘지않다고 생각.
     void OnApplicationQuit()
     {
         // 게임 종료 시 현재 시간 저장

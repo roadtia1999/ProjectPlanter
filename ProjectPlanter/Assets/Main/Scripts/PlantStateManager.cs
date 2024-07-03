@@ -24,14 +24,18 @@ public class PlantStateManager : MonoBehaviour
     public GameObject RefreshPrefab;
     private GameObject RefreshInstance;
     private bool RefreshClicked = false;
-    public Canvas canvas;
 
+    [Header("# etc")]
+    // 클릭된 state의 인덱스
+    int stateIndex;
+    public Canvas canvas;
+    /*public Image buttonImage;*/
     //plantstate 말풍선 == mainbtemag 에서 활성화
     private void Awake()
     {
         /*Debug.Log("state 스크립트 실행");*/
         instance = this;
-        PlantState = new GameObject[3];
+        
         for (int i = 0; i < 3; i++)
         {
             Pot[i] = GameObject.Find("Pot" + i);
@@ -58,7 +62,14 @@ public class PlantStateManager : MonoBehaviour
         
     }
 
+    public void StateIndex(int btnIndex)
+    {
+        //statex 구하기.
+        stateIndex = btnIndex;
 
+        
+
+    }
     void CheckAndResetStack(int index)
     {
         string stackTimeKey = "StackTime" + index;
@@ -67,19 +78,25 @@ public class PlantStateManager : MonoBehaviour
         {
             string storedTime = PlayerPrefs.GetString(stackTimeKey);
             DateTime lastSavedTime = DateTime.Parse(storedTime);
-            timeDif[index] += DateTime.Now - lastSavedTime;
-            /*Debug.Log(timeDif[index] + " 스택 저장값 ++ "+index);*/
-            /*if (timeDifference.TotalHours >= 24)*/
-            if (timeDif[index].TotalSeconds > 60)
+            TimeSpan timeDifference = DateTime.Now - lastSavedTime;
+            timeDif[index] += timeDifference;
+
+            // 디버그 출력
+        /*    Debug.LogFormat("Index: {0}\nStored Time: {1}\nCurrent Time: {2}\nTime Difference: {3}\nCumulative Time Difference: {4}\n",
+                index, storedTime, DateTime.Now, timeDifference, timeDif[index]);*/
+
+            // 80초가 지나면 스택 초기화
+            if (timeDif[index].TotalSeconds > 80)
             {
                 PlayerPrefs.SetInt("Stack" + index, 0);
-                // 잘 동작 함
-                /*Debug.Log("스택 초기화 ");*/
+                /*Debug.LogFormat("스택 초기화: Index {0}, 시간 차이가 80초를 초과했습니다.", index);*/
             }
         }
+
     }
 
     //죽음 0 행복 1 아픔 2 목마름 3
+    
     void State(int i)
     {
 
@@ -90,7 +107,7 @@ public class PlantStateManager : MonoBehaviour
 
         Image PlantImage = PlantState[i].GetComponent<Image>();
 
-
+        //이 조건땜에 스프라이트에 아무것도 표시 안됌
         /*if (timeDifference.TotalHours <= 24)*/
         if (timeDifference.TotalSeconds <= 50)
             {
@@ -125,7 +142,7 @@ public class PlantStateManager : MonoBehaviour
         //2일동안 미접속 이라면
         /*else if (timeDifference.TotalHours > 48)*/
         /*else if (timeDifference.TotalSeconds > 110)*/
-        else if (timeDifference.TotalSeconds > 60)
+        else if (timeDifference.TotalSeconds > 80)
         {
 
             //죽음.
@@ -140,18 +157,20 @@ public class PlantStateManager : MonoBehaviour
     }
 
 
-
+    //내일 확인해볼것
+    //plantstate[] 로 뭐든 건들여보기.
     public void StatePain(Button clickedButton)
     {
+
         Image buttonImage = clickedButton.GetComponent<Image>();
 
+        Debug.Log(buttonImage + " 버튼이미지1!!");
         if (buttonImage != null && buttonImage.sprite == StateSpr[2])
         {
             // PainClick 메서드를 호출하여 추가 작업 수행
             PainClick(clickedButton);
 
-            // 버튼의 이미지를 행복 상태로 변경
-            buttonImage.sprite = StateSpr[1];
+            
         }
         else
         {
@@ -169,8 +188,10 @@ public class PlantStateManager : MonoBehaviour
             RefreshInstance.AddComponent<CanvasGroup>();
         }
 
+
         if (RefreshClicked)
         {
+            Debug.Log(clickedButton + " 클릭된 버튼@@@");
             // 클릭된 버튼의 RectTransform을 불러오기
             RectTransform btnRectTransform = clickedButton.GetComponent<RectTransform>();
 
@@ -179,24 +200,26 @@ public class PlantStateManager : MonoBehaviour
 
             // 버튼의 위치를 기준으로 RefreshInstance의 위치를 설정
             Vector3 newPosition = btnRectTransform.position;
-            newPosition.x -= 100f; // 버튼의 높이만큼 아래로 이동
-            newPosition.y -= 40f; // 버튼의 높이만큼 아래로 이동
+            newPosition.x -= 100f;
+            newPosition.y -= 40f; 
             refreshRectTransform.position = newPosition;
 
             // RefreshInstance를 활성화
             RefreshInstance.SetActive(true);
 
-            // 버튼 비활성화
-            clickedButton.gameObject.SetActive(false);
-
             // Refresh 애니메이션을 재생하고, 애니메이션 종료 후 RefreshInstance 삭제
-            StartCoroutine(PlayAnimationAndDestroy());
+            StartCoroutine(PlayAnimationAndDestroy(clickedButton));
+
+            
+
+            RequreState();
+
         }
     }
 
-    IEnumerator PlayAnimationAndDestroy()
+    IEnumerator PlayAnimationAndDestroy(Button clickedButton)
     {
-        // TODO: RefreshInstance에 애니메이션을 추가하고 재생하는 코드를 여기에 작성
+        
         yield return new WaitForSeconds(1f); // 애니메이션 재생 시간을 기다림
 
         // 애니메이션이 종료된 후 RefreshInstance 삭제
@@ -205,12 +228,24 @@ public class PlantStateManager : MonoBehaviour
             Destroy(RefreshInstance);
             RefreshInstance = null;
         }
+        Debug.Log(clickedButton + " 클릭된 버튼");
+        // 버튼 비활성화
+        clickedButton.gameObject.SetActive(false);
 
-        // 다시 버튼을 활성화
-        // 여기에 필요한 로직을 추가하여 버튼을 다시 활성화할 수 있습니다.
+
     }
 
 
+
+    public void RequreState()
+    {
+        Debug.Log(stateIndex + " 클릭된 stateindex  값");
+        PlayerPrefs.SetInt("Stack" + stateIndex, 1);
+
+        int stackValue = PlayerPrefs.GetInt("Stack" + stateIndex);
+        Debug.Log($"Stack{stateIndex}의 값: {stackValue}");
+
+    }
 
 
 
