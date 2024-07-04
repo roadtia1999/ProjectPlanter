@@ -26,21 +26,27 @@ public class Seed : MonoBehaviour
     public ItemData itemData;
 
 
-    //[Header("# Arrangement")]
-    private TimeSpan[] GrowTime = new TimeSpan[3];
-    int[] value = new int[3];
+    public double seconds;
+ 
+   //[Header("# Arrangement")]
+    
+    public TimeSpan[] GrowTime = new TimeSpan[3];
+    //화분 어디어디로 들어갔는지 확인 가능.
+    public int[] value = new int[3];
+    
     int[] stack = new int[3];
     int[] plantType = new int[3];
     GameObject[] seedObject = new GameObject[3];
     GameObject[] Pot = new GameObject[3];
     GameObject[] Sprout = new GameObject[3];
     GameObject[] Plant = new GameObject[3];
+    
 
     private void Awake()
     {
-        /*Debug.Log("seed 스크립트 실행");*/
+        
         instance = this;
-
+        
         /*InsertTimeData();*/
         PlantingAfterString = DateTime.Now.ToString();
         PlayerPrefs.SetString("PlantingAfterRestart", PlantingAfterString);
@@ -72,7 +78,7 @@ public class Seed : MonoBehaviour
                 timeDifference = startTime - seedlastTime;
 
                 // 시간 차이 출력
-
+                
                 stack[i] = PlayerPrefs.GetInt("Stack" + i, 0); // 저장된 값이 없으면 0을 기본값으로 사용
                 value[i] = PlayerPrefs.GetInt("PlantType"+i);
                 /*Debug.Log(value[i] + "value" +i + "값@@@@@");*/
@@ -93,9 +99,11 @@ public class Seed : MonoBehaviour
             timeDifference = timeDifference - TimeSpan.FromSeconds(10);
         }
         GrowTime[i] += timeDifference;
-        // x의 값을 확인하여 이벤트를 일으킴
         
+        // x의 값을 확인하여 이벤트를 일으킴
         TimeDifGrow(GrowTime[i], i);
+        //시차 확인 값
+        seconds = GrowTime[i].TotalSeconds;
     }
 
 
@@ -168,6 +176,8 @@ public class Seed : MonoBehaviour
             if (fPlantSprite != null)
             {
                 Plant[index].GetComponent<Image>().sprite = fPlantSprite;
+                
+
             }
 
         }

@@ -43,8 +43,9 @@ public class MainBtnManager : MonoBehaviour
 
     private void Awake()
     {
+        
         instance = this;
-        PlantState= new GameObject[3];
+        PlantState = new GameObject[3];
         // 0 1 2 각 버튼 체크.
         for (int i = 0; i < 3; i++)
         {
@@ -52,8 +53,8 @@ public class MainBtnManager : MonoBehaviour
             Pot[i] = GameObject.Find("Pot" + i);
             GameObject seedObject = GameObject.Find("seed" + i);
             PlantState[i] = Pot[i].transform.Find("PlantState" + i).gameObject;
-            
-           
+
+
             // 심어져있는지 체크
             // 심어져있다면
             if (seedPlanted)
@@ -67,10 +68,8 @@ public class MainBtnManager : MonoBehaviour
                     if (bubleObject != null)
                     {
                         seedObject.GetComponent<Image>().sprite = SeedSpr;
-                        //plantstate 활성화
-                        
-                        PlantState[i].SetActive(true);
 
+                        PlantState[i].SetActive(true);
                         bubleObject.SetActive(false);
                     }
                 }

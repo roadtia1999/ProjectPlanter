@@ -13,38 +13,55 @@ public class PlantStateManager : MonoBehaviour
 
     [Header("# Array")]
     //stack == 화분에 물뿌린 횟수
-    int[] stack = new int[3];
+    public int[] stack = new int[3];
     string[] x = new string[3];
     public Sprite[] StateSpr;
     GameObject[] PlantState = new GameObject[3];
     GameObject[] Pot = new GameObject[3];
+    GameObject[] seed = new GameObject[3];
+    GameObject[] bubleObject = new GameObject[3];
     TimeSpan[] timeDif = new TimeSpan[3];
 
+    public double seconds;
+    public int[] value = new int[3];
     [Header("# Refresh")]
     public GameObject RefreshPrefab;
     private GameObject RefreshInstance;
     private bool RefreshClicked = false;
 
+    [Header("# Trowel")]
+    public GameObject TrowelPrefab;
+    private GameObject TrowelInstance;
+    private bool TrowelClicked = false;
+
+    [Header("# Fertilizer")]
+    public GameObject FertilizerPrefab;
+    private GameObject FertilizerInstance;
+
+
     [Header("# etc")]
     // 클릭된 state의 인덱스
     int stateIndex;
     public Canvas canvas;
-    /*public Image buttonImage;*/
-    //plantstate 말풍선 == mainbtemag 에서 활성화
-    private void Awake()
+
+    private void Start()
     {
-        /*Debug.Log("state 스크립트 실행");*/
-        instance = this;
         
+        instance = this;
+
         for (int i = 0; i < 3; i++)
         {
             Pot[i] = GameObject.Find("Pot" + i);
+            seed[i] = GameObject.Find("seed" + i);
             PlantState[i] = Pot[i].transform.Find("PlantState" + i).gameObject;
+            bubleObject[i] = Pot[i].transform.Find("Button Buble" + i).gameObject;
+
             x[i] = PlayerPrefs.GetString("PlantingAfterTime" + i);
+
 
             if (!string.IsNullOrEmpty(x[i]))
             {
-                
+
                 // 이전에 저장된 시간이 있다면 불러와서 DateTime으로 변환
                 chkDate = DateTime.Parse(x[i]);
 
@@ -56,11 +73,13 @@ public class PlantStateManager : MonoBehaviour
                 State(i);
 
             }
-            
-            
+
+
         }
-        
+
     }
+
+
 
     public void StateIndex(int btnIndex)
     {
@@ -80,10 +99,10 @@ public class PlantStateManager : MonoBehaviour
             DateTime lastSavedTime = DateTime.Parse(storedTime);
             TimeSpan timeDifference = DateTime.Now - lastSavedTime;
             timeDif[index] += timeDifference;
-
+            seconds = timeDif[index].TotalSeconds;
             // 디버그 출력
-        /*    Debug.LogFormat("Index: {0}\nStored Time: {1}\nCurrent Time: {2}\nTime Difference: {3}\nCumulative Time Difference: {4}\n",
-                index, storedTime, DateTime.Now, timeDifference, timeDif[index]);*/
+            /*    Debug.LogFormat("Index: {0}\nStored Time: {1}\nCurrent Time: {2}\nTime Difference: {3}\nCumulative Time Difference: {4}\n",
+                    index, storedTime, DateTime.Now, timeDifference, timeDif[index]);*/
 
             // 80초가 지나면 스택 초기화
             if (timeDif[index].TotalSeconds > 80)
@@ -91,7 +110,10 @@ public class PlantStateManager : MonoBehaviour
                 PlayerPrefs.SetInt("Stack" + index, 0);
                 /*Debug.LogFormat("스택 초기화: Index {0}, 시간 차이가 80초를 초과했습니다.", index);*/
             }
+            
         }
+        value[index] = PlayerPrefs.GetInt("Stack" + index);
+
 
     }
 
@@ -99,17 +121,13 @@ public class PlantStateManager : MonoBehaviour
     
     void State(int i)
     {
-
-
         GameObject Sprout = Pot[i].transform.Find("Sprout" + i).gameObject;
         GameObject FlowerDemo = Pot[i].transform.Find("FlowerDemo" + i).gameObject;
-
-
         Image PlantImage = PlantState[i].GetComponent<Image>();
 
         //이 조건땜에 스프라이트에 아무것도 표시 안됌
         /*if (timeDifference.TotalHours <= 24)*/
-        if (timeDifference.TotalSeconds <= 50)
+        if (timeDifference.TotalSeconds <= 80)
             {
             if (stack[i] ==1)
             {
@@ -133,7 +151,7 @@ public class PlantStateManager : MonoBehaviour
         }
         // 하루 미접속.
         /*else if (24< timeDifference.TotalHours && timeDifference.TotalHours<48)*/
-        /*        else if (60 < timeDifference.TotalSeconds && timeDifference.TotalSeconds < 110)
+        /*        else if (80 < timeDifference.TotalSeconds && timeDifference.TotalSeconds < 109)
                 {
                     //아픔
                     PlantImage.sprite = StateSpr[2];
@@ -141,16 +159,19 @@ public class PlantStateManager : MonoBehaviour
 
         //2일동안 미접속 이라면
         /*else if (timeDifference.TotalHours > 48)*/
-        /*else if (timeDifference.TotalSeconds > 110)*/
         else if (timeDifference.TotalSeconds > 80)
         {
 
             //죽음.
             PlantImage.sprite = StateSpr[0];
-            
-            // 2번 새싹 , 프리지아 데모.
-            Sprout.SetActive(false);
-            FlowerDemo.SetActive(false);
+
+            if (PlantImage.sprite == StateSpr[0])
+            {
+                // 2번 새싹 , 프리지아 데모.
+                Sprout.SetActive(false);
+                FlowerDemo.SetActive(false);
+
+            }
             
         }
             
@@ -159,22 +180,20 @@ public class PlantStateManager : MonoBehaviour
 
     //내일 확인해볼것
     //plantstate[] 로 뭐든 건들여보기.
-    public void StatePain(Button clickedButton)
+    public void StatePainOrDead(Button clickedButton)
     {
-
         Image buttonImage = clickedButton.GetComponent<Image>();
 
-        Debug.Log(buttonImage + " 버튼이미지1!!");
+        
         if (buttonImage != null && buttonImage.sprite == StateSpr[2])
         {
-            // PainClick 메서드를 호출하여 추가 작업 수행
             PainClick(clickedButton);
-
-            
+            buttonImage.sprite = StateSpr[1];
         }
-        else
+        else if (buttonImage != null && buttonImage.sprite == StateSpr[0])
         {
-            Debug.Log("안아픔!");
+            DaedClick(clickedButton);
+            buttonImage.enabled = false; // 숨기기
         }
     }
 
@@ -188,58 +207,177 @@ public class PlantStateManager : MonoBehaviour
             RefreshInstance.AddComponent<CanvasGroup>();
         }
 
-
         if (RefreshClicked)
         {
-            Debug.Log(clickedButton + " 클릭된 버튼@@@");
-            // 클릭된 버튼의 RectTransform을 불러오기
+            
             RectTransform btnRectTransform = clickedButton.GetComponent<RectTransform>();
-
-            // RefreshInstance의 RectTransform을 불러오기
             RectTransform refreshRectTransform = RefreshInstance.GetComponent<RectTransform>();
 
-            // 버튼의 위치를 기준으로 RefreshInstance의 위치를 설정
             Vector3 newPosition = btnRectTransform.position;
             newPosition.x -= 100f;
-            newPosition.y -= 40f; 
+            newPosition.y -= 40f;
             refreshRectTransform.position = newPosition;
 
-            // RefreshInstance를 활성화
             RefreshInstance.SetActive(true);
 
-            // Refresh 애니메이션을 재생하고, 애니메이션 종료 후 RefreshInstance 삭제
-            StartCoroutine(PlayAnimationAndDestroy(clickedButton));
-
-            
-
+            StartCoroutine(DestroyRefreshAfterDelay(1f));
             RequreState();
-
         }
     }
 
-    IEnumerator PlayAnimationAndDestroy(Button clickedButton)
+    void DaedClick(Button clickedButton)
     {
-        
-        yield return new WaitForSeconds(1f); // 애니메이션 재생 시간을 기다림
+        TrowelClicked = true;
 
-        // 애니메이션이 종료된 후 RefreshInstance 삭제
-        if (RefreshInstance != null)
+        if (TrowelInstance == null)
         {
-            Destroy(RefreshInstance);
-            RefreshInstance = null;
+            TrowelInstance = Instantiate(TrowelPrefab, canvas.transform);
+            TrowelInstance.AddComponent<CanvasGroup>();
+
+            FertilizerInstance = Instantiate(FertilizerPrefab, canvas.transform);
+            FertilizerInstance.AddComponent<CanvasGroup>();
+            FertilizerInstance.SetActive(false); // 처음에는 비활성화 상태로 시작
         }
-        Debug.Log(clickedButton + " 클릭된 버튼");
-        // 버튼 비활성화
-        clickedButton.gameObject.SetActive(false);
 
+        if (TrowelClicked)
+        {
+            
+            RectTransform btnRectTransform = clickedButton.GetComponent<RectTransform>();
+            RectTransform trowelRectTransform = TrowelInstance.GetComponent<RectTransform>();
 
+            Vector3 newPosition = btnRectTransform.position;
+            newPosition.x -= 100f;
+            newPosition.y -= 60f;
+            trowelRectTransform.position = newPosition;
+
+            TrowelInstance.SetActive(true);
+
+            StartCoroutine(DestroyTrowelAfterDelay(1f, clickedButton));
+            ChangeSeedImageToNone();
+        }
+    }
+
+    void FertilizerPlay(Button clickedButton)
+    {
+        RectTransform btnRectTransform = clickedButton.GetComponent<RectTransform>();
+        RectTransform fertilizerRectTransform = FertilizerInstance.GetComponent<RectTransform>();
+
+        Vector3 newPosition = btnRectTransform.position;
+        newPosition.x -= 60f;
+        newPosition.y += 40f;
+        fertilizerRectTransform.position = newPosition;
+
+        FertilizerInstance.SetActive(true);
+
+        StartCoroutine(DestroyFertilizerAfterDelay(1f));
+
+        ResetPrefs();
+        
     }
 
 
+    private IEnumerator DestroyRefreshAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        Destroy(RefreshInstance);
+    }
 
+    private IEnumerator DestroyTrowelAfterDelay(float delay, Button clickedButton)
+    {
+        yield return new WaitForSeconds(delay);
+        Destroy(TrowelInstance);
+
+        yield return new WaitForSeconds(0.2f); // 0.5초 대기
+        FertilizerPlay(clickedButton);
+    }
+
+    private IEnumerator DestroyFertilizerAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        Destroy(FertilizerInstance);
+    }
+
+
+    void ResetPrefs()
+    {
+        PlayerPrefs.DeleteKey("Stack" + stateIndex);
+        PlayerPrefs.DeleteKey("PlantingAfterTime" + stateIndex);
+        PlayerPrefs.DeleteKey("PlantType" + stateIndex);
+        PlayerPrefs.DeleteKey("Button Buble" + stateIndex + "Clicked" + stateIndex);
+
+        // 추가: 삭제 후 초기화된지 확인하는 코드
+        bool stackDeleted = !PlayerPrefs.HasKey("Stack" + stateIndex);
+        bool plantingAfterTimeDeleted = !PlayerPrefs.HasKey("PlantingAfterTime" + stateIndex);
+        bool plantTypeDeleted = !PlayerPrefs.HasKey("PlantType" + stateIndex);
+        bool buttonBubleDeleted = !PlayerPrefs.HasKey("Button Buble" + stateIndex + "Clicked" + stateIndex);
+
+        if (stackDeleted && plantingAfterTimeDeleted && plantTypeDeleted && buttonBubleDeleted)
+        {
+            Debug.Log("PlayerPrefs 초기화 성공.");
+
+            // 초기화된 객체에만 bubleObject[stackindex] 활성화
+            if (bubleObject[stateIndex] != null)
+            {
+                bubleObject[stateIndex].SetActive(true);
+            }
+            else
+            {
+                Debug.LogWarning("bubleObject[" + stateIndex + "]이(가) null입니다.");
+            }
+        }
+        else
+        {
+            Debug.LogWarning("PlayerPrefs 초기화 실패.");
+        }
+    
+
+
+
+}
+
+
+    void ChangeSeedImageToNone()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            if (seed[i] != null)
+            {
+                Image seedImage = seed[i].GetComponent<Image>();
+                if (seedImage != null)
+                {
+                    seedImage.sprite = null; // 이미지를 None으로 변경
+                }
+            }
+        }
+    }
+
+
+/*    private IEnumerator HandleButtonClick(Button clickedButton)
+    {
+        // 모든 버튼을 비활성화
+        SetAllButtonsInteractable(false);
+
+        DaedClick(clickedButton);
+
+        yield return new WaitForSeconds(2f); // 애니메이션 전체 지속시간 (1s + 0.5s + 1s)
+
+        // 모든 버튼을 다시 활성화
+        SetAllButtonsInteractable(true);
+
+        clickedButton.GetComponent<Image>().enabled = false; // 클릭된 버튼 숨기기
+    }
+
+    private void SetAllButtonsInteractable(bool interactable)
+    {
+        foreach (Button btn in allButtons)
+        {
+            btn.interactable = interactable;
+        }
+    }
+*/ //코루틴 활성화 동안 모든 버튼 비활성화.
     public void RequreState()
     {
-        Debug.Log(stateIndex + " 클릭된 stateindex  값");
+        
         PlayerPrefs.SetInt("Stack" + stateIndex, 1);
 
         int stackValue = PlayerPrefs.GetInt("Stack" + stateIndex);
@@ -247,6 +385,10 @@ public class PlantStateManager : MonoBehaviour
 
     }
 
+
+
+
+   
 
 
 }
