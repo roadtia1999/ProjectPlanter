@@ -15,7 +15,9 @@ MonoBehaviour:
   itemType: 1
   itemId: 1
   itemName: Mite
-  itemDesc: "\uC9C4\uB4DC\uAE30"
+  itemDesc: "\uC9C4\uB4DC\uAE30 - \uC2DD\uBB3C\uC758 \uC999\uC744 \uBA39\uC73C\uBA70
+    \uC0B4\uAE30\uB3C4 \uD558\uB294 \uACE4\uCDA9\uC785\uB2C8\uB2E4. \uC804\uC5FC\uBCD1\uC744
+    \uC62E\uAE30\uAE30\uC5D0 \uD574\uCDA9\uC73C\uB85C \uBD84\uB958\uB429\uB2C8\uB2E4."
   itemIcon: {fileID: 21300000, guid: 9bc31bc0cbdc1de44a0a729df98bde6f, type: 3}
   EventPrefab: {fileID: 1953114942814592296, guid: 9c2afa90c5cfd6842a756f3b27e0f6af, type: 3}
   TimeZone: 60

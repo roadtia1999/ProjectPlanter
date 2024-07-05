@@ -15,9 +15,18 @@ MonoBehaviour:
   itemType: 1
   itemId: 0
   itemName: Bee
-  itemDesc: "\uBC8C \uB4F1\uC7A5."
+  itemDesc: "\uBC8C - \uAF43\uC774 \uD53C\uC5B4\uC788\uB294 \uACF3\uC5D0\uB294 \uBC8C\uC774
+    \uAC00\uB054 \uB098\uD0C0\uB0A9\uB2C8\uB2E4. \uC774\uB4E4\uC740 \uAF43\uAC00\uB8E8\uB97C
+    \uBC1C\uC5D0 \uBB3B\uD600 \uAF43\uB4E4\uC758 \uC218\uBD84\uC744 \uB3D5\uC2B5\uB2C8\uB2E4."
   itemIcon: {fileID: 1408335638, guid: 19b190b70d0fecc42a52a7ddeb37e441, type: 3}
   EventPrefab: {fileID: 5801328009670530610, guid: 790be231d4ff95e4193fd76950ec5a1b, type: 3}
   TimeZone: 30
   PlantPrefab: {fileID: 0}
   GrowthTime: 0
+  FlowerSp:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}

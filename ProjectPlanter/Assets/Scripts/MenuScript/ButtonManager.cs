@@ -45,12 +45,10 @@ public class ButtonManager : MonoBehaviour
         sf.SceneChange("PlantDexScene");
     }
 
-    public void EventdexButtonClicked() // 이벤트도감 버튼 클릭 (미완성)
+    public void EventdexButtonClicked() // 이벤트도감 버튼 클릭
     {
-        // SceneFade sf = GameObject.Find("FadeCanvas").GetComponent<SceneFade>();
-        // sf.SceneChange("EventDexScene");
-
-        throw new System.NotImplementedException();
+        SceneFade sf = GameObject.Find("FadeCanvas").GetComponent<SceneFade>();
+        sf.SceneChange("EventDexScene");
     }
 
     public void RecordsButtonClicked() // 관찰기록 버튼 클릭
