@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class BtnManager : MonoBehaviour
 {
     public List<ItemData> database; // Dex 씬의 데이터가 들어가있는 데이터베이스
-    public GameObject dexSprite; // Dex 스프라이트 부분
+    public Image dexSprite; // Dex 스프라이트 부분
     public Text dexTitleText; // Dex 이름 부분
     public Text dexDescText; // Dex 설명 부분
 
@@ -68,8 +68,7 @@ public class BtnManager : MonoBehaviour
 
     private void SetNewData() // 현재 도감에 보이는 데이터를 갱신하는 코드
     {
-        SpriteRenderer newSprite = dexSprite.GetComponent<SpriteRenderer>();
-        newSprite.sprite = database[currentPage].itemIcon; // 스프라이트 부분 갱신
+        dexSprite.sprite = database[currentPage].itemIcon; // 스프라이트 부분 갱신
         dexTitleText.text = database[currentPage].itemName; // 이름 부분 갱신
         dexDescText.text = database[currentPage].itemDesc; // 설명 부분 갱신
     }
