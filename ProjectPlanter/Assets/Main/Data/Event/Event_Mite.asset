@@ -10,14 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: db96985718e4b254ab52096d04918bbf, type: 3}
-  m_Name: Event_xxx
+  m_Name: Event_Mite
   m_EditorClassIdentifier: 
   itemType: 1
   itemId: 1
-  itemName: xxx
-  itemDesc: asadxx
-  itemIcon: {fileID: 21300000, guid: 836a58a2173ebcc42aed9342f739ac96, type: 3}
-  EventPrefab: {fileID: 6865545680217356552, guid: 8233a7cfef20a674bbef5777e59b9fd1, type: 3}
-  TimeZone: 30
+  itemName: Mite
+  itemDesc: "\uC9C4\uB4DC\uAE30"
+  itemIcon: {fileID: 21300000, guid: 9bc31bc0cbdc1de44a0a729df98bde6f, type: 3}
+  EventPrefab: {fileID: 1953114942814592296, guid: 9c2afa90c5cfd6842a756f3b27e0f6af, type: 3}
+  TimeZone: 60
   PlantPrefab: {fileID: 0}
   GrowthTime: 0
+  FlowerSp:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}

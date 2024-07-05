@@ -1419,7 +1419,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Event_prefab:
   - {fileID: 5801328009670530610, guid: 790be231d4ff95e4193fd76950ec5a1b, type: 3}
-  - {fileID: 6865545680217356552, guid: 8233a7cfef20a674bbef5777e59b9fd1, type: 3}
+  - {fileID: 1953114942814592296, guid: 9c2afa90c5cfd6842a756f3b27e0f6af, type: 3}
   Plant_prefab: []
 --- !u!1 &669086409
 GameObject:
