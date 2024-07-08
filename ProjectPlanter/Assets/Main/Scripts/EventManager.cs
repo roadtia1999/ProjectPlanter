@@ -80,6 +80,7 @@ public class EventManager : MonoBehaviour
             case 1: Mite(); break;
             default:  break;
         }
+        PlayerPrefs.SetInt("EventDexScene" + randomEvent, 1); // 이벤트 발생 정보를 PlayerPrefs에 저장
     }
 
 
