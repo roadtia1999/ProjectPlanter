@@ -18,7 +18,7 @@ public class EventManager : MonoBehaviour
     private RectTransform evBee; // Bee RectTransform
     private Vector2 moveDirection; // 이동 방향
     //진드기
-    private RectTransform evMite; // Bee RectTransform
+    private RectTransform evMite; // Mite RectTransform
     
 
 
@@ -154,68 +154,64 @@ public class EventManager : MonoBehaviour
 
     void Mite()
     {
-        
         GameObject evMiteObject = PoolManager.instance.EventGet(prefabId);
-        RectTransform evMite = evMiteObject.GetComponent<RectTransform>();
+        evMite = evMiteObject.GetComponent<RectTransform>();
         evMiteObject.transform.SetParent(transform, false);
-        evMite.anchoredPosition = Vector2.zero;
+        evMite.anchoredPosition = new Vector2(0, -300); // 탁자 위에서만 이동
 
         StartCoroutine(MoveMite());
-
     }
 
     IEnumerator MoveMite()
     {
         Vector2 canvasSize = new Vector2(1024, 768);
-        Vector2 beePosition;
+        Vector2 eventPosition;
 
         // 캔버스 경계 구하기
-        float halfWidth = evBee.rect.width / 2;
-        float halfHeight = evBee.rect.height / 2;
+        float halfWidth = evMite.rect.width / 2;
         float minX = -canvasSize.x / 2 + halfWidth;
         float maxX = canvasSize.x / 2 - halfWidth;
-        /*float minY = -canvasSize.y / 2 + halfHeight;
-        float maxY = canvasSize.y / 2 - halfHeight;*/
 
-        // 랜덤 방향 설정
-        moveDirection = UnityEngine.Random.insideUnitCircle.normalized;
+        while(true)
+        {
+            moveDirection = new Vector2(UnityEngine.Random.Range(-1f, 1f), 0); // 좌우로만 움직이게끔 함 (속도 랜덤)
 
-        // 왼쪽으로 이동할 때 이미지 방향을 반전시킵니다.
-        if (moveDirection.x < 0)
-        {
-            evMite.localScale = new Vector3(-1f, 1f, 1f); // x 스케일을 -1로 설정하여 이미지를 반전시킵니다.
-        }
-        else
-        {
-            evMite.localScale = Vector3.one; // 원래대로 복원합니다.
-        }
-
-        float elapsedTime = 0f;
-        while (elapsedTime < moveDuration)
-        {
-            if (evBee != null)
+            // 왼쪽으로 이동할 때 이미지 방향을 반전시킵니다.
+            if (moveDirection.x < 0)
             {
-                // 이동 방향으로 Bee 위치 변경
-                evMite.anchoredPosition += moveDirection * moveSpeed * Time.deltaTime;
-
-                // 벌이 경계 밖으로 나가지 않게끔 조절
-                beePosition = evMite.anchoredPosition;
-                beePosition.x = Mathf.Clamp(beePosition.x, minX, maxX);
-                /*beePosition.y = Mathf.Clamp(beePosition.y, minY, maxY);*/
-                evBee.anchoredPosition = beePosition;
+                evMite.localScale = new Vector3(-1f, 1f, 1f); // x 스케일을 -1로 설정하여 이미지를 반전시킵니다.
             }
             else
             {
-                Debug.LogError("mite uei");
-                yield break; // 코루틴 종료
+                evMite.localScale = Vector3.one; // 원래대로 복원합니다.
             }
 
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
+            float elapsedTime = 0f;
+            while (elapsedTime < moveDuration)
+            {
+                if (evMite != null)
+                {
+                    // 이동 방향으로 Mite 위치 변경
+                    evMite.anchoredPosition += moveDirection * moveSpeed * Time.deltaTime;
 
-        // 멈춤
-        yield return new WaitForSeconds(stopDuration);
+                    // 벌이 경계 밖으로 나가지 않게끔 조절
+                    eventPosition = evMite.anchoredPosition;
+                    eventPosition.x = Mathf.Clamp(eventPosition.x, minX, maxX);
+                    evMite.anchoredPosition = eventPosition;
+                }
+                else
+                {
+                    Debug.LogError("mite uei");
+                    yield break; // 코루틴 종료
+                }
+
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
+
+            // 멈춤
+            yield return new WaitForSeconds(stopDuration);
+        }
     }
 }
 
