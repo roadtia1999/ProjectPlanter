@@ -26,14 +26,12 @@ public class Seed : MonoBehaviour
     public ItemData itemData;
 
 
-    public double seconds;
+    public int[] seconds = new int[3];
  
    //[Header("# Arrangement")]
     
     public TimeSpan[] GrowTime = new TimeSpan[3];
-    //화분 어디어디로 들어갔는지 확인 가능.
-    public int[] value = new int[3];
-    
+    public int[] value = new int[3]; //화분 어디어디로 들어갔는지 확인 가능.
     int[] stack = new int[3];
     int[] plantType = new int[3];
     GameObject[] seedObject = new GameObject[3];
@@ -82,6 +80,7 @@ public class Seed : MonoBehaviour
                 stack[i] = PlayerPrefs.GetInt("Stack" + i, 0); // 저장된 값이 없으면 0을 기본값으로 사용
                 value[i] = PlayerPrefs.GetInt("PlantType"+i);
                 /*Debug.Log(value[i] + "value" +i + "값@@@@@");*/
+                
                 TimeDifChk(i);
 
             }
@@ -93,6 +92,7 @@ public class Seed : MonoBehaviour
     // x 배열로 묶기  묶어서 뽑아오기 . x[0] x[1]
     void TimeDifChk(int i)
     {
+        FlowerChk(i);
         if (stack[i] !=1)
         {
             //물을 안주거나 너무 많이 줬다면 -10초로 성장 방지.
@@ -103,7 +103,12 @@ public class Seed : MonoBehaviour
         // x의 값을 확인하여 이벤트를 일으킴
         TimeDifGrow(GrowTime[i], i);
         //시차 확인 값
-        seconds = GrowTime[i].TotalSeconds;
+        seconds[i] = (int)Math.Round(GrowTime[i].TotalSeconds);
+
+        // 디버깅: seconds 값 출력
+        Console.WriteLine("Seconds = {0}", seconds[i]);
+        /*Debug.Log(GrowTime[i] + " 그로우타임"+i);*/
+        
     }
 
 
@@ -142,23 +147,27 @@ public class Seed : MonoBehaviour
         CheckMethod(index, 60);
     }
 
+
+    // 꽃 자라는 순서
+    // 프리지아 < 장미 < 수국
+    // 0 /+10 /+20
     void RandomY_Flower(int index)
     {
-      
+
             if (Plant[index])
             {
                 Sprout[index].SetActive(false);
                
                 Plant[index].SetActive(true);
 
-            /*Plant[index].GetComponent<Image>().sprite = GetY_PlantSprite(value[index]);*/
-            Sprite yPlantSprite = GetY_PlantSprite(value[index]);
-            if (yPlantSprite != null)
-            {
-                Plant[index].GetComponent<Image>().sprite = yPlantSprite;
-            }
+                Sprite yPlantSprite = GetY_PlantSprite(value[index]);
 
-        }
+
+                if (yPlantSprite != null)
+                    Plant[index].GetComponent<Image>().sprite = yPlantSprite;
+                
+
+            }
             
         
     }
@@ -169,20 +178,34 @@ public class Seed : MonoBehaviour
         if (Plant[index])
         {
             Sprout[index].SetActive(false);
+
             Plant[index].SetActive(true);
 
-            /*Plant[index].GetComponent<Image>().sprite = GetF_PlantSprite(value[index]);*/
             Sprite fPlantSprite = GetF_PlantSprite(value[index]);
             if (fPlantSprite != null)
-            {
                 Plant[index].GetComponent<Image>().sprite = fPlantSprite;
-                
-
-            }
+            
 
         }
 
         
+    }
+
+    void FlowerChk(int index)
+    {
+        Image[] PlantImage = new Image[3];
+        PlantImage[index] = Plant[index].GetComponent<Image>();
+
+        if (PlantImage[index].sprite == itemData.FlowerSp[1])
+        {
+            GrowTime[1] -= TimeSpan.FromSeconds(10);
+        }
+        else if (PlantImage[index].sprite == itemData.FlowerSp[2])
+        {
+            GrowTime[2] -= TimeSpan.FromSeconds(20);
+        }
+        //2번에만 식이 작동..
+        Debug.Log(GrowTime[index] + "  식물 체크후 뺀 그로우 타임" +index);
     }
 
     // 0==프리지아 1. 장미  2. 수국 

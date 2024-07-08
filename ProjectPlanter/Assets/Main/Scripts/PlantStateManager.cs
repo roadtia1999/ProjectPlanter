@@ -17,6 +17,7 @@ public class PlantStateManager : MonoBehaviour
     string[] x = new string[3];
     public Sprite[] StateSpr;
     GameObject[] PlantState = new GameObject[3];
+    Button[] Plantstate = new Button[3];
     GameObject[] Pot = new GameObject[3];
     GameObject[] seed = new GameObject[3];
     GameObject[] bubleObject = new GameObject[3];
@@ -49,15 +50,33 @@ public class PlantStateManager : MonoBehaviour
         
         instance = this;
 
+
         for (int i = 0; i < 3; i++)
         {
             Pot[i] = GameObject.Find("Pot" + i);
             seed[i] = GameObject.Find("seed" + i);
+            GameObject plantStateObject = GameObject.Find("PlantState" + i);
             PlantState[i] = Pot[i].transform.Find("PlantState" + i).gameObject;
             bubleObject[i] = Pot[i].transform.Find("Button Buble" + i).gameObject;
 
-            x[i] = PlayerPrefs.GetString("PlantingAfterTime" + i);
+            Plantstate[i] = plantStateObject.GetComponent<Button>();
+            
+            Image StateImage = Plantstate[i].GetComponent<Image>();
 
+            //코루틴 PlantState2 inactive 오류 때문에.
+            if (StateImage.sprite == null)
+            {
+                StateImage.enabled = false;
+            }
+            else
+            {
+                StateImage.enabled = true;
+
+            }
+
+
+            x[i] = PlayerPrefs.GetString("PlantingAfterTime" + i);
+            
 
             if (!string.IsNullOrEmpty(x[i]))
             {
@@ -76,10 +95,11 @@ public class PlantStateManager : MonoBehaviour
 
 
         }
+        
 
     }
 
-
+    
 
     public void StateIndex(int btnIndex)
     {
@@ -225,6 +245,12 @@ public class PlantStateManager : MonoBehaviour
         }
     }
 
+    private IEnumerator DestroyRefreshAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        Destroy(RefreshInstance);
+    }
+
     void DaedClick(Button clickedButton)
     {
         TrowelClicked = true;
@@ -256,6 +282,18 @@ public class PlantStateManager : MonoBehaviour
             ChangeSeedImageToNone();
         }
     }
+    private IEnumerator DestroyTrowelAfterDelay(float delay, Button clickedButton)
+    {
+        Debug.Log("DestroyTrowelAfterDelay 실행");
+        yield return new WaitForSeconds(delay);
+        Destroy(TrowelInstance);
+
+        yield return new WaitForSeconds(0.2f); // 0.5초 대기
+        FertilizerPlay(clickedButton);
+
+
+
+    }
 
     void FertilizerPlay(Button clickedButton)
     {
@@ -272,29 +310,14 @@ public class PlantStateManager : MonoBehaviour
         StartCoroutine(DestroyFertilizerAfterDelay(1f));
 
         ResetPrefs();
-        
-    }
-
-
-    private IEnumerator DestroyRefreshAfterDelay(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        Destroy(RefreshInstance);
-    }
-
-    private IEnumerator DestroyTrowelAfterDelay(float delay, Button clickedButton)
-    {
-        yield return new WaitForSeconds(delay);
-        Destroy(TrowelInstance);
-
-        yield return new WaitForSeconds(0.2f); // 0.5초 대기
-        FertilizerPlay(clickedButton);
+        Debug.Log("FertilizerPlay 실행");
     }
 
     private IEnumerator DestroyFertilizerAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
         Destroy(FertilizerInstance);
+        Debug.Log("DestroyFertilizerAfterDelay 실행");
     }
 
 

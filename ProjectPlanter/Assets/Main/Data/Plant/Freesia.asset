@@ -25,7 +25,7 @@ MonoBehaviour:
   EventPrefab: {fileID: 0}
   TimeZone: 0
   PlantPrefab: {fileID: 7799762508918966397, guid: fe3973859fc84a64880537360abb2e0b, type: 3}
-  GrowthTime: 0
+  GrowthTime: 60
   FlowerSp:
   - {fileID: 0}
   - {fileID: 0}
