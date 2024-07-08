@@ -69,7 +69,18 @@ public class BtnManager : MonoBehaviour
     private void SetNewData() // 현재 도감에 보이는 데이터를 갱신하는 코드
     {
         dexSprite.sprite = database[currentPage].itemIcon; // 스프라이트 부분 갱신
-        dexTitleText.text = database[currentPage].itemName; // 이름 부분 갱신
-        dexDescText.text = database[currentPage].itemDesc; // 설명 부분 갱신
+
+        if (PlayerPrefs.HasKey(SceneManager.GetActiveScene().name + currentPage)) // 도감 요소가 발견된 상태일 때
+        {
+            dexSprite.color = Color.white; // 스프라이트 원본이 보이게 설정
+            dexTitleText.text = database[currentPage].itemName; // 이름 부분 갱신
+            dexDescText.text = database[currentPage].itemDesc; // 설명 부분 갱신
+        }
+        else
+        {
+            dexSprite.color = Color.black; // 검게 칠한 스프라이트가 보이게 설정
+            dexTitleText.text = "???";
+            dexDescText.text = "아직 발견되지 않은 요소입니다.";
+        }
     }
 }
