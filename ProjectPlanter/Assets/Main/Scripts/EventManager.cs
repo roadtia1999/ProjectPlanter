@@ -8,33 +8,25 @@ public class EventManager : MonoBehaviour
 {
     public static EventManager instance;
 
-    public int id;
-    public int prefabId;
-
-    // 벌 동작
+    // Event 동작
     float moveDuration = 2f; // 이동 시간
     float stopDuration = 1f; // 멈춤 시간
     float moveSpeed = 100f; // 이동 속도
-    private RectTransform evBee; // Bee RectTransform
     private Vector2 moveDirection; // 이동 방향
-    //진드기
+    private RectTransform evBee; // Bee RectTransform
     private RectTransform evMite; // Mite RectTransform
     
-
-
-
-
     public Canvas canvas;
 
+    [Header("# Event")]
     public ItemData[] itemData; // 스크립터블 오브젝트 배열
+    public int id;
+    public int prefabId;
 
     private void Awake()
     {
         instance = this;
-    }
 
-    void Start()
-    {
         TimeManager timeManager = TimeManager.instance;
 
         // 시간 차이 가져오기
@@ -47,8 +39,10 @@ public class EventManager : MonoBehaviour
         {
             int randomEvent = UnityEngine.Random.Range(0, itemData.Length);
             TriggerRandomEvent(randomEvent);
+            
         }
     }
+
 
     public void TriggerRandomEvent(int randomEvent)
     {
@@ -81,6 +75,7 @@ public class EventManager : MonoBehaviour
             default:  break;
         }
         PlayerPrefs.SetInt("EventDexScene" + randomEvent, 1); // 이벤트 발생 정보를 PlayerPrefs에 저장
+        PlayerPrefs.SetInt("EventOccur" , randomEvent); // 이벤트 발생 값 저장
     }
 
 
@@ -114,14 +109,14 @@ public class EventManager : MonoBehaviour
             // 랜덤 방향 설정
             moveDirection = UnityEngine.Random.insideUnitCircle.normalized;
 
-            // 왼쪽으로 이동할 때 이미지 방향을 반전시킵니다.
+            // 왼쪽으로 이동할 때 이미지 반전
             if (moveDirection.x < 0)
             {
-                evBee.localScale = new Vector3(-1f, 1f, 1f); // x 스케일을 -1로 설정하여 이미지를 반전시킵니다.
+                evBee.localScale = new Vector3(-1f, 1f, 1f); // x 스케일을 -1로 설정하여 이미지를 반전
             }
             else
             {
-                evBee.localScale = Vector3.one; // 원래대로 복원합니다.
+                evBee.localScale = Vector3.one; // 원래대로 복원
             }
 
             float elapsedTime = 0f;
@@ -177,14 +172,14 @@ public class EventManager : MonoBehaviour
         {
             moveDirection = new Vector2(UnityEngine.Random.Range(-1f, 1f), 0); // 좌우로만 움직이게끔 함 (속도 랜덤)
 
-            // 왼쪽으로 이동할 때 이미지 방향을 반전시킵니다.
+            // 왼쪽으로 이동할 때 이미지 방향을 반전
             if (moveDirection.x < 0)
             {
-                evMite.localScale = new Vector3(-1f, 1f, 1f); // x 스케일을 -1로 설정하여 이미지를 반전시킵니다.
+                evMite.localScale = new Vector3(-1f, 1f, 1f); // x 스케일을 -1로 설정하여 이미지를 반전
             }
             else
             {
-                evMite.localScale = Vector3.one; // 원래대로 복원합니다.
+                evMite.localScale = Vector3.one; // 원래대로 복원
             }
 
             float elapsedTime = 0f;

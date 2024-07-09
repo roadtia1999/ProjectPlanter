@@ -8,47 +8,58 @@ public class Seed : MonoBehaviour
 {
     public static Seed instance;
 
+    // [Header("# DateTime")]
     //seed 스프라이트
     public Sprite SeedSpr;
-    //씨앗 저장된시간
-    private string PlantingAfter;
-    private string PlantingAfterString;
 
-    
+    [Header("# SaveTime")]
+    public string PlantingAfter;
+    public string PlantingAfterString;
+
+
+    // [Header("# DateTime")]
     // 게임 시작 시간
     private DateTime seedlastTime;
     //시간 차이 값.
     private TimeSpan timeDifference;
+    public TimeSpan[] GrowTime = new TimeSpan[3];
 
 
-    [Header("# ItemData")]
-    //스크랩터블 오브젝트 -- growthtime
+
+
+    // [Header("# ItemData")]
+    //Itemdata에 FlowerSP 가져오는 용도
     public ItemData itemData;
 
 
-    public int[] seconds = new int[3];
- 
-   //[Header("# Arrangement")]
-    
-    public TimeSpan[] GrowTime = new TimeSpan[3];
+
+
+    [Header("# Arrangement")]
+    public int[] seconds = new int[3]; //각 화분에 시간값 체크
     public int[] PlantType = new int[3]; //화분 어디어디로 들어갔는지 확인 가능.
-    int[] stack = new int[3];
+    public int[] stack = new int[3]; //물 얼마나 뿌려졌는지 확인 가능.
+    public Image[] PlantImage = new Image[3]; //PlantImage 타입별로 성장값 조정
+
+    
+    //Array
+    int eventOccur;
     int[] plantType = new int[3];
     GameObject[] seedObject = new GameObject[3];
     GameObject[] Pot = new GameObject[3];
     GameObject[] Sprout = new GameObject[3];
     GameObject[] Plant = new GameObject[3];
-    public Image[] PlantImage = new Image[3];
+    
 
+
+    
     private void Awake()
-    {
-        
+    {        
         instance = this;
-        
-        /*InsertTimeData();*/
+
         PlantingAfterString = DateTime.Now.ToString();
         PlayerPrefs.SetString("PlantingAfterRestart", PlantingAfterString);
-        
+        eventOccur = PlayerPrefs.GetInt("EventOccur"); 
+
 
         for (int i = 0; i < 3; i++)
         {
@@ -59,11 +70,6 @@ public class Seed : MonoBehaviour
             
             string PlantedTimeString = PlayerPrefs.GetString("PlantingAfterTime"+i);
             
-            /*if (PlantedTimeString == null)
-            {
-                continue;
-            }*/
-
             if (!string.IsNullOrEmpty(PlantedTimeString))
             {
                 // 이전에 저장된 시간이 있다면 불러와서 DateTime으로 변환
@@ -75,12 +81,10 @@ public class Seed : MonoBehaviour
                 // 시간 차이 계산 후 클래스 레벨 변수에 저장
                 timeDifference = startTime - seedlastTime;
 
-                // 시간 차이 출력
-                
-                stack[i] = PlayerPrefs.GetInt("Stack" + i, 0); // 저장된 값이 없으면 0을 기본값으로 사용
+                // 시간 차이 출력                
+                stack[i] = PlayerPrefs.GetInt("Stack" + i, 0);
                 PlantType[i] = PlayerPrefs.GetInt("PlantType"+i);
-                /*Debug.Log(PlantType[i] + "PlantType" +i + "값@@@@@");*/
-                
+
                 TimeDifChk(i);
 
             }
@@ -88,26 +92,31 @@ public class Seed : MonoBehaviour
         
     }
 
+
     //Awake -> TimeDifChk -> TimeDifGrow -> CheckMethod -> CheckMethodXX
     // x 배열로 묶기  묶어서 뽑아오기 . x[0] x[1]
     void TimeDifChk(int i)
     {
-        if (stack[i] !=1)
+        if (eventOccur ==0)
         {
+            timeDifference += TimeSpan.FromSeconds(10);   
+        }
+        else if (eventOccur == 1)
+        {
+            timeDifference -= TimeSpan.FromSeconds(10);
+        }
+
+        if (stack[i] !=1)
             //물을 안주거나 너무 많이 줬다면 -10초로 성장 방지.
             timeDifference = timeDifference - TimeSpan.FromSeconds(10);
-        }
+
+
         GrowTime[i] += timeDifference;
         
-        Debug.Log(GrowTime[i] + " 시차 저장 밧 그러으티임" + i);
         // x의 값을 확인하여 이벤트를 일으킴
         TimeDifGrow(GrowTime[i], i);
-        //시차 확인 값
+        
         seconds[i] = (int)Math.Round(GrowTime[i].TotalSeconds);
-
-        // 디버깅: seconds 값 출력
-        Console.WriteLine("Seconds = {0}", seconds[i]);
-        /*Debug.Log(GrowTime[i] + " 그로우타임"+i);*/
         
     }
 
@@ -118,9 +127,7 @@ public class Seed : MonoBehaviour
     void TimeDifGrow(TimeSpan timeDiff, int index)
     {
         // 예: 10 ~ 29
-        //2일. 1~2일 새싹 및 Y_Flower 3일 꽃.
-
-        
+        //2일. 1~2일 새싹 및 Y_Flower 3일 꽃
         if (timeDiff.TotalSeconds >= 10 && timeDiff.TotalSeconds < 30)
             CheckMethod10sec(index);
 
@@ -196,32 +203,19 @@ public class Seed : MonoBehaviour
 
     void FlowerChk(int index)
     {
-        /*        Debug.Log("Plant[index]알아보기  "+index + Plant[index]);
-                Image[] PlantImage = new Image[3];
-                PlantImage = new Image[3];
-                PlantImage[index] = Plant[index].GetComponent<Image>();*/
         
-
-        Debug.Log("PlantImage[index].sprite: " + PlantImage[index].sprite);
         if (PlantImage[index].sprite == itemData.FlowerSp[1])
-
         {
-            Debug.Log(GrowTime[index] + " 장미일때 그로우 타임 값 넣기전"+index);
             GrowTime[index] -= TimeSpan.FromSeconds(10);
-            Debug.Log(GrowTime[index] + "장미일때 그로우 타임 값 넣은후" + index);
+            
         }
         else if (PlantImage[index].sprite == itemData.FlowerSp[2])
-
         {
-            Debug.Log(GrowTime[index] + " 수국일때 그로우 타임 값 넣기전" + index);
             GrowTime[index] -= TimeSpan.FromSeconds(20);
-            Debug.Log(GrowTime[index] + " 수국일때 그로우 타임 값 넣기전" + index);
         }
-        //2번에만 식이 작동..
-        Debug.Log(GrowTime[index] + "  식물 체크후 뺀 그로우 타임" +index);
     }
 
-    // 0==프리지아 1. 장미  2. 수국 
+    // 0.프리지아 1. 장미  2. 수국 
     Sprite GetY_PlantSprite(int index)
     {
         switch (index)
@@ -298,7 +292,6 @@ public class Seed : MonoBehaviour
         System.Random rand = new System.Random(); // 랜덤 생성기
         for (int i = 0; i < 3; i++)
         {
-
             // seed+i 찾기.
             if (seedObject[i])
             {
@@ -312,20 +305,14 @@ public class Seed : MonoBehaviour
                     plantType[i] = availableTypes[randomIndex];
                     availableTypes.RemoveAt(randomIndex); // 선택된 꽃 종류 제거
 
-                  
-
-
                     // PlayerPrefs에서 값을 읽어옴
                     string savedTime = PlayerPrefs.GetString("PlantingAfterTime" + i);
-                    
-
 
                     // 값이 비어 있는지 확인
                     if (string.IsNullOrEmpty(savedTime))
                     {
                         // PlantingAfterTime0 1 2 에 다른 값들 부여.
                         PlayerPrefs.SetString("PlantingAfterTime" + i, PlantingAfter);
-
 
 
                         PlayerPrefs.SetInt("PlantType" + i, plantType[i]); // 꽃 종류 저장

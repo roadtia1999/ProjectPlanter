@@ -13,7 +13,7 @@ public class MainBtnManager : MonoBehaviour
     public GameObject canPrefab;
     private GameObject canInstance;
     private bool CanClicked = false;
-    public int[] stack = new int[3]; // 물뿌리게 스택 체크.
+    int[] stack = new int[3]; // 물뿌리게 스택 체크.
 
     [Header("# Hand")]
     public GameObject handPrefab;
@@ -28,9 +28,9 @@ public class MainBtnManager : MonoBehaviour
 
     [Header("etc")]
     // 클릭된 버블의 인덱스
-    public int bubleIndex;
+    int bubleIndex;
     // 클릭된 화분의 인덱스
-    public int potIndex;
+    int potIndex;
 
     //캔버스
     public Canvas canvas;

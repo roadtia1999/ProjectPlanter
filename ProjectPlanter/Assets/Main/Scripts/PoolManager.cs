@@ -30,16 +30,6 @@ public class PoolManager : MonoBehaviour
             Event_pool[index] = new List<GameObject>();
         }
 
-
-
-        Plant_pool = new List<GameObject>[Plant_prefab.Length];
-
-        for (int index = 0; index < Plant_pool.Length; index++)
-        {
-            Plant_pool[index] = new List<GameObject>();
-        }
-
-
     }
 
     public GameObject EventGet(int index)
@@ -66,27 +56,5 @@ public class PoolManager : MonoBehaviour
     }
 
 
-    public GameObject PlantGet(int index)
-    {
-        GameObject select = null;
-
-        foreach (GameObject item in Plant_pool[index])
-        {
-            if (!item.activeSelf)
-            {
-                select = item;
-                select.SetActive(true);
-                break;
-            }
-        }
-
-        if (!select)
-        {
-            select = Instantiate(Plant_prefab[index], transform);
-            Plant_pool[index].Add(select);
-        }
-
-        return select;
-    }
-
+   
 }

@@ -93,10 +93,8 @@ public class PlantStateManager : MonoBehaviour
 
             }
 
-
         }
         
-
     }
 
     
@@ -120,15 +118,11 @@ public class PlantStateManager : MonoBehaviour
             TimeSpan timeDifference = DateTime.Now - lastSavedTime;
             timeDif[index] += timeDifference;
             seconds = timeDif[index].TotalSeconds;
-            // 디버그 출력
-            /*    Debug.LogFormat("Index: {0}\nStored Time: {1}\nCurrent Time: {2}\nTime Difference: {3}\nCumulative Time Difference: {4}\n",
-                    index, storedTime, DateTime.Now, timeDifference, timeDif[index]);*/
-
+            
             // 80초가 지나면 스택 초기화
             if (timeDif[index].TotalSeconds > 80)
             {
                 PlayerPrefs.SetInt("Stack" + index, 0);
-                /*Debug.LogFormat("스택 초기화: Index {0}, 시간 차이가 80초를 초과했습니다.", index);*/
             }
             
         }
@@ -171,15 +165,16 @@ public class PlantStateManager : MonoBehaviour
         }
         // 하루 미접속.
         /*else if (24< timeDifference.TotalHours && timeDifference.TotalHours<48)*/
-        /*        else if (80 < timeDifference.TotalSeconds && timeDifference.TotalSeconds < 109)
-                {
-                    //아픔
-                    PlantImage.sprite = StateSpr[2];
-                }*/
+        else if (81 < timeDifference.TotalSeconds && timeDifference.TotalSeconds < 109)
+        {
+            //아픔
+            PlantImage.sprite = StateSpr[2];
+        }
 
         //2일동안 미접속 이라면
         /*else if (timeDifference.TotalHours > 48)*/
-        else if (timeDifference.TotalSeconds > 80)
+
+        else if (timeDifference.TotalSeconds > 110)
         {
 
             //죽음.
@@ -198,8 +193,6 @@ public class PlantStateManager : MonoBehaviour
     }
 
 
-    //내일 확인해볼것
-    //plantstate[] 로 뭐든 건들여보기.
     public void StatePainOrDead(Button clickedButton)
     {
         Image buttonImage = clickedButton.GetComponent<Image>();
@@ -284,15 +277,11 @@ public class PlantStateManager : MonoBehaviour
     }
     private IEnumerator DestroyTrowelAfterDelay(float delay, Button clickedButton)
     {
-        Debug.Log("DestroyTrowelAfterDelay 실행");
         yield return new WaitForSeconds(delay);
         Destroy(TrowelInstance);
 
         yield return new WaitForSeconds(0.2f); // 0.5초 대기
         FertilizerPlay(clickedButton);
-
-
-
     }
 
     void FertilizerPlay(Button clickedButton)
@@ -310,14 +299,12 @@ public class PlantStateManager : MonoBehaviour
         StartCoroutine(DestroyFertilizerAfterDelay(1f));
 
         ResetPrefs();
-        Debug.Log("FertilizerPlay 실행");
     }
 
     private IEnumerator DestroyFertilizerAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
         Destroy(FertilizerInstance);
-        Debug.Log("DestroyFertilizerAfterDelay 실행");
     }
 
 
@@ -336,7 +323,6 @@ public class PlantStateManager : MonoBehaviour
 
         if (stackDeleted && plantingAfterTimeDeleted && plantTypeDeleted && buttonBubleDeleted)
         {
-            Debug.Log("PlayerPrefs 초기화 성공.");
 
             // 초기화된 객체에만 bubleObject[stackindex] 활성화
             if (bubleObject[stateIndex] != null)
@@ -347,16 +333,14 @@ public class PlantStateManager : MonoBehaviour
             {
                 Debug.LogWarning("bubleObject[" + stateIndex + "]이(가) null입니다.");
             }
+
         }
         else
         {
             Debug.LogWarning("PlayerPrefs 초기화 실패.");
         }
-    
 
-
-
-}
+    }
 
 
     void ChangeSeedImageToNone()
@@ -375,29 +359,7 @@ public class PlantStateManager : MonoBehaviour
     }
 
 
-/*    private IEnumerator HandleButtonClick(Button clickedButton)
-    {
-        // 모든 버튼을 비활성화
-        SetAllButtonsInteractable(false);
 
-        DaedClick(clickedButton);
-
-        yield return new WaitForSeconds(2f); // 애니메이션 전체 지속시간 (1s + 0.5s + 1s)
-
-        // 모든 버튼을 다시 활성화
-        SetAllButtonsInteractable(true);
-
-        clickedButton.GetComponent<Image>().enabled = false; // 클릭된 버튼 숨기기
-    }
-
-    private void SetAllButtonsInteractable(bool interactable)
-    {
-        foreach (Button btn in allButtons)
-        {
-            btn.interactable = interactable;
-        }
-    }
-*/ //코루틴 활성화 동안 모든 버튼 비활성화.
     public void RequreState()
     {
         
