@@ -31,14 +31,14 @@ public class Seed : MonoBehaviour
    //[Header("# Arrangement")]
     
     public TimeSpan[] GrowTime = new TimeSpan[3];
-    public int[] value = new int[3]; //화분 어디어디로 들어갔는지 확인 가능.
+    public int[] PlantType = new int[3]; //화분 어디어디로 들어갔는지 확인 가능.
     int[] stack = new int[3];
     int[] plantType = new int[3];
     GameObject[] seedObject = new GameObject[3];
     GameObject[] Pot = new GameObject[3];
     GameObject[] Sprout = new GameObject[3];
     GameObject[] Plant = new GameObject[3];
-    
+    public Image[] PlantImage = new Image[3];
 
     private void Awake()
     {
@@ -59,10 +59,10 @@ public class Seed : MonoBehaviour
             
             string PlantedTimeString = PlayerPrefs.GetString("PlantingAfterTime"+i);
             
-            if (PlantedTimeString == null)
+            /*if (PlantedTimeString == null)
             {
                 continue;
-            }
+            }*/
 
             if (!string.IsNullOrEmpty(PlantedTimeString))
             {
@@ -78,8 +78,8 @@ public class Seed : MonoBehaviour
                 // 시간 차이 출력
                 
                 stack[i] = PlayerPrefs.GetInt("Stack" + i, 0); // 저장된 값이 없으면 0을 기본값으로 사용
-                value[i] = PlayerPrefs.GetInt("PlantType"+i);
-                /*Debug.Log(value[i] + "value" +i + "값@@@@@");*/
+                PlantType[i] = PlayerPrefs.GetInt("PlantType"+i);
+                /*Debug.Log(PlantType[i] + "PlantType" +i + "값@@@@@");*/
                 
                 TimeDifChk(i);
 
@@ -92,7 +92,6 @@ public class Seed : MonoBehaviour
     // x 배열로 묶기  묶어서 뽑아오기 . x[0] x[1]
     void TimeDifChk(int i)
     {
-        FlowerChk(i);
         if (stack[i] !=1)
         {
             //물을 안주거나 너무 많이 줬다면 -10초로 성장 방지.
@@ -100,6 +99,7 @@ public class Seed : MonoBehaviour
         }
         GrowTime[i] += timeDifference;
         
+        Debug.Log(GrowTime[i] + " 시차 저장 밧 그러으티임" + i);
         // x의 값을 확인하여 이벤트를 일으킴
         TimeDifGrow(GrowTime[i], i);
         //시차 확인 값
@@ -153,14 +153,13 @@ public class Seed : MonoBehaviour
     // 0 /+10 /+20
     void RandomY_Flower(int index)
     {
-
-            if (Plant[index])
+        if (Plant[index])
             {
                 Sprout[index].SetActive(false);
                
                 Plant[index].SetActive(true);
 
-                Sprite yPlantSprite = GetY_PlantSprite(value[index]);
+                Sprite yPlantSprite = GetY_PlantSprite(PlantType[index]);
 
 
                 if (yPlantSprite != null)
@@ -168,6 +167,7 @@ public class Seed : MonoBehaviour
                 
 
             }
+        FlowerChk(index);
             
         
     }
@@ -181,7 +181,7 @@ public class Seed : MonoBehaviour
 
             Plant[index].SetActive(true);
 
-            Sprite fPlantSprite = GetF_PlantSprite(value[index]);
+            Sprite fPlantSprite = GetF_PlantSprite(PlantType[index]);
             if (fPlantSprite != null)
                 Plant[index].GetComponent<Image>().sprite = fPlantSprite;
             
@@ -193,16 +193,26 @@ public class Seed : MonoBehaviour
 
     void FlowerChk(int index)
     {
-        Image[] PlantImage = new Image[3];
-        PlantImage[index] = Plant[index].GetComponent<Image>();
+        /*        Debug.Log("Plant[index]알아보기  "+index + Plant[index]);
+                Image[] PlantImage = new Image[3];
+                PlantImage = new Image[3];
+                PlantImage[index] = Plant[index].GetComponent<Image>();*/
+        
 
+        Debug.Log("PlantImage[index].sprite: " + PlantImage[index].sprite);
         if (PlantImage[index].sprite == itemData.FlowerSp[1])
+
         {
-            GrowTime[1] -= TimeSpan.FromSeconds(10);
+            Debug.Log(GrowTime[index] + " 장미일때 그로우 타임 값 넣기전"+index);
+            GrowTime[index] -= TimeSpan.FromSeconds(10);
+            Debug.Log(GrowTime[index] + "장미일때 그로우 타임 값 넣은후" + index);
         }
         else if (PlantImage[index].sprite == itemData.FlowerSp[2])
+
         {
-            GrowTime[2] -= TimeSpan.FromSeconds(20);
+            Debug.Log(GrowTime[index] + " 수국일때 그로우 타임 값 넣기전" + index);
+            GrowTime[index] -= TimeSpan.FromSeconds(20);
+            Debug.Log(GrowTime[index] + " 수국일때 그로우 타임 값 넣기전" + index);
         }
         //2번에만 식이 작동..
         Debug.Log(GrowTime[index] + "  식물 체크후 뺀 그로우 타임" +index);

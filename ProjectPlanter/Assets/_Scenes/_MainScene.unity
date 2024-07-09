@@ -1150,7 +1150,11 @@ MonoBehaviour:
   SeedSpr: {fileID: -323837509, guid: 77126e126038ebf42838fa33345f45c5, type: 3}
   itemData: {fileID: 11400000, guid: ae8ec9d562c38834a86ba8f68fe9ebbb, type: 2}
   seconds: 000000000000000000000000
-  value: 000000000000000000000000
+  PlantType: 000000000000000000000000
+  PlantImage:
+  - {fileID: 1401918887}
+  - {fileID: 576970293}
+  - {fileID: 1069827444}
 --- !u!1 &637851912
 GameObject:
   m_ObjectHideFlags: 0
@@ -3363,7 +3367,11 @@ MonoBehaviour:
   SeedSpr: {fileID: -323837509, guid: 77126e126038ebf42838fa33345f45c5, type: 3}
   itemData: {fileID: 11400000, guid: ae8ec9d562c38834a86ba8f68fe9ebbb, type: 2}
   seconds: 000000000000000000000000
-  value: 000000000000000000000000
+  PlantType: 000000000000000000000000
+  PlantImage:
+  - {fileID: 1401918887}
+  - {fileID: 576970293}
+  - {fileID: 1069827444}
 --- !u!1 &1848809562
 GameObject:
   m_ObjectHideFlags: 0
@@ -3833,7 +3841,11 @@ MonoBehaviour:
   SeedSpr: {fileID: -323837509, guid: 77126e126038ebf42838fa33345f45c5, type: 3}
   itemData: {fileID: 11400000, guid: ae8ec9d562c38834a86ba8f68fe9ebbb, type: 2}
   seconds: 000000000000000000000000
-  value: 000000000000000000000000
+  PlantType: 000000000000000000000000
+  PlantImage:
+  - {fileID: 1401918887}
+  - {fileID: 576970293}
+  - {fileID: 1069827444}
 --- !u!1 &2051749740
 GameObject:
   m_ObjectHideFlags: 0
