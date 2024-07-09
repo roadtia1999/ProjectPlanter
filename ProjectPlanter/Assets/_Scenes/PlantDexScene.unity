@@ -302,8 +302,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   database:
   - {fileID: 11400000, guid: fc8d2f7255a649948bc7eb5329f17a53, type: 2}
-  - {fileID: 11400000, guid: 283dc705c23537b44b46b46f3a54e16a, type: 2}
   - {fileID: 11400000, guid: 21193c5b9f3d7eb45bcf63a592f534ae, type: 2}
+  - {fileID: 11400000, guid: 283dc705c23537b44b46b46f3a54e16a, type: 2}
   dexSprite: {fileID: 1874010138}
   dexTitleText: {fileID: 1334875336}
   dexDescText: {fileID: 892502872}
