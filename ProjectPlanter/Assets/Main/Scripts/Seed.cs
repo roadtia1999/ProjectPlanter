@@ -183,7 +183,10 @@ public class Seed : MonoBehaviour
 
             Sprite fPlantSprite = GetF_PlantSprite(PlantType[index]);
             if (fPlantSprite != null)
+            {
                 Plant[index].GetComponent<Image>().sprite = fPlantSprite;
+                PlayerPrefs.SetInt("PlantDexScene" + index, 1); // 식물 성장 정보를 PlayerPrefs에 저장
+            }
             
 
         }
