@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using System.IO;
+using System.Linq;
 
 
 // Records 씬의 작동 전반을 담당하는 코드입니다
@@ -65,11 +66,9 @@ public class RecordsSceneManager : MonoBehaviour
                     recordList.Add(tex);
                 }
             }
-
-            // 기록 이미지와 이름 초기화
-            SetPolaroid();
         }
-        else // 파일이 없으면
+        
+        if (!recordList.Any()) // 가져오기에 성공한 파일이 없으면
         {
             // UI 비활성화 후 기록 없음 메세지 출력
             leftButton.gameObject.SetActive(false);
@@ -78,7 +77,11 @@ public class RecordsSceneManager : MonoBehaviour
             polaroid.gameObject.SetActive(false);
             polaroidText.gameObject.SetActive(false);
             noRecordsMessage.gameObject.SetActive(true);
+            return; // 기록 이미지 초기화하지 않게 방지
         }
+
+        // 기록 이미지와 이름 초기화
+        SetPolaroid();
     }
 
     // Update is called once per frame
