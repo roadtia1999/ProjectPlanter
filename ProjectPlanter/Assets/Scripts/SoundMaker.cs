@@ -38,7 +38,14 @@ public class SoundMaker : MonoBehaviour
     // Start is called before the first frame update
     void Start() // 시작 시 저장된 볼륨 설정
     {
-        volume = PlayerPrefs.GetFloat("volume");
+        if (PlayerPrefs.HasKey("volume")) // 기존 볼륨 설정이 존재할 경우
+        {
+            volume = PlayerPrefs.GetFloat("volume"); // 기본 볼륨 설정에 맞춰 볼륨 설정
+        }
+        else // 볼륨을 설정하지 않은 경우
+        {
+            volume = 1f; // 최대 볼륨으로 설정
+        }
         SetVolume();
         foc = true;
 
