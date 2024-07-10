@@ -18,8 +18,16 @@ public class ButtonManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // 볼륨 슬라이더 값을 현재 볼륨에 맞추기
-        volumeSlider.value = PlayerPrefs.GetFloat("volume");
+        if (PlayerPrefs.HasKey("volume")) // 현재 볼륨 설정이 있는 경우
+        {
+            // 볼륨 슬라이더 값을 현재 볼륨에 맞추기
+            volumeSlider.value = PlayerPrefs.GetFloat("volume");
+        }
+        else // 볼륨 설정을 하지 않은 경우
+        {
+            // 최대 볼륨 상태를 유지
+            volumeSlider.value = 1f;
+        }
     }
 
     // Update is called once per frame
