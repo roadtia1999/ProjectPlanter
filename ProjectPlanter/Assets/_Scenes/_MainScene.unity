@@ -779,8 +779,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 61408eacf7f6c1b4d9a0aebf5a320b4f, type: 3}
   - {fileID: 21300000, guid: 5a0feecbceb49114d84e61dae7ba9217, type: 3}
   - {fileID: 21300000, guid: 3f03cc81556f2a84482b6d380b403e1b, type: 3}
-  seconds: 0
-  value: 000000000000000000000000
   RefreshPrefab: {fileID: 5113196028116105158, guid: d2cac901f1dc1ec49a6fa8b35f51f41f, type: 3}
   TrowelPrefab: {fileID: 8708120475489663375, guid: 3b3375d84ed42ba469ee4c7d32f7ba9d, type: 3}
   FertilizerPrefab: {fileID: 8144268408118472876, guid: 608f1e88cf2662a49bc69976efae6b9a, type: 3}
@@ -829,7 +827,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3568135c6837776478c7be2af3917203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsSave: 0
 --- !u!1 &515469818
 GameObject:
   m_ObjectHideFlags: 0
@@ -1148,9 +1145,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SeedSpr: {fileID: -323837509, guid: 77126e126038ebf42838fa33345f45c5, type: 3}
+  PlantingAfter: 
+  PlantingAfterString: 
   itemData: {fileID: 11400000, guid: ae8ec9d562c38834a86ba8f68fe9ebbb, type: 2}
   seconds: 000000000000000000000000
   PlantType: 000000000000000000000000
+  stack: 000000000000000000000000
   PlantImage:
   - {fileID: 1401918887}
   - {fileID: 576970293}
@@ -2004,8 +2004,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 61408eacf7f6c1b4d9a0aebf5a320b4f, type: 3}
   - {fileID: 21300000, guid: 5a0feecbceb49114d84e61dae7ba9217, type: 3}
   - {fileID: 21300000, guid: 3f03cc81556f2a84482b6d380b403e1b, type: 3}
-  seconds: 0
-  value: 000000000000000000000000
   RefreshPrefab: {fileID: 5113196028116105158, guid: d2cac901f1dc1ec49a6fa8b35f51f41f, type: 3}
   TrowelPrefab: {fileID: 8708120475489663375, guid: 3b3375d84ed42ba469ee4c7d32f7ba9d, type: 3}
   FertilizerPrefab: {fileID: 8144268408118472876, guid: 608f1e88cf2662a49bc69976efae6b9a, type: 3}
@@ -2805,13 +2803,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canPrefab: {fileID: 1692392960009092233, guid: b390c0da6ececf44dadff74c78adcb57, type: 3}
-  stack: 
   handPrefab: {fileID: 2739081855050027984, guid: 16e08f71d90519f47a339c5d9d1e09fc, type: 3}
   seedPrefab: {fileID: 9213043645334093031, guid: a569f94a8ffa86b428737cbdc6d41eab, type: 3}
   SeedSpr: {fileID: -323837509, guid: 77126e126038ebf42838fa33345f45c5, type: 3}
   seedPlanted: 0
-  bubleIndex: 0
-  potIndex: 0
   canvas: {fileID: 225422433}
   StateSpr:
   - {fileID: 21300000, guid: d2572378fab6c5a46a897c26f7c01055, type: 3}
@@ -3042,8 +3037,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 61408eacf7f6c1b4d9a0aebf5a320b4f, type: 3}
   - {fileID: 21300000, guid: 5a0feecbceb49114d84e61dae7ba9217, type: 3}
   - {fileID: 21300000, guid: 3f03cc81556f2a84482b6d380b403e1b, type: 3}
-  seconds: 0
-  value: 000000000000000000000000
   RefreshPrefab: {fileID: 5113196028116105158, guid: d2cac901f1dc1ec49a6fa8b35f51f41f, type: 3}
   TrowelPrefab: {fileID: 8708120475489663375, guid: 3b3375d84ed42ba469ee4c7d32f7ba9d, type: 3}
   FertilizerPrefab: {fileID: 8144268408118472876, guid: 608f1e88cf2662a49bc69976efae6b9a, type: 3}
@@ -3092,12 +3085,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8f7f01bbe33e774197be0a3c8d94a77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 0
-  prefabId: 0
   canvas: {fileID: 225422433}
   itemData:
   - {fileID: 11400000, guid: 9d39ee64c5cfce246836e608737fee98, type: 2}
   - {fileID: 11400000, guid: 3ef39e8f2f5d9a241b961ed0935c31c8, type: 2}
+  id: 0
+  prefabId: 0
 --- !u!1 &1725620372
 GameObject:
   m_ObjectHideFlags: 0
@@ -3365,9 +3358,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SeedSpr: {fileID: -323837509, guid: 77126e126038ebf42838fa33345f45c5, type: 3}
+  PlantingAfter: 
+  PlantingAfterString: 
   itemData: {fileID: 11400000, guid: ae8ec9d562c38834a86ba8f68fe9ebbb, type: 2}
   seconds: 000000000000000000000000
   PlantType: 000000000000000000000000
+  stack: 000000000000000000000000
   PlantImage:
   - {fileID: 1401918887}
   - {fileID: 576970293}
@@ -3839,9 +3835,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SeedSpr: {fileID: -323837509, guid: 77126e126038ebf42838fa33345f45c5, type: 3}
+  PlantingAfter: 
+  PlantingAfterString: 
   itemData: {fileID: 11400000, guid: ae8ec9d562c38834a86ba8f68fe9ebbb, type: 2}
   seconds: 000000000000000000000000
   PlantType: 000000000000000000000000
+  stack: 000000000000000000000000
   PlantImage:
   - {fileID: 1401918887}
   - {fileID: 576970293}

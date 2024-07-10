@@ -22,9 +22,10 @@ public class PlantStateManager : MonoBehaviour
     GameObject[] seed = new GameObject[3];
     GameObject[] bubleObject = new GameObject[3];
     TimeSpan[] timeDif = new TimeSpan[3];
+    public int[] painStack = new int[3];
 
-    public double seconds;
-    public int[] value = new int[3];
+    double seconds;
+    int[] value = new int[3];
     [Header("# Refresh")]
     public GameObject RefreshPrefab;
     private GameObject RefreshInstance;
@@ -44,7 +45,6 @@ public class PlantStateManager : MonoBehaviour
     // 클릭된 state의 인덱스
     int stateIndex;
     public Canvas canvas;
-
     private void Start()
     {
         
@@ -103,10 +103,9 @@ public class PlantStateManager : MonoBehaviour
     {
         //statex 구하기.
         stateIndex = btnIndex;
-
-        
-
     }
+
+
     void CheckAndResetStack(int index)
     {
         string stackTimeKey = "StackTime" + index;
@@ -131,6 +130,19 @@ public class PlantStateManager : MonoBehaviour
 
     }
 
+    void SetPainStack()
+    {
+        PlayerPrefs.SetInt("Pstack", 1);
+
+    }
+
+    void GetPainStack(int index)
+    {
+        painStack[index] += PlayerPrefs.GetInt("Pstack");
+    }
+
+
+
     //죽음 0 행복 1 아픔 2 목마름 3
     
     void State(int i)
@@ -139,7 +151,6 @@ public class PlantStateManager : MonoBehaviour
         GameObject FlowerDemo = Pot[i].transform.Find("FlowerDemo" + i).gameObject;
         Image PlantImage = PlantState[i].GetComponent<Image>();
 
-        //이 조건땜에 스프라이트에 아무것도 표시 안됌
         /*if (timeDifference.TotalHours <= 24)*/
         if (timeDifference.TotalSeconds <= 80)
             {
@@ -153,6 +164,8 @@ public class PlantStateManager : MonoBehaviour
             {
                 //state = pain
                 PlantImage.sprite = StateSpr[2];
+                SetPainStack();
+                
             }
 
             else if (stack[i] == 0)
@@ -169,6 +182,21 @@ public class PlantStateManager : MonoBehaviour
         {
             //아픔
             PlantImage.sprite = StateSpr[2];
+
+            GetPainStack(i);
+                Debug.Log(painStack[i] + " 페인스택 " + i);
+            if (painStack[i] > 1)
+            {
+                PlantImage.sprite = StateSpr[0];
+
+                if (PlantImage.sprite == StateSpr[0])
+                {
+                    // 2번 새싹 , 프리지아 데모.
+                    Sprout.SetActive(false);
+                    FlowerDemo.SetActive(false);
+
+                }
+            }
         }
 
         //2일동안 미접속 이라면
@@ -189,8 +217,9 @@ public class PlantStateManager : MonoBehaviour
             }
             
         }
-            
+    
     }
+
 
 
     public void StatePainOrDead(Button clickedButton)
@@ -326,18 +355,9 @@ public class PlantStateManager : MonoBehaviour
 
             // 초기화된 객체에만 bubleObject[stackindex] 활성화
             if (bubleObject[stateIndex] != null)
-            {
                 bubleObject[stateIndex].SetActive(true);
-            }
-            else
-            {
-                Debug.LogWarning("bubleObject[" + stateIndex + "]이(가) null입니다.");
-            }
+            
 
-        }
-        else
-        {
-            Debug.LogWarning("PlayerPrefs 초기화 실패.");
         }
 
     }

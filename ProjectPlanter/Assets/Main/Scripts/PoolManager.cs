@@ -9,10 +9,6 @@ public class PoolManager : MonoBehaviour
     public GameObject[] Event_prefab;
     List<GameObject>[] Event_pool;
 
-    [Header("# Plant")]
-    public GameObject[] Plant_prefab;
-    List<GameObject>[] Plant_pool;
-
     public static PoolManager instance;
 
 

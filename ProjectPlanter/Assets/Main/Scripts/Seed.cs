@@ -8,7 +8,7 @@ public class Seed : MonoBehaviour
 {
     public static Seed instance;
 
-    // [Header("# DateTime")]
+    
     //seed 스프라이트
     public Sprite SeedSpr;
 
@@ -16,23 +16,16 @@ public class Seed : MonoBehaviour
     public string PlantingAfter;
     public string PlantingAfterString;
 
-
-    // [Header("# DateTime")]
+    [Header("# DateTime")]
     // 게임 시작 시간
     private DateTime seedlastTime;
     //시간 차이 값.
     private TimeSpan timeDifference;
     public TimeSpan[] GrowTime = new TimeSpan[3];
 
-
-
-
-    // [Header("# ItemData")]
+    [Header("# ItemData")]
     //Itemdata에 FlowerSP 가져오는 용도
     public ItemData itemData;
-
-
-
 
     [Header("# Arrangement")]
     public int[] seconds = new int[3]; //각 화분에 시간값 체크
@@ -40,7 +33,6 @@ public class Seed : MonoBehaviour
     public int[] stack = new int[3]; //물 얼마나 뿌려졌는지 확인 가능.
     public Image[] PlantImage = new Image[3]; //PlantImage 타입별로 성장값 조정
 
-    
     //Array
     int eventOccur;
     int[] plantType = new int[3];
@@ -48,9 +40,6 @@ public class Seed : MonoBehaviour
     GameObject[] Pot = new GameObject[3];
     GameObject[] Sprout = new GameObject[3];
     GameObject[] Plant = new GameObject[3];
-    
-
-
     
     private void Awake()
     {        

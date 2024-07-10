@@ -8,7 +8,7 @@ public class EventManager : MonoBehaviour
 {
     public static EventManager instance;
 
-    // Event 동작
+    [Header("# EventMove")]
     float moveDuration = 2f; // 이동 시간
     float stopDuration = 1f; // 멈춤 시간
     float moveSpeed = 100f; // 이동 속도

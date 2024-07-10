@@ -22,17 +22,14 @@ public class MainBtnManager : MonoBehaviour
 
     [Header("# Seed")]
     public GameObject seedPrefab;
-    /*private GameObject seedInstance;*/
     public Sprite SeedSpr; // 변경할 씨앗 이미지 스프라이트
     public bool seedPlanted; // 씨앗 심어져있는지 여부
 
     [Header("etc")]
-    // 클릭된 버블의 인덱스
-    int bubleIndex;
-    // 클릭된 화분의 인덱스
-    int potIndex;
+    int bubleIndex; // 클릭된 버블의 인덱스
+    int potIndex; // 클릭된 화분의 인덱스 
 
-    //캔버스
+    [Header("Canvas")]
     public Canvas canvas;
     GameObject[] PlantState = new GameObject[3];
     GameObject[] Pot = new GameObject[3];
@@ -54,9 +51,6 @@ public class MainBtnManager : MonoBehaviour
             GameObject seedObject = GameObject.Find("seed" + i);
             PlantState[i] = Pot[i].transform.Find("PlantState" + i).gameObject;
 
-
-            // 심어져있는지 체크
-            // 심어져있다면
             if (seedPlanted)
             {
                 // 0값 받아오기.
@@ -77,7 +71,6 @@ public class MainBtnManager : MonoBehaviour
             }
 
         }
-        
 
     }
     private void Start()
@@ -105,19 +98,14 @@ public class MainBtnManager : MonoBehaviour
     // 버튼 클릭 시
     public void CanBtnClicked()
     {
-        
         CanClicked = !CanClicked;
 
-        // CanClicked가 true일 때
         if (CanClicked)
         {
-            
             if (canInstance == null)
-            {
                 canInstance = Instantiate(canPrefab, canvas.transform);
-            }
-            
         }
+
         else
         {
             Destroy(canInstance); 
@@ -278,11 +266,8 @@ public class MainBtnManager : MonoBehaviour
         {
             if (childImage.sprite == StateSpr[3])
             {
-
-                // 자식 오브젝트의 이미지를 행복 상태로 변경
                 childImage.sprite = StateSpr[1];
-
-                // 원하는 작업을 수행한 후 반복문을 종료합니다.
+   
                 break;
             }
         }

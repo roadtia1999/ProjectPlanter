@@ -21,7 +21,7 @@ MonoBehaviour:
     \uB4F1 \uC5EC\uB7EC \uC0C9\uAE54\uC758 \uC885\uC774 \uC874\uC7AC\uD55C\uB2E4.
     \uAF43\uB9D0\uC740 \uCC9C\uC9C4\uB09C\uB9CC, \uCCAD\uD568, \uC21C\uACB0, \uC601\uC6D0\uD55C
     \uC6B0\uC815 \uB4F1\uC774 \uC788\uB2E4."
-  itemIcon: {fileID: 21300000, guid: 168dfa1ae0c63224bb5a03168da8ad99, type: 3}
+  itemIcon: {fileID: 21300000, guid: 22f2458d4c2bf3443b0d62b03578abbb, type: 3}
   EventPrefab: {fileID: 0}
   TimeZone: 0
   PlantPrefab: {fileID: 7799762508918966397, guid: fe3973859fc84a64880537360abb2e0b, type: 3}
