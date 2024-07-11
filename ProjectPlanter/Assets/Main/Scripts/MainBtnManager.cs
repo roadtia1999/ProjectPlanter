@@ -114,7 +114,6 @@ public class MainBtnManager : MonoBehaviour
     }
 
     // 스택 추가 부분
-    // stack[x] 를 어떻게 다른 스크립트로 끌고올지.
     void CanStack()
     {
         int[] x = new int[3];

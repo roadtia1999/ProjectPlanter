@@ -15,6 +15,7 @@ public class PlantStateManager : MonoBehaviour
     //stack == 화분에 물뿌린 횟수
     public int[] stack = new int[3];
     string[] x = new string[3];
+    string[] y = new string[3];
     public Sprite[] StateSpr;
     GameObject[] PlantState = new GameObject[3];
     Button[] Plantstate = new Button[3];
@@ -23,9 +24,10 @@ public class PlantStateManager : MonoBehaviour
     GameObject[] bubleObject = new GameObject[3];
     TimeSpan[] timeDif = new TimeSpan[3];
     public int[] painStack = new int[3];
-
-    double seconds;
+    public int[] seconds = new int[3]; //각 화분에 시간값 체크
     int[] value = new int[3];
+
+
     [Header("# Refresh")]
     public GameObject RefreshPrefab;
     private GameObject RefreshInstance;
@@ -73,31 +75,56 @@ public class PlantStateManager : MonoBehaviour
                 StateImage.enabled = true;
 
             }
-
-
-            x[i] = PlayerPrefs.GetString("PlantingAfterTime" + i);
+            //시차 초기화 코드
+            //초기화를 하지 않으면 24시간 전에 재접속을 해도 
+            //시차는 계속 증가되어 dead로 만들어버림.
+            //그리하여 재접속 할 때마다 state를 바꾸고 난 다음 초기화
             
-
-            if (!string.IsNullOrEmpty(x[i]))
+            x[i] = PlayerPrefs.GetString("PlantingAfterTime" + i);
+            y[i] = PlayerPrefs.GetString("StateSaveTime" + i);
+            if (string.IsNullOrEmpty(y[i]) && !string.IsNullOrEmpty(x[i]))
             {
-
-                // 이전에 저장된 시간이 있다면 불러와서 DateTime으로 변환
-                chkDate = DateTime.Parse(x[i]);
-
-                DateTime now = DateTime.Now;
-
-                timeDifference = now - chkDate;
-                stack[i] = PlayerPrefs.GetInt("Stack" + i, 0); // 저장된 값이 없으면 0을 기본값으로 사용
-                CheckAndResetStack(i);
-                State(i);
+                Debug.Log("동작");
+                InsertTIme(i, x);
+                Debug.Log(timeDifference + " 초기화 되지 않은" + i);
 
             }
+
+            else if(!string.IsNullOrEmpty(y[i])) 
+            {
+                Debug.Log("동작2");
+                InsertTIme(i, y);
+                Debug.Log(timeDifference + " 초기화 된 시차" + i);
+            }
+
 
         }
         
     }
+    void InsertTIme(int i, string[] z)
+    {
 
-    
+        chkDate = DateTime.Parse(z[i]);
+
+        DateTime now = DateTime.Now;
+
+        timeDifference = now - chkDate;
+        Debug.Log(timeDifference + "초기화 되기 전 이전까지의 시간" + i);
+
+        stack[i] = PlayerPrefs.GetInt("Stack" + i, 0);
+        CheckAndResetStack(i);
+        State(i);
+        seconds[i] = (int)Math.Round(timeDifference.TotalSeconds);
+        timeDifference = TimeSpan.Zero;
+        if (timeDifference == TimeSpan.Zero)
+        {
+            string nowtime = DateTime.Now.ToString();
+            PlayerPrefs.SetString("StateSaveTime" + i, nowtime);
+        }
+
+
+    }
+        
 
     public void StateIndex(int btnIndex)
     {
@@ -116,7 +143,7 @@ public class PlantStateManager : MonoBehaviour
             DateTime lastSavedTime = DateTime.Parse(storedTime);
             TimeSpan timeDifference = DateTime.Now - lastSavedTime;
             timeDif[index] += timeDifference;
-            seconds = timeDif[index].TotalSeconds;
+            
             
             // 80초가 지나면 스택 초기화
             if (timeDif[index].TotalSeconds > 80)
@@ -165,6 +192,7 @@ public class PlantStateManager : MonoBehaviour
                 //state = pain
                 PlantImage.sprite = StateSpr[2];
                 SetPainStack();
+                GetPainStack(i);
                 
             }
 
@@ -185,12 +213,13 @@ public class PlantStateManager : MonoBehaviour
 
             GetPainStack(i);
                 Debug.Log(painStack[i] + " 페인스택 " + i);
-            if (painStack[i] > 1)
+            if (painStack[i] > 0)
             {
                 PlantImage.sprite = StateSpr[0];
 
                 if (PlantImage.sprite == StateSpr[0])
                 {
+                    Debug.Log("페인스택 으로 인한 죽음");
                     // 2번 새싹 , 프리지아 데모.
                     Sprout.SetActive(false);
                     FlowerDemo.SetActive(false);
@@ -382,18 +411,33 @@ public class PlantStateManager : MonoBehaviour
 
     public void RequreState()
     {
-        
+        //리큐어 시 스택값 1로 초기화 -> State Happy로 바꾸기
         PlayerPrefs.SetInt("Stack" + stateIndex, 1);
-
         int stackValue = PlayerPrefs.GetInt("Stack" + stateIndex);
         Debug.Log($"Stack{stateIndex}의 값: {stackValue}");
+
+        //++ PainStack 0으로 초기화.
+        PlayerPrefs.DeleteKey("Pstack");
+        int x = PlayerPrefs.GetInt("Pstack");
+        Debug.Log(x + " Pstack 초기화 값" + stateIndex);
 
     }
 
 
 
+/*    void OnApplicationQuit()
+    {
+        // 게임 종료 시 현재 시간 저장
+        for (int i = 0; i < 3; i++)
+        {
+            string savetime = DateTime.Now.ToString();
+            PlayerPrefs.SetString("StateSaveTime" + i, savetime);
 
-   
+        }
+    }
+*/
+
+
 
 
 }

@@ -32,8 +32,6 @@ public class Seed : MonoBehaviour
     public int[] PlantType = new int[3]; //화분 어디어디로 들어갔는지 확인 가능.
     public int[] stack = new int[3]; //물 얼마나 뿌려졌는지 확인 가능.
     public Image[] PlantImage = new Image[3]; //PlantImage 타입별로 성장값 조정
-
-    //Array
     int eventOccur;
     int[] plantType = new int[3];
     GameObject[] seedObject = new GameObject[3];
