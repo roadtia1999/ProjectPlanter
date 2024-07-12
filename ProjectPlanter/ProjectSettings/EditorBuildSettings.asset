@@ -12,8 +12,8 @@ EditorBuildSettings:
     path: Assets/_Scenes/MenuScene.unity
     guid: 910cd82dc97c66440a5f9a259f402bec
   - enabled: 1
-    path: Assets/_Scenes/Test_Scene/TestDexScene 1.unity
-    guid: ae91a4abbc242d343b14a02c246fe713
+    path: Assets/_Scenes/PlantDexScene.unity
+    guid: 4c74343af00e4424f9ccbe79592ea3cf
   - enabled: 1
     path: Assets/_Scenes/EventDexScene.unity
     guid: 8f391e4be780394478314093b47cf9e6
