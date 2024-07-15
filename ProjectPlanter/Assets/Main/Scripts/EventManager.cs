@@ -35,6 +35,7 @@ public class EventManager : MonoBehaviour
         Debug.Log(timeDif + " 타임매니저에서 가져온 시차");
 
         // 시간 차이가 3초 이상일 때 랜덤 이벤트 발생
+        //혹은 특정 행동 했을 시 로 변경 가능.
         if (timeDif.TotalSeconds >= 3)
         {
             int randomEvent = UnityEngine.Random.Range(0, itemData.Length);
@@ -191,7 +192,7 @@ public class EventManager : MonoBehaviour
                     // 이동 방향으로 Mite 위치 변경
                     evMite.anchoredPosition += moveDirection * moveSpeed * Time.deltaTime;
 
-                    // 진드기가 경계 밖으로 나가지 않게끔 조절
+                    // 벌이 경계 밖으로 나가지 않게끔 조절
                     eventPosition = evMite.anchoredPosition;
                     eventPosition.x = Mathf.Clamp(eventPosition.x, minX, maxX);
                     evMite.anchoredPosition = eventPosition;
