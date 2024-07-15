@@ -627,7 +627,6 @@ GameObject:
   - component: {fileID: 384435324}
   - component: {fileID: 384435323}
   - component: {fileID: 384435322}
-  - component: {fileID: 384435325}
   m_Layer: 5
   m_Name: PlantState2
   m_TagString: Untagged
@@ -699,7 +698,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 384435325}
+      - m_Target: {fileID: 1367103628}
         m_TargetAssemblyTypeName: PlantStateManager, Assembly-CSharp
         m_MethodName: StateIndex
         m_Mode: 3
@@ -711,7 +710,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 384435325}
+      - m_Target: {fileID: 1367103628}
         m_TargetAssemblyTypeName: PlantStateManager, Assembly-CSharp
         m_MethodName: StatePainOrDead
         m_Mode: 2
@@ -761,28 +760,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 384435320}
   m_CullTransparentMesh: 1
---- !u!114 &384435325
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 384435320}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97ade5eea2964924094c45f5d0fe5785, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stack: 000000000000000000000000
-  StateSpr:
-  - {fileID: 21300000, guid: d2572378fab6c5a46a897c26f7c01055, type: 3}
-  - {fileID: 21300000, guid: 61408eacf7f6c1b4d9a0aebf5a320b4f, type: 3}
-  - {fileID: 21300000, guid: 5a0feecbceb49114d84e61dae7ba9217, type: 3}
-  - {fileID: 21300000, guid: 3f03cc81556f2a84482b6d380b403e1b, type: 3}
-  RefreshPrefab: {fileID: 5113196028116105158, guid: d2cac901f1dc1ec49a6fa8b35f51f41f, type: 3}
-  TrowelPrefab: {fileID: 8708120475489663375, guid: 3b3375d84ed42ba469ee4c7d32f7ba9d, type: 3}
-  FertilizerPrefab: {fileID: 8144268408118472876, guid: 608f1e88cf2662a49bc69976efae6b9a, type: 3}
-  canvas: {fileID: 225422433}
 --- !u!1 &484584010
 GameObject:
   m_ObjectHideFlags: 0
@@ -1066,7 +1043,6 @@ GameObject:
   - component: {fileID: 593142601}
   - component: {fileID: 593142603}
   - component: {fileID: 593142602}
-  - component: {fileID: 593142604}
   m_Layer: 5
   m_Name: seed2
   m_TagString: Untagged
@@ -1132,29 +1108,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 593142600}
   m_CullTransparentMesh: 1
---- !u!114 &593142604
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 593142600}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: caf8ab13d03e0284fba6f7aa4218eb32, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SeedSpr: {fileID: -323837509, guid: 77126e126038ebf42838fa33345f45c5, type: 3}
-  PlantingAfter: 
-  PlantingAfterString: 
-  itemData: {fileID: 11400000, guid: ae8ec9d562c38834a86ba8f68fe9ebbb, type: 2}
-  seconds: 000000000000000000000000
-  PlantType: 000000000000000000000000
-  stack: 000000000000000000000000
-  PlantImage:
-  - {fileID: 1401918887}
-  - {fileID: 576970293}
-  - {fileID: 1069827444}
 --- !u!1 &637851912
 GameObject:
   m_ObjectHideFlags: 0
@@ -1424,7 +1377,6 @@ MonoBehaviour:
   Event_prefab:
   - {fileID: 5801328009670530610, guid: 790be231d4ff95e4193fd76950ec5a1b, type: 3}
   - {fileID: 1953114942814592296, guid: 9c2afa90c5cfd6842a756f3b27e0f6af, type: 3}
-  Plant_prefab: []
 --- !u!1 &669086409
 GameObject:
   m_ObjectHideFlags: 0
@@ -1852,7 +1804,6 @@ GameObject:
   - component: {fileID: 927643795}
   - component: {fileID: 927643794}
   - component: {fileID: 927643793}
-  - component: {fileID: 927643796}
   m_Layer: 5
   m_Name: PlantState1
   m_TagString: Untagged
@@ -1924,7 +1875,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 384435325}
+      - m_Target: {fileID: 1367103628}
         m_TargetAssemblyTypeName: PlantStateManager, Assembly-CSharp
         m_MethodName: StateIndex
         m_Mode: 3
@@ -1936,7 +1887,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 384435325}
+      - m_Target: {fileID: 1367103628}
         m_TargetAssemblyTypeName: PlantStateManager, Assembly-CSharp
         m_MethodName: StatePainOrDead
         m_Mode: 2
@@ -1986,28 +1937,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 927643791}
   m_CullTransparentMesh: 1
---- !u!114 &927643796
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 927643791}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97ade5eea2964924094c45f5d0fe5785, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stack: 000000000000000000000000
-  StateSpr:
-  - {fileID: 21300000, guid: d2572378fab6c5a46a897c26f7c01055, type: 3}
-  - {fileID: 21300000, guid: 61408eacf7f6c1b4d9a0aebf5a320b4f, type: 3}
-  - {fileID: 21300000, guid: 5a0feecbceb49114d84e61dae7ba9217, type: 3}
-  - {fileID: 21300000, guid: 3f03cc81556f2a84482b6d380b403e1b, type: 3}
-  RefreshPrefab: {fileID: 5113196028116105158, guid: d2cac901f1dc1ec49a6fa8b35f51f41f, type: 3}
-  TrowelPrefab: {fileID: 8708120475489663375, guid: 3b3375d84ed42ba469ee4c7d32f7ba9d, type: 3}
-  FertilizerPrefab: {fileID: 8144268408118472876, guid: 608f1e88cf2662a49bc69976efae6b9a, type: 3}
-  canvas: {fileID: 225422433}
 --- !u!1 &962515391
 GameObject:
   m_ObjectHideFlags: 0
@@ -2300,6 +2229,61 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 997290614}
   m_CullTransparentMesh: 1
+--- !u!1 &1056376673
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1056376674}
+  - component: {fileID: 1056376675}
+  m_Layer: 0
+  m_Name: SeedManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1056376674
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1056376673}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1180544093}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1056376675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1056376673}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: caf8ab13d03e0284fba6f7aa4218eb32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SeedSpr: {fileID: -323837509, guid: 77126e126038ebf42838fa33345f45c5, type: 3}
+  PlantingAfter: 
+  PlantingAfterString: 
+  itemData: {fileID: 11400000, guid: ae8ec9d562c38834a86ba8f68fe9ebbb, type: 2}
+  seconds: 000000000000000000000000
+  PlantType: 000000000000000000000000
+  stack: 000000000000000000000000
+  PlantImage:
+  - {fileID: 1401918887}
+  - {fileID: 576970293}
+  - {fileID: 1069827444}
 --- !u!1 &1069827442
 GameObject:
   m_ObjectHideFlags: 0
@@ -2484,7 +2468,8 @@ Transform:
   - {fileID: 484584011}
   - {fileID: 1707870469}
   - {fileID: 651850272}
-  - {fileID: 1600943787}
+  - {fileID: 1367103627}
+  - {fileID: 1056376674}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2697,6 +2682,62 @@ RectTransform:
   m_AnchoredPosition: {x: -0.000026226, y: -2.6857}
   m_SizeDelta: {x: 181.1, y: 185.2}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1367103626
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1367103627}
+  - component: {fileID: 1367103628}
+  m_Layer: 0
+  m_Name: PlantStateManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1367103627
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1367103626}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1180544093}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1367103628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1367103626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97ade5eea2964924094c45f5d0fe5785, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StateSpr:
+  - {fileID: 21300000, guid: d2572378fab6c5a46a897c26f7c01055, type: 3}
+  - {fileID: 21300000, guid: 61408eacf7f6c1b4d9a0aebf5a320b4f, type: 3}
+  - {fileID: 21300000, guid: 5a0feecbceb49114d84e61dae7ba9217, type: 3}
+  - {fileID: 21300000, guid: 3f03cc81556f2a84482b6d380b403e1b, type: 3}
+  painStack: 000000000000000000000000
+  TimeDifseconds: 000000000000000000000000
+  value: 000000000000000000000000
+  RefreshPrefab: {fileID: 5113196028116105158, guid: d2cac901f1dc1ec49a6fa8b35f51f41f, type: 3}
+  TrowelPrefab: {fileID: 8708120475489663375, guid: 3b3375d84ed42ba469ee4c7d32f7ba9d, type: 3}
+  FertilizerPrefab: {fileID: 8144268408118472876, guid: 608f1e88cf2662a49bc69976efae6b9a, type: 3}
+  canvas: {fileID: 225422433}
 --- !u!1 &1401918885
 GameObject:
   m_ObjectHideFlags: 0
@@ -2828,51 +2869,6 @@ Transform:
   m_Father: {fileID: 1180544093}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1600943786
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1600943787}
-  - component: {fileID: 1600943788}
-  m_Layer: 0
-  m_Name: StateTrigger
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1600943787
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1600943786}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1180544093}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1600943788
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1600943786}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 347526e88c78afd4db1c8eea63cb73b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  seedScript: {fileID: 0}
 --- !u!1 &1621580104
 GameObject:
   m_ObjectHideFlags: 0
@@ -2885,7 +2881,6 @@ GameObject:
   - component: {fileID: 1621580108}
   - component: {fileID: 1621580107}
   - component: {fileID: 1621580106}
-  - component: {fileID: 1621580109}
   m_Layer: 5
   m_Name: PlantState0
   m_TagString: Untagged
@@ -2957,7 +2952,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 384435325}
+      - m_Target: {fileID: 1367103628}
         m_TargetAssemblyTypeName: PlantStateManager, Assembly-CSharp
         m_MethodName: StateIndex
         m_Mode: 3
@@ -2969,7 +2964,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 384435325}
+      - m_Target: {fileID: 1367103628}
         m_TargetAssemblyTypeName: PlantStateManager, Assembly-CSharp
         m_MethodName: StatePainOrDead
         m_Mode: 2
@@ -3019,28 +3014,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1621580104}
   m_CullTransparentMesh: 1
---- !u!114 &1621580109
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1621580104}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97ade5eea2964924094c45f5d0fe5785, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stack: 000000000000000000000000
-  StateSpr:
-  - {fileID: 21300000, guid: d2572378fab6c5a46a897c26f7c01055, type: 3}
-  - {fileID: 21300000, guid: 61408eacf7f6c1b4d9a0aebf5a320b4f, type: 3}
-  - {fileID: 21300000, guid: 5a0feecbceb49114d84e61dae7ba9217, type: 3}
-  - {fileID: 21300000, guid: 3f03cc81556f2a84482b6d380b403e1b, type: 3}
-  RefreshPrefab: {fileID: 5113196028116105158, guid: d2cac901f1dc1ec49a6fa8b35f51f41f, type: 3}
-  TrowelPrefab: {fileID: 8708120475489663375, guid: 3b3375d84ed42ba469ee4c7d32f7ba9d, type: 3}
-  FertilizerPrefab: {fileID: 8144268408118472876, guid: 608f1e88cf2662a49bc69976efae6b9a, type: 3}
-  canvas: {fileID: 225422433}
 --- !u!1 &1707870468
 GameObject:
   m_ObjectHideFlags: 0
@@ -3279,7 +3252,6 @@ GameObject:
   - component: {fileID: 1846099469}
   - component: {fileID: 1846099471}
   - component: {fileID: 1846099470}
-  - component: {fileID: 1846099472}
   m_Layer: 5
   m_Name: seed0
   m_TagString: Untagged
@@ -3345,29 +3317,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1846099468}
   m_CullTransparentMesh: 1
---- !u!114 &1846099472
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1846099468}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: caf8ab13d03e0284fba6f7aa4218eb32, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SeedSpr: {fileID: -323837509, guid: 77126e126038ebf42838fa33345f45c5, type: 3}
-  PlantingAfter: 
-  PlantingAfterString: 
-  itemData: {fileID: 11400000, guid: ae8ec9d562c38834a86ba8f68fe9ebbb, type: 2}
-  seconds: 000000000000000000000000
-  PlantType: 000000000000000000000000
-  stack: 000000000000000000000000
-  PlantImage:
-  - {fileID: 1401918887}
-  - {fileID: 576970293}
-  - {fileID: 1069827444}
 --- !u!1 &1848809562
 GameObject:
   m_ObjectHideFlags: 0
@@ -3756,7 +3705,6 @@ GameObject:
   - component: {fileID: 1998906206}
   - component: {fileID: 1998906208}
   - component: {fileID: 1998906207}
-  - component: {fileID: 1998906209}
   m_Layer: 5
   m_Name: seed1
   m_TagString: Untagged
@@ -3822,29 +3770,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1998906205}
   m_CullTransparentMesh: 1
---- !u!114 &1998906209
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1998906205}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: caf8ab13d03e0284fba6f7aa4218eb32, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SeedSpr: {fileID: -323837509, guid: 77126e126038ebf42838fa33345f45c5, type: 3}
-  PlantingAfter: 
-  PlantingAfterString: 
-  itemData: {fileID: 11400000, guid: ae8ec9d562c38834a86ba8f68fe9ebbb, type: 2}
-  seconds: 000000000000000000000000
-  PlantType: 000000000000000000000000
-  stack: 000000000000000000000000
-  PlantImage:
-  - {fileID: 1401918887}
-  - {fileID: 576970293}
-  - {fileID: 1069827444}
 --- !u!1 &2051749740
 GameObject:
   m_ObjectHideFlags: 0

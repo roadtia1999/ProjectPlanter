@@ -104,6 +104,8 @@ public class Seed : MonoBehaviour
         TimeDifGrow(GrowTime[i], i);
         
         seconds[i] = (int)Math.Round(GrowTime[i].TotalSeconds);
+
+        
         
     }
 
@@ -113,6 +115,7 @@ public class Seed : MonoBehaviour
     //30~60 Y_Flower
     void TimeDifGrow(TimeSpan timeDiff, int index)
     {
+        Debug.Log(timeDiff + "seed.cs 矫瞒蔼 犬牢");
         // 抗: 10 ~ 29
         //2老. 1~2老 货较 棺 Y_Flower 3老 采
         if (timeDiff.TotalSeconds >= 10 && timeDiff.TotalSeconds < 30)

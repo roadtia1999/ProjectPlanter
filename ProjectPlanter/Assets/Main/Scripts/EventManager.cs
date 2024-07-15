@@ -38,6 +38,7 @@ public class EventManager : MonoBehaviour
         if (timeDif.TotalSeconds >= 3)
         {
             int randomEvent = UnityEngine.Random.Range(0, itemData.Length);
+            Debug.Log(randomEvent + " 랜덤 이벤트 값");
             TriggerRandomEvent(randomEvent);
             
         }
