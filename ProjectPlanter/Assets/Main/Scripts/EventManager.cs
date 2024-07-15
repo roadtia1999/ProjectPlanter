@@ -191,7 +191,7 @@ public class EventManager : MonoBehaviour
                     // 이동 방향으로 Mite 위치 변경
                     evMite.anchoredPosition += moveDirection * moveSpeed * Time.deltaTime;
 
-                    // 벌이 경계 밖으로 나가지 않게끔 조절
+                    // 진드기가 경계 밖으로 나가지 않게끔 조절
                     eventPosition = evMite.anchoredPosition;
                     eventPosition.x = Mathf.Clamp(eventPosition.x, minX, maxX);
                     evMite.anchoredPosition = eventPosition;
