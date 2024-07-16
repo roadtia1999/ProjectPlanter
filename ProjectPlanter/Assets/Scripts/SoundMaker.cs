@@ -78,11 +78,13 @@ public class SoundMaker : MonoBehaviour
             // 만약 UI가 클릭된 것이 맞다면
             if (results != null)
             {
-                // 버튼인지 확인 후 버튼 클릭 사운드 출력
+                // 확인 후 버튼 클릭 사운드 출력
                 foreach (RaycastResult result in results)
                 {
                     Button button = result.gameObject.GetComponent<Button>();
-                    if (button != null)
+                    Toggle toggle = result.gameObject.GetComponent<Toggle>();
+
+                    if (button != null || toggle != null) // 버튼이나 토글이 클릭되었는지 확인
                     {
                         buttonClick.Play();
                         break;
@@ -104,20 +106,24 @@ public class SoundMaker : MonoBehaviour
     private void OnApplicationFocus(bool focus)
     {
         // 설정에서 비활성화 시 음소거를 설정한 경우에만 실행
-        if (PlayerPrefs.GetInt("disableMute") == 1)
+        // 기본 설정이 없다면 기본적으로는 비활성화 시 음소거 하지 않음
+        if (PlayerPrefs.HasKey("disableMute"))
         {
-            float volumeF;
-            foc = focus; // Update의 음량 설정보다 우선시
+            if (PlayerPrefs.GetInt("disableMute") == 1) // 비활성화 시 음소거 체크가 된 경우
+            {
+                float volumeF;
+                foc = focus; // Update의 음량 설정보다 우선시
 
-            if (!focus) // 비활성화 시 음소거
-            {
-                volumeF = 0;
+                if (!focus) // 비활성화 시 음소거
+                {
+                    volumeF = 0;
+                }
+                else // 활성화 시 원래 볼륨으로 되돌림
+                {
+                    volumeF = PlayerPrefs.GetFloat("volume");
+                }
+                SetVolume(volumeF);
             }
-            else // 활성화 시 원래 볼륨으로 되돌림
-            {
-                volumeF = PlayerPrefs.GetFloat("volume");
-            }
-            SetVolume(volumeF);
         }
     }
 
