@@ -15,8 +15,7 @@ public class ButtonManager : MonoBehaviour
     public Slider volumeSlider;
     public Toggle DisableMuteToggle;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         if (PlayerPrefs.HasKey("volume")) // 현재 볼륨 설정이 있는 경우
         {
@@ -28,12 +27,22 @@ public class ButtonManager : MonoBehaviour
             // 최대 볼륨 상태를 유지
             volumeSlider.value = 1f;
         }
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (PlayerPrefs.HasKey("disableMute")) // 비활성화 시 음소거 설정이 있는 경우
+        {
+            if (PlayerPrefs.GetInt("disableMute") == 1) // 비활성화 시 음소거 체크가 되어 있다면
+            {
+                DisableMuteToggle.isOn = true; // 토글 체크
+            }
+            else // 비활성화 시 음소거 체크가 되어 있지 않다면
+            {
+                DisableMuteToggle.isOn = false; // 토클 체크 끄기
+            }
+        }
+        else // 기존에 비활성화 시 음소거 설정을 하지 않은 경우
+        {
+            DisableMuteToggle.isOn = false; // 기본 설정 (토글 체크 끄기)
+        }
     }
 
     public void ExitButtonClicked() // 나가기 버튼 클릭
