@@ -102,13 +102,13 @@ public class PlantStateManager : MonoBehaviour
             y[i] = PlayerPrefs.GetString("StateSaveTime" + i);
             if (string.IsNullOrEmpty(y[i]) && !string.IsNullOrEmpty(x[i]))
             {
-                Debug.Log("Y없고 X 존재");
+                
                 InsertTIme(i, x);
             }
 
             else if(!string.IsNullOrEmpty(y[i])) 
             {
-                Debug.Log("Y만 존재");
+                
                 InsertTIme(i, y);   
             }
 
@@ -123,13 +123,11 @@ public class PlantStateManager : MonoBehaviour
 
         DateTime now = DateTime.Now;
 
-        Debug.Log(chkDate + " chkDate 값 " + i);
-        Debug.Log(now + " 현재시간 값 " + i);
         timeDifference = now - chkDate;
 
         //재접 시 시간 표시.
         /*Debug.Log(timeDifference + "초기화 되기 전 이전까지의 시간" + i);*/
-        Debug.Log(timeDifference.TotalSeconds + " CHK time" + i);
+        
         stack[i] = PlayerPrefs.GetInt("Stack" + i, 0);
         CheckAndResetStack(i);
         State(i);
@@ -407,7 +405,7 @@ public class PlantStateManager : MonoBehaviour
     }
 
 
-    void ResetPrefs()
+    public void ResetPrefs()
     {
         
         PlayerPrefs.DeleteKey("Stack" + stateIndex);
@@ -426,8 +424,12 @@ public class PlantStateManager : MonoBehaviour
 
             // 초기화된 객체에만 bubleObject[stackindex] 활성화
             if (bubleObject[stateIndex] != null)
+            {
                 bubleObject[stateIndex].SetActive(true);
-            
+                Debug.Log("초기화");
+            }    
+
+
 
         }
 

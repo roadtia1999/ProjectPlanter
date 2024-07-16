@@ -38,7 +38,10 @@ public class Seed : MonoBehaviour
     GameObject[] Pot = new GameObject[3];
     GameObject[] Sprout = new GameObject[3];
     GameObject[] Plant = new GameObject[3];
-    
+    GameObject[] PlantState= new GameObject[3];
+    GameObject[] bubleObject = new GameObject[3];
+
+    int Flowerindex;
     private void Awake()
     {        
         instance = this;
@@ -54,7 +57,9 @@ public class Seed : MonoBehaviour
             Pot[i] = GameObject.Find("Pot" + i);
             Sprout[i] = Pot[i].transform.Find("Sprout" + i).gameObject;
             Plant[i] = Pot[i].transform.Find("FlowerDemo" + i).gameObject;
-            
+            PlantState[i] = Pot[i].transform.Find("PlantState" + i).gameObject;
+            bubleObject[i] = Pot[i].transform.Find("Button Buble" + i).gameObject;
+
             string PlantedTimeString = PlayerPrefs.GetString("PlantingAfterTime"+i);
             
             if (!string.IsNullOrEmpty(PlantedTimeString))
@@ -115,7 +120,7 @@ public class Seed : MonoBehaviour
     //30~60 Y_Flower
     void TimeDifGrow(TimeSpan timeDiff, int index)
     {
-        Debug.Log(timeDiff + "seed.cs 시차값 확인");
+        
         // 예: 10 ~ 29
         //2일. 1~2일 새싹 및 Y_Flower 3일 꽃
         if (timeDiff.TotalSeconds >= 10 && timeDiff.TotalSeconds < 30)
@@ -267,6 +272,61 @@ public class Seed : MonoBehaviour
         }
     }
 
+
+
+    public void FLowerIndex(int btnIndex)
+    {
+        //버블x 구하기.
+        Flowerindex = btnIndex;
+
+    }
+
+    public void harvest()
+    {
+
+        Image buttonImage = PlantState[Flowerindex].GetComponent<Image>();
+        if (Plant[Flowerindex].activeSelf == true)
+        {
+            if (PlantImage[Flowerindex].sprite == GetF_PlantSprite(0) || PlantImage[Flowerindex].sprite == GetF_PlantSprite(1)
+                || PlantImage[Flowerindex].sprite == GetF_PlantSprite(2))
+            {
+                Debug.Log(Flowerindex+"실행");
+                Plant[Flowerindex].SetActive(false);
+                buttonImage.enabled = false; // 숨기기
+                ResetFlower();
+            }
+
+        }
+
+    }
+
+    void ResetFlower()
+    {
+        PlayerPrefs.DeleteKey("Stack" + Flowerindex);
+        PlayerPrefs.DeleteKey("PlantingAfterTime" + Flowerindex);
+        PlayerPrefs.DeleteKey("PlantType" + Flowerindex);
+        PlayerPrefs.DeleteKey("Button Buble" + Flowerindex + "Clicked" + Flowerindex);
+        PlayerPrefs.DeleteKey("StateSaveTime" + Flowerindex);
+        // 추가: 삭제 후 초기화된지 확인하는 코드
+        bool stackDeleted = !PlayerPrefs.HasKey("Stack" + Flowerindex);
+        bool plantingAfterTimeDeleted = !PlayerPrefs.HasKey("PlantingAfterTime" + Flowerindex);
+        bool plantTypeDeleted = !PlayerPrefs.HasKey("PlantType" + Flowerindex);
+        bool buttonBubleDeleted = !PlayerPrefs.HasKey("Button Buble" + Flowerindex + "Clicked" + Flowerindex);
+
+        if (stackDeleted && plantingAfterTimeDeleted && plantTypeDeleted && buttonBubleDeleted)
+        {
+
+            // 초기화된 객체에만 bubleObject[stackindex] 활성화
+            if (bubleObject[Flowerindex] != null)
+            {
+                bubleObject[Flowerindex].SetActive(true);
+                Debug.Log("초기화");
+            }
+
+
+
+        }
+    }
 
     // 씨앗 찾기.
     // 씨앗 심어진 후 종료.
