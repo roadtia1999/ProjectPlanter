@@ -1276,6 +1276,18 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1480454273}
         m_TargetAssemblyTypeName: MainBtnManager, Assembly-CSharp
+        m_MethodName: Re_reset
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1480454273}
+        m_TargetAssemblyTypeName: MainBtnManager, Assembly-CSharp
         m_MethodName: BubleCilck
         m_Mode: 2
         m_Arguments:
@@ -2105,6 +2117,18 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1480454273}
         m_TargetAssemblyTypeName: MainBtnManager, Assembly-CSharp
+        m_MethodName: Re_reset
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1480454273}
+        m_TargetAssemblyTypeName: MainBtnManager, Assembly-CSharp
         m_MethodName: BubleCilck
         m_Mode: 2
         m_Arguments:
@@ -2251,6 +2275,18 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1480454273}
         m_TargetAssemblyTypeName: MainBtnManager, Assembly-CSharp
+        m_MethodName: Re_reset
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1480454273}
+        m_TargetAssemblyTypeName: MainBtnManager, Assembly-CSharp
         m_MethodName: BubleCilck
         m_Mode: 2
         m_Arguments:
@@ -2354,6 +2390,8 @@ MonoBehaviour:
   - {fileID: 1401918887}
   - {fileID: 576970293}
   - {fileID: 1069827444}
+  canvas: {fileID: 225422433}
+  HarvestPrefab: {fileID: 880709198340150511, guid: 31298a466794a8843b19f35ea78ef4d1, type: 3}
 --- !u!1 &1069827442
 GameObject:
   m_ObjectHideFlags: 0
@@ -2626,7 +2664,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.4716981, g: 0.42052332, b: 0.44855085, a: 1}
+  m_Color: {r: 0.0754717, g: 0.05734254, b: 0.056603774, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3174,7 +3212,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1481149648
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3193,8 +3231,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -709, y: 109}
-  m_SizeDelta: {x: 536.9821, y: 463.5674}
+  m_AnchoredPosition: {x: -683.58624, y: 104}
+  m_SizeDelta: {x: 587.8096, y: 184.0158}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1481149649
 MonoBehaviour:
@@ -3216,7 +3254,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 2a68cd3dcd277dc42812250769cb7181, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 569d6863e1c6f2740871b5ec7d54b4f8, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

@@ -42,6 +42,12 @@ public class Seed : MonoBehaviour
     GameObject[] bubleObject = new GameObject[3];
 
     int Flowerindex;
+
+    [Header("# Harvest")]
+    public Canvas canvas;
+    public GameObject HarvestPrefab;
+    private GameObject HarvestInstance;
+    Image buttonImage;
     private void Awake()
     {        
         instance = this;
@@ -83,6 +89,7 @@ public class Seed : MonoBehaviour
         }
         
     }
+
 
 
     //Awake -> TimeDifChk -> TimeDifGrow -> CheckMethod -> CheckMethodXX
@@ -283,20 +290,48 @@ public class Seed : MonoBehaviour
 
     public void harvest()
     {
+        if (HarvestInstance == null)
+        {
+            HarvestInstance = Instantiate(HarvestPrefab, canvas.transform);
+            HarvestInstance.AddComponent<CanvasGroup>();
+        }
 
-        Image buttonImage = PlantState[Flowerindex].GetComponent<Image>();
-        if (Plant[Flowerindex].activeSelf == true)
+        buttonImage = PlantState[Flowerindex].GetComponent<Image>();
+        if (Plant[Flowerindex].activeSelf)
         {
             if (PlantImage[Flowerindex].sprite == GetF_PlantSprite(0) || PlantImage[Flowerindex].sprite == GetF_PlantSprite(1)
                 || PlantImage[Flowerindex].sprite == GetF_PlantSprite(2))
             {
+             
                 Debug.Log(Flowerindex+"실행");
                 Plant[Flowerindex].SetActive(false);
+                if (!Plant[Flowerindex].activeSelf)
+                {
+                    // 클릭된 버튼의 RectTransform을 불러오기
+                    RectTransform btnRectTransform = Plant[Flowerindex].GetComponent<RectTransform>();
+
+                    // Hnad 오브젝트의 RectTransform을 불러오기.
+                    RectTransform HarvestRectTransform = HarvestInstance.GetComponent<RectTransform>();
+
+                    // 버튼의 위치를 기준으로 hand 오브젝트의 위치를 설정.
+                    Vector3 newPosition = btnRectTransform.position;
+                    newPosition.y -= 300f; // 버튼의 높이만큼 아래로 이동
+                    HarvestRectTransform.position = newPosition;
+                }
+                
                 buttonImage.enabled = false; // 숨기기
                 ResetFlower();
             }
 
         }
+
+    }
+
+    public void HarvestAniEnd()
+    {
+        Debug.Log("종료");
+        Destroy(HarvestInstance);
+        HarvestInstance = null;
 
     }
 
@@ -323,9 +358,9 @@ public class Seed : MonoBehaviour
                 Debug.Log("초기화");
             }
 
-
-
         }
+
+        
     }
 
     // 씨앗 찾기.

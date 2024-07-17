@@ -73,7 +73,7 @@ public class EventManager : MonoBehaviour
         switch (randomEvent)
         {
             case 0: Bee(); break;
-            case 1: Mite(); break;
+            /*case 1: Mite(); break;*/
             default:  break;
         }
         PlayerPrefs.SetInt("EventDexScene" + randomEvent, 1); // 이벤트 발생 정보를 PlayerPrefs에 저장

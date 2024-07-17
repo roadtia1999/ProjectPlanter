@@ -252,6 +252,15 @@ public class MainBtnManager : MonoBehaviour
 
     }
 
+    public void Re_reset()
+    {
+        PlayerPrefs.DeleteKey("Stack" + bubleIndex);
+        PlayerPrefs.DeleteKey("PlantingAfterTime" + bubleIndex);
+        PlayerPrefs.DeleteKey("PlantType" + bubleIndex);
+        PlayerPrefs.DeleteKey("Button Buble" + bubleIndex + "Clicked" + bubleIndex);
+        PlayerPrefs.DeleteKey("StateSaveTime" + bubleIndex);
+        Debug.Log("한번더 초기화");
+    }
 
 
     //목마름은 애초에 0이였기에 발생되고
