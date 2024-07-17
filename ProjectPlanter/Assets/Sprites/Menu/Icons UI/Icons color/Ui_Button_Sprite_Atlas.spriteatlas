@@ -75,5 +75,5 @@ SpriteAtlas:
   - 93
   - 90
   m_RenderDataMap: {}
-  m_Tag: New Sprite Atlas
+  m_Tag: Ui_Button_Sprite_Atlas
   m_IsVariant: 0
