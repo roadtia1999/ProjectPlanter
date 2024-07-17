@@ -1,0 +1,79 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Ui_Button_Sprite_Atlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 0
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: f0d6ea189fe88b941a6c7fefa35109cd, type: 3}
+    - {fileID: 2800000, guid: a0ba6cbb66a2cd14da348d59e46d9afd, type: 3}
+    - {fileID: 2800000, guid: 732c697a802de274e9e45e0ba7407656, type: 3}
+    - {fileID: 2800000, guid: 931ed2b1ca8cd0d4d846e3fc10ad1a79, type: 3}
+    - {fileID: 2800000, guid: a71ff9b329f1080469cf30d5ba47c5aa, type: 3}
+    - {fileID: 2800000, guid: 61b2ed504664888488353f466acddaf7, type: 3}
+    - {fileID: 2800000, guid: 3f3d8714997c61d488ad57e05822a5a6, type: 3}
+    - {fileID: 2800000, guid: 8be7816805b133f4abd2eb613de3e2d0, type: 3}
+    - {fileID: 2800000, guid: 9a6485cbaaee0e4439014852db82347a, type: 3}
+    - {fileID: 2800000, guid: cef828bf87076e9409e35a8f0ef63485, type: 3}
+    - {fileID: 2800000, guid: 39f32d4d899bec84c93ccfb832d7af49, type: 3}
+    - {fileID: 2800000, guid: 0696ef0b2b12b934a9019221c6a63a63, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 61b2ed504664888488353f466acddaf7, type: 3}
+  - {fileID: 21300000, guid: 931ed2b1ca8cd0d4d846e3fc10ad1a79, type: 3}
+  - {fileID: 21300000, guid: a71ff9b329f1080469cf30d5ba47c5aa, type: 3}
+  - {fileID: 21300000, guid: 3f3d8714997c61d488ad57e05822a5a6, type: 3}
+  - {fileID: 21300000, guid: f0d6ea189fe88b941a6c7fefa35109cd, type: 3}
+  - {fileID: 21300000, guid: 8be7816805b133f4abd2eb613de3e2d0, type: 3}
+  - {fileID: 21300000, guid: 732c697a802de274e9e45e0ba7407656, type: 3}
+  - {fileID: 21300000, guid: 0696ef0b2b12b934a9019221c6a63a63, type: 3}
+  - {fileID: 21300000, guid: a0ba6cbb66a2cd14da348d59e46d9afd, type: 3}
+  - {fileID: 21300000, guid: 9a6485cbaaee0e4439014852db82347a, type: 3}
+  - {fileID: 21300000, guid: 39f32d4d899bec84c93ccfb832d7af49, type: 3}
+  - {fileID: 21300000, guid: cef828bf87076e9409e35a8f0ef63485, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - 44
+  - 22
+  - 40
+  - 55
+  - 1
+  - 58
+  - 10
+  - 94
+  - 9
+  - 60
+  - 93
+  - 90
+  m_RenderDataMap: {}
+  m_Tag: Ui_Button_Sprite_Atlas
+  m_IsVariant: 0

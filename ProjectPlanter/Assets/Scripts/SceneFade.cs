@@ -60,6 +60,22 @@ public class SceneFade : MonoBehaviour
         fadeImage.raycastTarget = false;  
     }
 
+    // 씬 로딩이 이미 완료된 상태에서 씬 전환을 담당하는 코드
+    public void SceneChange(AsyncOperation aoLoaded)
+    {
+        // 로딩된 씬의 상태를 넘겨줌
+        ao = aoLoaded;
+
+        // 씬 전환 시작시 다른 조작 불가능
+        fadeImage.raycastTarget = true;
+
+        // 씬 전환 시작, 페이드 아웃
+        StartCoroutine(FadeOut());
+
+        // 다른 오브젝트를 클릭 가능하게 설정
+        fadeImage.raycastTarget = false;
+    }
+
     // 다음 씬이 로딩될 때까지 대기
     IEnumerator HoldForLoading()
     {
