@@ -427,6 +427,7 @@ public class PlantStateManager : MonoBehaviour
             {
                 bubleObject[stateIndex].SetActive(true);
                 Debug.Log("√ ±‚»≠");
+                
             }    
 
 
