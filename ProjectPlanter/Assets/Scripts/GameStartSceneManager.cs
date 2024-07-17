@@ -15,7 +15,7 @@ public class GameStartSceneManager : MonoBehaviour
         StartCoroutine(LoadGame()); // 게임 시작 시 타이틀을 보여준 후 메인 씬 로딩 시작
     }
 
-    IEnumerator LoadGame()
+    IEnumerator LoadGame() // 씬 로딩 프로세스
     {
         SceneFade sf = GameObject.Find("FadeCanvas").GetComponent<SceneFade>();
         yield return new WaitForEndOfFrame();
