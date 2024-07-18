@@ -177,7 +177,7 @@ public class PlantStateManager : MonoBehaviour
             
             
             // 80초가 지나면 스택 초기화
-            if (timeDif[index].TotalSeconds > 80)
+            if (timeDif[index].TotalSeconds > 79)
             {
                 PlayerPrefs.SetInt("Stack" + index, 0);
             }
@@ -245,7 +245,7 @@ public class PlantStateManager : MonoBehaviour
         }
         // 하루 미접속.
         /*else if (24< timeDifference.TotalHours && timeDifference.TotalHours<48)*/
-        else if (81 < timeDifference.TotalSeconds && timeDifference.TotalSeconds < 109)
+        else if (80 < timeDifference.TotalSeconds && timeDifference.TotalSeconds <= 109)
         {
             //아픔
             PlantImage.sprite = StateSpr[2];
@@ -270,7 +270,7 @@ public class PlantStateManager : MonoBehaviour
         //2일동안 미접속 이라면
         /*else if (timeDifference.TotalHours > 48)*/
 
-        else if (timeDifference.TotalSeconds > 110)
+        else if (timeDifference.TotalSeconds > 109)
         {
 
             //죽음.
@@ -294,12 +294,13 @@ public class PlantStateManager : MonoBehaviour
     {
         Image buttonImage = clickedButton.GetComponent<Image>();
 
-        
+        //State 가 Pain 일 때
         if (buttonImage != null && buttonImage.sprite == StateSpr[2])
         {
             PainClick(clickedButton);
             buttonImage.sprite = StateSpr[1];
         }
+        //Dead 일 때
         else if (buttonImage != null && buttonImage.sprite == StateSpr[0])
         {
             DaedClick(clickedButton);
@@ -404,7 +405,7 @@ public class PlantStateManager : MonoBehaviour
         Destroy(FertilizerInstance);
     }
 
-
+    //씨앗 다시 심기 위해 초기화
     public void ResetPrefs()
     {
         

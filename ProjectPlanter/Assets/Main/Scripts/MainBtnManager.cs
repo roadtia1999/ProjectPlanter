@@ -26,7 +26,7 @@ public class MainBtnManager : MonoBehaviour
     public bool seedPlanted; // 씨앗 심어져있는지 여부
 
     [Header("etc")]
-    int bubleIndex; // 클릭된 버블의 인덱스
+    public int bubleIndex; // 클릭된 버블의 인덱스
     int potIndex; // 클릭된 화분의 인덱스 
 
     [Header("Canvas")]
