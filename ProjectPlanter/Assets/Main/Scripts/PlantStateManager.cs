@@ -53,7 +53,7 @@ public class PlantStateManager : MonoBehaviour
 
     private void Start()
     {
-        
+
         instance = this;
 
 
@@ -71,7 +71,7 @@ public class PlantStateManager : MonoBehaviour
 
             Image StateImage = Plantstate[i].GetComponent<Image>();
             PlantImage = Plant[i].GetComponent<Image>();
-            
+
             //코루틴 PlantState2 inactive 오류 때문에.
             /*            if (StateImage.sprite == null)
                         {
@@ -92,29 +92,29 @@ public class PlantStateManager : MonoBehaviour
                 StateImage.enabled = true;
 
             }
-            
-           //시차 초기화 코드
-           //초기화를 하지 않으면 24시간 전에 재접속을 해도 
-           //시차는 계속 증가되어 dead로 만들어버림.
-           //그리하여 재접속 할 때마다 state를 바꾸고 난 다음 초기화
 
-           x[i] = PlayerPrefs.GetString("PlantingAfterTime" + i);
+            //시차 초기화 코드
+            //초기화를 하지 않으면 24시간 전에 재접속을 해도 
+            //시차는 계속 증가되어 dead로 만들어버림.
+            //그리하여 재접속 할 때마다 state를 바꾸고 난 다음 초기화
+
+            x[i] = PlayerPrefs.GetString("PlantingAfterTime" + i);
             y[i] = PlayerPrefs.GetString("StateSaveTime" + i);
             if (string.IsNullOrEmpty(y[i]) && !string.IsNullOrEmpty(x[i]))
             {
-                
+
                 InsertTIme(i, x);
             }
 
-            else if(!string.IsNullOrEmpty(y[i])) 
+            else if (!string.IsNullOrEmpty(y[i]))
             {
-                
-                InsertTIme(i, y);   
+
+                InsertTIme(i, y);
             }
 
 
         }
-        
+
     }
     void InsertTIme(int i, string[] z)
     {
@@ -140,7 +140,7 @@ public class PlantStateManager : MonoBehaviour
         // 재접속 해도 81초 후에는 초기화 시키지않기.
         if (timeDifference.TotalSeconds > 81)
             return;
-        
+
         timeDifference = TimeSpan.Zero;
         if (timeDifference == TimeSpan.Zero)
         {
@@ -150,7 +150,7 @@ public class PlantStateManager : MonoBehaviour
 
 
     }
-        
+
 
     public void StateIndex(int btnIndex)
     {
@@ -169,14 +169,14 @@ public class PlantStateManager : MonoBehaviour
             DateTime lastSavedTime = DateTime.Parse(storedTime);
             TimeSpan timeDifference = DateTime.Now - lastSavedTime;
             timeDif[index] += timeDifference;
-            
-            
+
+
             // 80초가 지나면 스택 초기화
             if (timeDif[index].TotalSeconds > 79)
             {
                 PlayerPrefs.SetInt("Stack" + index, 0);
             }
-            
+
         }
         value[index] = PlayerPrefs.GetInt("Stack" + index);
 
@@ -197,10 +197,10 @@ public class PlantStateManager : MonoBehaviour
 
 
     //죽음 0 행복 1 아픔 2 목마름 3
-    
+
     void State(int i)
     {
-        
+
         GameObject Sprout = Pot[i].transform.Find("Sprout" + i).gameObject;
         GameObject FlowerDemo = Pot[i].transform.Find("FlowerDemo" + i).gameObject;
         Image PlantImage = PlantState[i].GetComponent<Image>();
@@ -214,26 +214,26 @@ public class PlantStateManager : MonoBehaviour
                 PlantImage.sprite = StateSpr[0];
                 return;
             }
-            if (stack[i] ==1)
+            if (stack[i] == 1)
             {
                 //happy
                 PlantImage.sprite = StateSpr[1];
             }
 
-            else if (stack[i] >1)
+            else if (stack[i] > 1)
             {
                 //state = pain
                 PlantImage.sprite = StateSpr[2];
                 SetPainStack();
                 GetPainStack(i);
-                
+
             }
 
             else if (stack[i] == 0)
             {
                 //state =thirsty
                 PlantImage.sprite = StateSpr[3];
-                
+
 
             }
 
@@ -276,9 +276,9 @@ public class PlantStateManager : MonoBehaviour
                 FlowerDemo.SetActive(false);
 
             }
-            
+
         }
-    
+
     }
 
 
@@ -313,7 +313,7 @@ public class PlantStateManager : MonoBehaviour
 
         if (RefreshClicked)
         {
-            
+
             RectTransform btnRectTransform = clickedButton.GetComponent<RectTransform>();
             RectTransform refreshRectTransform = RefreshInstance.GetComponent<RectTransform>();
 
@@ -351,7 +351,7 @@ public class PlantStateManager : MonoBehaviour
 
         if (TrowelClicked)
         {
-            
+
             RectTransform btnRectTransform = clickedButton.GetComponent<RectTransform>();
             RectTransform trowelRectTransform = TrowelInstance.GetComponent<RectTransform>();
 
@@ -406,7 +406,7 @@ public class PlantStateManager : MonoBehaviour
     //씨앗 다시 심기 위해 초기화
     public void ResetPrefs()
     {
-        
+
         PlayerPrefs.DeleteKey("Stack" + stateIndex);
         PlayerPrefs.DeleteKey("PlantingAfterTime" + stateIndex);
         PlayerPrefs.DeleteKey("PlantType" + stateIndex);
@@ -456,7 +456,7 @@ public class PlantStateManager : MonoBehaviour
 
         //TIMEDIF 값 초기화
         timeDifference = TimeSpan.Zero;
-        
+
     }
 
 }

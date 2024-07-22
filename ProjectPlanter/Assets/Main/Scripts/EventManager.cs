@@ -15,7 +15,7 @@ public class EventManager : MonoBehaviour
     private Vector2 moveDirection; // 이동 방향
     private RectTransform evBee; // Bee RectTransform
     private RectTransform evMite; // Mite RectTransform
-    
+
     public Canvas canvas;
 
     [Header("# Event")]
@@ -34,13 +34,12 @@ public class EventManager : MonoBehaviour
 
         // 시간 차이가 3초 이상일 때 랜덤 이벤트 발생
         //저장값이 하나라도 있으면 실행
-        if (PlayerPrefs.HasKey("PlantingAfterTime" + 0) || PlayerPrefs.HasKey("PlantingAfterTime" + 1) || PlayerPrefs.HasKey("PlantingAfterTime" + 2) )
+        if (PlayerPrefs.HasKey("PlantingAfterTime" + 0) || PlayerPrefs.HasKey("PlantingAfterTime" + 1) || PlayerPrefs.HasKey("PlantingAfterTime" + 2))
         {
             if (timeDif.TotalSeconds >= 3)
             {
                 int randomEvent = UnityEngine.Random.Range(0, itemData.Length);
                 TriggerRandomEvent(randomEvent);
-            
             }
 
         }
@@ -50,11 +49,11 @@ public class EventManager : MonoBehaviour
 
     public void TriggerRandomEvent(int randomEvent)
     {
-        
+
         name = "Event " + itemData[randomEvent].itemName;
         transform.parent = canvas.transform; // 캔버스 트랜스폼을 설정
         transform.localPosition = Vector3.zero;
-        
+
         id = itemData[randomEvent].itemId;
         prefabId = itemData[randomEvent].itemId; // prefabId 설정
 
@@ -73,10 +72,10 @@ public class EventManager : MonoBehaviour
         {
             case 0: Bee(); break;
             case 1: Mite(); break;
-            default:  break;
+            default: break;
         }
         PlayerPrefs.SetInt("EventDexScene" + randomEvent, 1); // 이벤트 발생 정보를 PlayerPrefs에 저장
-        PlayerPrefs.SetInt("EventOccur" , randomEvent); // 이벤트 발생 값 저장
+        PlayerPrefs.SetInt("EventOccur", randomEvent); // 이벤트 발생 값 저장
     }
 
 
@@ -94,7 +93,7 @@ public class EventManager : MonoBehaviour
 
     IEnumerator MoveBee()
     {
-        Vector2 canvasSize = new Vector2(1024, 768); 
+        Vector2 canvasSize = new Vector2(1024, 768);
         Vector2 beePosition;
 
         // 캔버스 경계 구하기
@@ -168,7 +167,7 @@ public class EventManager : MonoBehaviour
         float minX = -canvasSize.x / 2 + halfWidth;
         float maxX = canvasSize.x / 2 - halfWidth;
 
-        while(true)
+        while (true)
         {
             moveDirection = new Vector2(UnityEngine.Random.Range(-1f, 1f), 0); // 좌우로만 움직이게끔 함 (속도 랜덤)
 

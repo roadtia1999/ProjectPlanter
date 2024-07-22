@@ -9,12 +9,10 @@ public class TimeManager : MonoBehaviour
     public DateTime lastTime;       // 게임 시작 시간
     public TimeSpan timeDifference; // 시간 차이 값
 
-
-
     private void Awake()
     {
         instance = this;
-        
+
         string savedTimeString = PlayerPrefs.GetString("SavedTime");
         // 종료시간 - 현재 시간
         if (!string.IsNullOrEmpty(savedTimeString))
@@ -27,7 +25,7 @@ public class TimeManager : MonoBehaviour
             timeDifference = now - lastTime;
 
         }
-        
+
     }
 
     void OnApplicationQuit()

@@ -19,7 +19,7 @@ public class ItemData : ScriptableObject
     public GameObject EventPrefab;
     public float TimeZone;
 
-    [Header("# Plant Data")]    
+    [Header("# Plant Data")]
     // 식물 프리팹, 아이콘 , 성장시간.
     public GameObject PlantPrefab;
     public float GrowthTime;

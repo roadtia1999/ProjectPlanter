@@ -40,7 +40,7 @@ public class MainBtnManager : MonoBehaviour
 
     private void Awake()
     {
-        
+
         instance = this;
         PlantState = new GameObject[3];
         // 0 1 2 각 버튼 체크.
@@ -108,8 +108,8 @@ public class MainBtnManager : MonoBehaviour
 
         else
         {
-            Destroy(canInstance); 
-            canInstance = null;   
+            Destroy(canInstance);
+            canInstance = null;
         }
     }
 
@@ -118,8 +118,8 @@ public class MainBtnManager : MonoBehaviour
     {
         int[] x = new int[3];
         stack[potIndex]++;
-        x[potIndex] = stack[potIndex];   
-        PlayerPrefs.SetInt("Stack"+potIndex , x[potIndex]);
+        x[potIndex] = stack[potIndex];
+        PlayerPrefs.SetInt("Stack" + potIndex, x[potIndex]);
 
         string currentTime = DateTime.Now.ToString();
         PlayerPrefs.SetString("StackTime" + potIndex, currentTime);
@@ -129,7 +129,7 @@ public class MainBtnManager : MonoBehaviour
     // Can 오브젝트를 해당 버튼 위에 배치
     public void PlaceOnButton(Button clickedButton)
     {
-        
+
         CanStack();
         if (CanClicked)
         {
@@ -173,8 +173,6 @@ public class MainBtnManager : MonoBehaviour
         sf.SceneChange("MenuScene");
     }
 
-    // 말풍선 클릭시 -- index값 저장
-
 
     public void BubleCilck(Button clickedButton)
     {
@@ -188,7 +186,7 @@ public class MainBtnManager : MonoBehaviour
 
         if (handClicked)
         {
-            
+
             // 클릭된 버튼의 RectTransform을 불러오기
             RectTransform btnRectTransform = clickedButton.GetComponent<RectTransform>();
 
@@ -209,10 +207,10 @@ public class MainBtnManager : MonoBehaviour
             Plantingseed();
 
             clickedButton.gameObject.SetActive(false);
-            PlayerPrefs.SetInt(clickedButton.name + "Clicked" +bubleIndex, 0); // 버튼 상태 저장 false
+            PlayerPrefs.SetInt(clickedButton.name + "Clicked" + bubleIndex, 0); // 버튼 상태 저장 false
             // 상태 초기화
             handClicked = false;
-            
+
         }
 
 
@@ -247,7 +245,7 @@ public class MainBtnManager : MonoBehaviour
         if (seedObject != null)
         {
             seedObject.GetComponent<Image>().sprite = SeedSpr;
-            
+
         }
 
     }
@@ -264,13 +262,13 @@ public class MainBtnManager : MonoBehaviour
             if (childImage.sprite == StateSpr[3])
             {
                 childImage.sprite = StateSpr[1];
-   
+
                 break;
             }
         }
     }
 
 
- 
+
 
 }

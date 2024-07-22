@@ -28,7 +28,7 @@ public class Trigger : MonoBehaviour
 
     private void Awake()
     {
- 
+
         for (int i = 0; i < 3; i++)
         {
             seedObject[i] = GameObject.Find("seed" + i);
@@ -52,19 +52,19 @@ public class Trigger : MonoBehaviour
 
     private void Update()
     {
-        
+
 
         if (Input.GetKeyDown(KeyCode.Q))
         {
             plantType[plantindex] = SeedManager.PlantType[plantindex];
-            if (PlayerPrefs.HasKey("PlantType"+plantindex))
+            if (PlayerPrefs.HasKey("PlantType" + plantindex))
             {
                 Flower[plantindex].SetActive(true);
                 plantType[plantindex] = SeedManager.PlantType[plantindex];
                 FlowerImg[plantindex].sprite = Flowerspr[plantType[plantindex]];
 
             }
-            
+
 
         }
 
@@ -73,7 +73,7 @@ public class Trigger : MonoBehaviour
 
             if (!PlantState[plantindex].activeSelf)
                 PlantState[plantindex].SetActive(true);
-            
+
 
             // 다음 이미지로 변경
             x[plantindex] = (x[plantindex] + 1) % Statespr.Length;
@@ -84,13 +84,13 @@ public class Trigger : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E))
             PlayerPrefs.DeleteAll();
 
-        
+
 
 
     }
 
 
-    
+
 
 
 
