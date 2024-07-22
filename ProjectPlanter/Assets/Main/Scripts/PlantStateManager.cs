@@ -49,7 +49,7 @@ public class PlantStateManager : MonoBehaviour
     // 클릭된 state의 인덱스
     int stateIndex;
     public Canvas canvas;
-
+    Image PlantImage;
 
     private void Start()
     {
@@ -70,7 +70,7 @@ public class PlantStateManager : MonoBehaviour
             Plantstate[i] = plantStateObject.GetComponent<Button>();
 
             Image StateImage = Plantstate[i].GetComponent<Image>();
-
+            PlantImage = Plant[i].GetComponent<Image>();
             
             //코루틴 PlantState2 inactive 오류 때문에.
             /*            if (StateImage.sprite == null)
@@ -125,9 +125,6 @@ public class PlantStateManager : MonoBehaviour
 
         timeDifference = now - chkDate;
 
-        //재접 시 시간 표시.
-        /*Debug.Log(timeDifference + "초기화 되기 전 이전까지의 시간" + i);*/
-        
         stack[i] = PlayerPrefs.GetInt("Stack" + i, 0);
         CheckAndResetStack(i);
         State(i);
@@ -136,10 +133,8 @@ public class PlantStateManager : MonoBehaviour
         //80초 전 재접시 스택이 0이라면 painStack ++
         if (timeDifference.TotalSeconds < 80 && stack[i] == 0)
         {
-            Debug.Log("동작 80초전 스택0");
             SetPainStack();
             GetPainStack(i);
-
         }
 
         // 재접속 해도 81초 후에는 초기화 시키지않기.
@@ -251,14 +246,12 @@ public class PlantStateManager : MonoBehaviour
             PlantImage.sprite = StateSpr[2];
 
             GetPainStack(i);
-                Debug.Log(painStack[i] + " 페인스택 " + i);
             if (painStack[i] > 0)
             {
                 PlantImage.sprite = StateSpr[0];
 
                 if (PlantImage.sprite == StateSpr[0])
                 {
-                    Debug.Log("페인스택 으로 인한 죽음");
                     // 2번 새싹 , 프리지아 데모.
                     Sprout.SetActive(false);
                     FlowerDemo.SetActive(false);
@@ -372,6 +365,11 @@ public class PlantStateManager : MonoBehaviour
             StartCoroutine(DestroyTrowelAfterDelay(1f, clickedButton));
             ChangeSeedImageToNone();
         }
+
+        if (PlantImage != null && PlantImage.enabled)
+        {
+            PlantImage.enabled = false;
+        }
     }
     private IEnumerator DestroyTrowelAfterDelay(float delay, Button clickedButton)
     {
@@ -414,6 +412,7 @@ public class PlantStateManager : MonoBehaviour
         PlayerPrefs.DeleteKey("PlantType" + stateIndex);
         PlayerPrefs.DeleteKey("Button Buble" + stateIndex + "Clicked" + stateIndex);
         PlayerPrefs.DeleteKey("StateSaveTime" + stateIndex);
+        PlayerPrefs.DeleteKey("GrowStack" + stateIndex);
         // 추가: 삭제 후 초기화된지 확인하는 코드
         bool stackDeleted = !PlayerPrefs.HasKey("Stack" + stateIndex);
         bool plantingAfterTimeDeleted = !PlayerPrefs.HasKey("PlantingAfterTime" + stateIndex);
@@ -422,17 +421,9 @@ public class PlantStateManager : MonoBehaviour
 
         if (stackDeleted && plantingAfterTimeDeleted && plantTypeDeleted && buttonBubleDeleted)
         {
-
             // 초기화된 객체에만 bubleObject[stackindex] 활성화
             if (bubleObject[stateIndex] != null)
-            {
                 bubleObject[stateIndex].SetActive(true);
-                Debug.Log("초기화");
-                
-            }    
-
-
-
         }
 
     }
@@ -459,17 +450,12 @@ public class PlantStateManager : MonoBehaviour
     {
         //리큐어 시 스택값 1로 초기화 -> State Happy로 바꾸기
         PlayerPrefs.SetInt("Stack" + stateIndex, 1);
-        int stackValue = PlayerPrefs.GetInt("Stack" + stateIndex);
-        Debug.Log($"Stack{stateIndex}의 값: {stackValue}");
 
         //++ PainStack 0으로 초기화.
         PlayerPrefs.DeleteKey("Pstack");
-        int x = PlayerPrefs.GetInt("Pstack");
-        Debug.Log(x + " Pstack 초기화 값" + stateIndex);
 
         //TIMEDIF 값 초기화
         timeDifference = TimeSpan.Zero;
-        Debug.Log(timeDifference + " 타임디프런스 초기화");
         
     }
 

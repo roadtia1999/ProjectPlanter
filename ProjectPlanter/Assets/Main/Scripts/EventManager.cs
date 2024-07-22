@@ -32,17 +32,19 @@ public class EventManager : MonoBehaviour
         // 시간 차이 가져오기
         TimeSpan timeDif = timeManager.timeDifference;
 
-        Debug.Log(timeDif + " 타임매니저에서 가져온 시차");
-
         // 시간 차이가 3초 이상일 때 랜덤 이벤트 발생
-        //혹은 특정 행동 했을 시 로 변경 가능.
-        if (timeDif.TotalSeconds >= 3)
+        //저장값이 하나라도 있으면 실행
+        if (PlayerPrefs.HasKey("PlantingAfterTime" + 0) || PlayerPrefs.HasKey("PlantingAfterTime" + 1) || PlayerPrefs.HasKey("PlantingAfterTime" + 2) )
         {
-            int randomEvent = UnityEngine.Random.Range(0, itemData.Length);
-            Debug.Log(randomEvent + " 랜덤 이벤트 값");
-            TriggerRandomEvent(randomEvent);
+            if (timeDif.TotalSeconds >= 3)
+            {
+                int randomEvent = UnityEngine.Random.Range(0, itemData.Length);
+                TriggerRandomEvent(randomEvent);
             
+            }
+
         }
+
     }
 
 
@@ -53,11 +55,8 @@ public class EventManager : MonoBehaviour
         transform.parent = canvas.transform; // 캔버스 트랜스폼을 설정
         transform.localPosition = Vector3.zero;
         
-
         id = itemData[randomEvent].itemId;
         prefabId = itemData[randomEvent].itemId; // prefabId 설정
-
-        Debug.Log($"랜덤 이벤트 발생: {itemData[randomEvent].itemName} - {itemData[randomEvent].itemDesc}");
 
         // 프리팹 번호 찾기
         for (int index = 0; index < PoolManager.instance.Event_prefab.Length; index++)
@@ -73,7 +72,7 @@ public class EventManager : MonoBehaviour
         switch (randomEvent)
         {
             case 0: Bee(); break;
-            /*case 1: Mite(); break;*/
+            case 1: Mite(); break;
             default:  break;
         }
         PlayerPrefs.SetInt("EventDexScene" + randomEvent, 1); // 이벤트 발생 정보를 PlayerPrefs에 저장
@@ -137,7 +136,6 @@ public class EventManager : MonoBehaviour
                 }
                 else
                 {
-                    Debug.LogError("evBee is null during movement.");
                     yield break; // 코루틴 종료
                 }
 
@@ -199,7 +197,6 @@ public class EventManager : MonoBehaviour
                 }
                 else
                 {
-                    Debug.LogError("mite uei");
                     yield break; // 코루틴 종료
                 }
 

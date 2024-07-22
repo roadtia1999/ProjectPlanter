@@ -57,11 +57,8 @@ public class Trigger : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Q))
         {
             plantType[plantindex] = SeedManager.PlantType[plantindex];
-            Debug.Log(plantType[plantindex] + " plantType[plantindex] 값");
-            Debug.Log(SeedManager.PlantType[plantindex] + "SeedManager.PlantType[plantindex]");
             if (PlayerPrefs.HasKey("PlantType"+plantindex))
             {
-                Debug.Log("실행");
                 Flower[plantindex].SetActive(true);
                 plantType[plantindex] = SeedManager.PlantType[plantindex];
                 FlowerImg[plantindex].sprite = Flowerspr[plantType[plantindex]];
@@ -73,12 +70,11 @@ public class Trigger : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.W))
         {
-            if (!PlantState[plantindex].activeSelf)
-            {
-                PlantState[plantindex].SetActive(true);
-            }
 
-            Debug.Log(plantindex + "  W 눌린 번호 ");
+            if (!PlantState[plantindex].activeSelf)
+                PlantState[plantindex].SetActive(true);
+            
+
             // 다음 이미지로 변경
             x[plantindex] = (x[plantindex] + 1) % Statespr.Length;
             StateImg[plantindex].sprite = Statespr[x[plantindex]];
@@ -86,10 +82,9 @@ public class Trigger : MonoBehaviour
         }
 
         if (Input.GetKeyDown(KeyCode.E))
-        {
             PlayerPrefs.DeleteAll();
 
-        }
+        
 
 
     }

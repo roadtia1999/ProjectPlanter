@@ -11,11 +11,7 @@ public class Animation : MonoBehaviour
 
     public void HarvestAniEnd()
     {
-
-        Debug.Log("Á¾·á");
         Destroy(gameObject);
-        
-
     }
 
 }

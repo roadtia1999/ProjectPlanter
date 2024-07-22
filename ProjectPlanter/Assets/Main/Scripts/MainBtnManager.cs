@@ -252,17 +252,6 @@ public class MainBtnManager : MonoBehaviour
 
     }
 
-    public void Re_reset()
-    {
-        PlayerPrefs.DeleteKey("Stack" + bubleIndex);
-        PlayerPrefs.DeleteKey("PlantingAfterTime" + bubleIndex);
-        PlayerPrefs.DeleteKey("PlantType" + bubleIndex);
-        PlayerPrefs.DeleteKey("Button Buble" + bubleIndex + "Clicked" + bubleIndex);
-        PlayerPrefs.DeleteKey("StateSaveTime" + bubleIndex);
-        Debug.Log("한번더 초기화");
-    }
-
-
     //목마름은 애초에 0이였기에 발생되고
     //이 메서드를 실행시키려면 목마름 상태에서 물을 주는거기에
     //스택은 올라가게 되있다. 그래서 stack을 초기화 하는것보다 이게 좋은듯 싶다.

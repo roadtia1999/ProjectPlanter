@@ -88,13 +88,8 @@ public class Seed : MonoBehaviour
 
                 // 시간 차이 출력                
                 stack[i] = PlayerPrefs.GetInt("Stack" + i, 0);
-                PlantType[i] = PlayerPrefs.GetInt("PlantType"+i);
-                GrowStack[i] = PlayerPrefs.GetInt("GrowStack"+i);
-                if (GrowStack[i] == 0)
-                {
-                    PlayerPrefs.SetInt("GrowStack"+i, 0);
-
-                }
+                PlantType[i] = PlayerPrefs.GetInt("PlantType" + i);
+             
                 TimeDifChk(i);
 
                 if (PlantType[i] == 0)
@@ -135,7 +130,7 @@ public class Seed : MonoBehaviour
 
 
         GrowTime[i] += timeDifference;
-        Debug.Log(GrowTime[i] + " 성장시간 ");
+        
 
         // x의 값을 확인하여 이벤트를 일으킴
         /*TimeDifGrow(GrowTime[i], i);*/
@@ -145,202 +140,72 @@ public class Seed : MonoBehaviour
         
         
     }
-    //if i ==0 Plant0
-    //i==1 Plant1
-    //0 프리지아 1 장미 2 수국
-    //물 수국이 가장 많이 필요로 함 
-    //성장시기 프리지아 > 장미 > 수국
-    //장미는 까다로움 . 가지치기 병충해 관리도 중요
-    //문제는 . 스택에 조건을 걸어버리면 이미 한번 성장 한적이 있다면??
-    //조건에 부합하지않으면 식물이 바뀌지않는데?
-    //-> 1. 식물이 성장할때 PlantStack 을 추가.
-    //새싹이 되었으면 PlantStack[0] =1  ||.
+    //문제.정해진 시간 안에 못들어오면 grow스택값 부여 받지 못함.
+    //-> 영원히 0혹은 전의 스택을 가지고있음.
     void Plant0(int index)
     {
-        Debug.Log("Plant0 실행");
-        if (GrowTime[0].TotalSeconds >= 10 && GrowTime[0].TotalSeconds < 30
-            && stack[0] == 1)
-        {
-            GrowStack[index]++;
+        if (GrowTime[0].TotalSeconds >= 10 && GrowTime[0].TotalSeconds < 30 && stack[0] == 1)
+            PlayerPrefs.SetInt("GrowStack" + index, 1);
 
-        }
+        else if (GrowTime[0].TotalSeconds >= 30 && GrowTime[0].TotalSeconds < 60 && stack[0] == 1)
+            PlayerPrefs.SetInt("GrowStack" + index, 2);
+        
+        else if (GrowTime[0].TotalSeconds >= 60 && stack[0] == 1)
+            PlayerPrefs.SetInt("GrowStack" + index, 3);
 
 
-        if (GrowTime[0].TotalSeconds >= 10 && GrowTime[0].TotalSeconds < 30
-            && stack[0] == 1 || GrowStack[index] > 0)
-        {
-            GrowStack[index]++;
-            CheckMethod10sec(index);
-        }
-        else if (GrowTime[0].TotalSeconds >= 30 && GrowTime[0].TotalSeconds < 60
-                 && stack[0] == 1  || GrowStack[index] > 1)
-        {
-            GrowStack[index]++;
-            CheckMethod30sec(index);
-        }
-        else if (GrowTime[0].TotalSeconds >= 60
-                 && stack[0] == 1 || GrowStack[index] > 2)
-        {
-            CheckMethod60sec(index);
-        }
-        PlayerPrefs.SetInt("GrowStack"+index, GrowStack[index]);
-
+        CheckMethodPlay(index);
 
 
     }
 
     void Plant1(int index)
     {
-        Debug.Log("Plant1 실행");
-        if (GrowTime[1].TotalSeconds >= 10 && 
-            GrowTime[1].TotalSeconds < 30 && stack[1] == 1)
-        {
-            GrowStack[index]++;
+        if (GrowTime[1].TotalSeconds >= 10 && GrowTime[1].TotalSeconds < 30 && stack[1] == 1 )
+            PlayerPrefs.SetInt("GrowStack" + index, 1);
 
-        }
-
-
-        if (GrowTime[1].TotalSeconds >= 10 && GrowTime[1].TotalSeconds < 30
-            && stack[1] == 1 || GrowStack[index] > 0)
-        {
-            GrowStack[index]++;
-            CheckMethod10sec(index);
-        }
-        else if (GrowTime[1].TotalSeconds >= 30 && GrowTime[1].TotalSeconds < 60
-                 && stack[1] == 1 || GrowStack[index] > 1)
-        {
-            GrowStack[index]++;
-            CheckMethod30sec(index);
-        }
-        else if (GrowTime[1].TotalSeconds >= 60
-                 && stack[1] == 1 || GrowStack[index] > 2)
-        {
-            CheckMethod60sec(index);
-        }
-        PlayerPrefs.SetInt("GrowStack" + index, GrowStack[index]);
+        else if (GrowTime[1].TotalSeconds >= 30 && GrowTime[1].TotalSeconds < 60 && stack[1] == 1 )
+            PlayerPrefs.SetInt("GrowStack" + index, 2);
+       
+        else if (GrowTime[1].TotalSeconds >= 60 && stack[1] == 1)
+            PlayerPrefs.SetInt("GrowStack" + index, 3);
+        
+        CheckMethodPlay(index);
     }
 
     void Plant2(int index)
     {
-        Debug.Log("Plant2 실행");
 
-        if (GrowTime[2].TotalSeconds >= 10 && 
-            GrowTime[2].TotalSeconds < 59 && stack[2] == 1)
-        {
-            GrowStack[index] = 1 ;
+        if (GrowTime[2].TotalSeconds >= 10 && GrowTime[2].TotalSeconds < 59 && stack[2] == 1)
+            PlayerPrefs.SetInt("GrowStack" + index, 1);
+     
+        else if (GrowTime[2].TotalSeconds >= 60 && GrowTime[2].TotalSeconds < 80 && stack[2] > 2 )
+            PlayerPrefs.SetInt("GrowStack" + index, 2);
 
-        }
+        else if (GrowTime[2].TotalSeconds >= 80 && stack[2] > 3)
+            PlayerPrefs.SetInt("GrowStack" + index, 3);
 
-        if (GrowTime[2].TotalSeconds >= 10 && GrowTime[2].TotalSeconds < 59
-            && stack[2] == 1 || GrowStack[index] > 0)
-        {
-            GrowStack[index] = 2 ;
-            CheckMethod10sec(index);
-        }
-        else if (GrowTime[2].TotalSeconds >= 60 && GrowTime[2].TotalSeconds < 80
-                 && stack[2] > 2 || GrowStack[index] > 1)
-        {
-            GrowStack[index] = 3;
-            CheckMethod30sec(index);
-        }
-        else if (GrowTime[2].TotalSeconds >= 80
-                 && stack[2] > 3 || GrowStack[index] > 2)
-        {
-            
-            CheckMethod60sec(index);
-        }
-        PlayerPrefs.SetInt("GrowStack" + index, GrowStack[index]);
+
+        CheckMethodPlay(index);
     }
 
 
 
-    void eaaa(int index)
+    void CheckMethodPlay(int index)
     {
+        GrowStack[index] = PlayerPrefs.GetInt("GrowStack" + index);
+
+        if (GrowStack[index] > 2 )
+            CheckMethod(index, 60);
         
-       Debug.Log("Plant0 실행");
-       if (GrowTime[0].TotalSeconds >= 10 && GrowTime[0].TotalSeconds < 30
-           && stack[0] == 1)
-       {
-           GrowStack[index]++;
+        else if (GrowStack[index] > 1)
+            CheckMethod(index, 30);
 
-       }
+        else if (GrowStack[index] > 0)
+            CheckMethod(index, 10);
 
-
-       if (GrowTime[0].TotalSeconds >= 10 && GrowTime[0].TotalSeconds < 30
-           && stack[0] == 1 )
-       {
-            PlayerPrefs.SetInt("Kids", 1);
-       }
-       else if (GrowTime[0].TotalSeconds >= 30 && GrowTime[0].TotalSeconds < 60
-                && stack[0] == 1 || GrowStack[index] > 1)
-       {
-           GrowStack[index]++;
-           CheckMethod30sec(index);
-       }
-       else if (GrowTime[0].TotalSeconds >= 60
-                && stack[0] == 1 || GrowStack[index] > 2)
-       {
-           CheckMethod60sec(index);
-       }
-       PlayerPrefs.SetInt("GrowStack" + index, GrowStack[index]);
-
-        int x, y, z;
-        x = PlayerPrefs.GetInt("Kids" + index);
-        y = PlayerPrefs.GetInt("Teenager" + index);
-        z = PlayerPrefs.GetInt("Adult" + index);
-
-        if (z == 1)
-        {
-        }
-        else if(y == 1)
-        {
-
-        }
-        else if(x == 1)
-        {
-            CheckMethod10sec(index);
-
-        }
 
     }
-
-
-
-
-    //시간 조건에 따라 성장 메서드 실행
-    //10~29 새싹     60> Flower
-    //30~60 Y_Flower
- /*   void TimeDifGrow(TimeSpan timeDiff, int index)
-    {
-        
-        // 예: 10 ~ 29
-        //2일. 1~2일 새싹 및 Y_Flower 3일 꽃
-        if (timeDiff.TotalSeconds >= 10 && timeDiff.TotalSeconds < 30)
-            CheckMethod10sec(index);
-
-        else if (timeDiff.TotalSeconds >= 30 && timeDiff.TotalSeconds < 60)
-            CheckMethod30sec(index);
-
-        else if (timeDiff.TotalSeconds >= 60)
-            CheckMethod60sec(index);
-        
-    }*/
-
-    void CheckMethod10sec(int index)
-    {
-        CheckMethod(index, 10);
-    }
-
-    void CheckMethod30sec(int index)
-    {
-        CheckMethod(index, 30);
-    }
-
-    void CheckMethod60sec(int index)
-    {
-        CheckMethod(index, 60);
-    }
-
 
     // 꽃 자라는 순서
     // 프리지아 < 장미 < 수국
@@ -355,15 +220,10 @@ public class Seed : MonoBehaviour
 
                 Sprite yPlantSprite = GetY_PlantSprite(PlantType[index]);
 
-
                 if (yPlantSprite != null)
                     Plant[index].GetComponent<Image>().sprite = yPlantSprite;
                 
-
-            }
-        /*FlowerChk(index);*/
-            
-        
+            }        
     }
 
     void Random_Flower(int index)
@@ -382,28 +242,9 @@ public class Seed : MonoBehaviour
                 PlayerPrefs.SetInt("PlantDexScene" + index, 1); // 식물 성장 정보를 PlayerPrefs에 저장
             }
             
-
-        }
-
-        
+        }       
     }
 
-    // 꽃들의 성장 시기를 다르게 하기 위해.
-    // 장미이면 -10초 수국이면 -20초.
-    //버그 우려.
-    void FlowerChk(int index)
-    {
-        
-        if (PlantImage[index].sprite == itemData.FlowerSp[1])
-        {
-            GrowTime[index] -= TimeSpan.FromSeconds(10);
-            
-        }
-        else if (PlantImage[index].sprite == itemData.FlowerSp[2])
-        {
-            GrowTime[index] -= TimeSpan.FromSeconds(20);
-        }
-    }
 
     // 0.프리지아 1. 장미  2. 수국 
     Sprite GetY_PlantSprite(int index)
@@ -490,8 +331,6 @@ public class Seed : MonoBehaviour
             if (PlantImage[Flowerindex].sprite == GetF_PlantSprite(0) || PlantImage[Flowerindex].sprite == GetF_PlantSprite(1)
                 || PlantImage[Flowerindex].sprite == GetF_PlantSprite(2))
             {
-             
-                Debug.Log(Flowerindex+"실행");
                 Plant[Flowerindex].SetActive(false);
                 if (!Plant[Flowerindex].activeSelf)
                 {
@@ -517,10 +356,8 @@ public class Seed : MonoBehaviour
 
     public void HarvestAniEnd()
     {
-        Debug.Log("종료");
         Destroy(HarvestInstance);
         HarvestInstance = null;
-
     }
 
     void ResetFlower()
@@ -530,6 +367,7 @@ public class Seed : MonoBehaviour
         PlayerPrefs.DeleteKey("PlantType" + Flowerindex);
         PlayerPrefs.DeleteKey("Button Buble" + Flowerindex + "Clicked" + Flowerindex);
         PlayerPrefs.DeleteKey("StateSaveTime" + Flowerindex);
+        PlayerPrefs.DeleteKey("GrowStack" + Flowerindex);
         // 추가: 삭제 후 초기화된지 확인하는 코드
         bool stackDeleted = !PlayerPrefs.HasKey("Stack" + Flowerindex);
         bool plantingAfterTimeDeleted = !PlayerPrefs.HasKey("PlantingAfterTime" + Flowerindex);
@@ -538,105 +376,34 @@ public class Seed : MonoBehaviour
 
         if (stackDeleted && plantingAfterTimeDeleted && plantTypeDeleted && buttonBubleDeleted)
         {
-
             // 초기화된 객체에만 bubleObject[stackindex] 활성화
             if (bubleObject[Flowerindex] != null)
-            {
-                bubleObject[Flowerindex].SetActive(true);
-                Debug.Log("초기화");
-            }
-
+                bubleObject[Flowerindex].SetActive(true);   
         }
-
-        
     }
 
 
+    //초기화 시 valuechk 에 표시
     public void Show_value()
     {
         for (int i = 0; i < 3; i++)
         {
-
             string PlantedTimeString = PlayerPrefs.GetString("PlantingAfterTime" + i);
-            //if PlantingAfterTime이 null 이라면 
-            //time값 0.
-            //
-
             stack[i] = PlayerPrefs.GetInt("Stack" + i, 0);
             PlantType[i] = PlayerPrefs.GetInt("PlantType" + i);
             GrowStack[i] = PlayerPrefs.GetInt("GrowStack" + i);
             if (string.IsNullOrEmpty(PlantedTimeString))
             {
                 timeDifference = TimeSpan.Zero;
-
                 seconds[i] = (int)Math.Round(timeDifference.TotalSeconds);
-                
             }
         }
-
-
     }
-
-
-    // 씨앗 찾기.
-    // 씨앗 심어진 후 종료.
-    // 문제점? 특이점
-    // 씨앗을 따로 따로 심으면 리스트가 새로 또 만들어지기때문에 
-    // 중복된 씨앗 나올 수 도 있음
-    // 개인저그올 나쁘지않다고 생각.
-    /*  void OnApplicationQuit()
-      {
-          // 게임 종료 시 현재 시간 저장
-          PlantingAfter = DateTime.Now.ToString();
-          List<int> availableTypes = new List<int> { 0, 1, 2 }; // 사용 가능한 꽃 종류 리스트
-          System.Random rand = new System.Random(); // 랜덤 생성기
-          for (int i = 0; i < 3; i++)
-          {
-              // seed+i 찾기.
-              if (seedObject[i])
-              {
-                  Image seedImage = seedObject[i].GetComponent<Image>();
-
-                  //이미지 seed 인지 확인
-                  if (seedImage.sprite == SeedSpr)
-                  {
-                      // 남아 있는 꽃 종류에서 랜덤하게 선택
-                      int randomIndex = rand.Next(0, availableTypes.Count);
-                      plantType[i] = availableTypes[randomIndex];
-                      availableTypes.RemoveAt(randomIndex); // 선택된 꽃 종류 제거
-
-                      // PlayerPrefs에서 값을 읽어옴
-                      string savedTime = PlayerPrefs.GetString("PlantingAfterTime" + i);
-
-                      // 값이 비어 있는지 확인
-                      if (string.IsNullOrEmpty(savedTime))
-                      {
-                          // PlantingAfterTime0 1 2 에 다른 값들 부여.
-                          PlayerPrefs.SetString("PlantingAfterTime" + i, PlantingAfter);
-
-
-                          PlayerPrefs.SetInt("PlantType" + i, plantType[i]); // 꽃 종류 저장
-                          Debug.Log("PlantType" + i + " 저장된 값: " + PlayerPrefs.GetInt("PlantType" + i)); // 저장된 값을 출력
-
-
-                      }
-
-                  }
-
-              }
-
-          }
-
-      }
-  */
-
 
 
     public void PlantingSeed()
     {
         btnBuble = BtnManager.bubleIndex;
-        Debug.Log(btnBuble + " 클릭된 버블 ");
-
         // 씨앗 심을 때
         PlantingAfter = DateTime.Now.ToString();
         List<int> availableTypes = new List<int> { 0, 1, 2 }; // 사용 가능한 꽃 종류 리스트
@@ -664,11 +431,7 @@ public class Seed : MonoBehaviour
                     {
                         // PlantingAfterTime0 1 2 에 다른 값들 부여.
                         PlayerPrefs.SetString("PlantingAfterTime" + btnBuble, PlantingAfter);
-
-
                         PlayerPrefs.SetInt("PlantType" + btnBuble, plantType[btnBuble]); // 꽃 종류 저장
-                        Debug.Log("PlantType" + btnBuble + " 저장된 값: " + PlayerPrefs.GetInt("PlantType" + btnBuble)); // 저장된 값을 출력
-
 
                     }
 
