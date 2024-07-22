@@ -12,7 +12,8 @@ public class TimeManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
-
+        string first = "";
+        PlayerPrefs.SetString("First" , first);
         string savedTimeString = PlayerPrefs.GetString("SavedTime");
         // 종료시간 - 현재 시간
         if (!string.IsNullOrEmpty(savedTimeString))

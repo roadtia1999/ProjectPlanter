@@ -191,6 +191,7 @@ public class Seed : MonoBehaviour
 
 
 
+
     void CheckMethodPlay(int index)
     {
         GrowStack[index] = PlayerPrefs.GetInt("GrowStack" + index);

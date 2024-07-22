@@ -7,7 +7,7 @@ public class Trigger : MonoBehaviour
 {
     [SerializeField] private Seed SeedManager;
 
-    [Header("Array")]
+    [Header("# Array")]
     GameObject[] seedObject = new GameObject[3];
     GameObject[] Pot = new GameObject[3];
     GameObject[] Sprout = new GameObject[3];
@@ -16,15 +16,16 @@ public class Trigger : MonoBehaviour
     GameObject[] bubleObject = new GameObject[3];
     int[] plantType = new int[3];
     int[] x = new int[3];
-
     Image[] FlowerImg = new Image[3];
     Image[] StateImg = new Image[3];
 
-    [Header("Sprite")]
+    [Header("# Sprite")]
     public Sprite[] Statespr = new Sprite[3];
     public Sprite[] Flowerspr = new Sprite[3];
 
+    [Header("# Etc")]
     int plantindex;
+    Canvas canvas2;
 
     private void Awake()
     {
@@ -41,6 +42,13 @@ public class Trigger : MonoBehaviour
             FlowerImg[i] = Flower[i].GetComponent<Image>();
             StateImg[i] = PlantState[i].GetComponent<Image>();
             x[i] = 0;
+        }
+
+        if (PlayerPrefs.HasKey("First"))
+        {
+            Canvas canvas2 = GameObject.FindObjectOfType<Canvas>();
+            canvas2.gameObject.SetActive(false);
+
         }
     }
 
