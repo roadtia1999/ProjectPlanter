@@ -339,6 +339,21 @@ public class PlantStateManager : MonoBehaviour
     {
         TrowelClicked = true;
 
+        int nowDeadStack = PlayerPrefs.GetInt("DeadStack" + stateIndex);
+        int DeadStackValue = 0;
+        if (nowDeadStack >= 1)
+        {
+            DeadStackValue++;
+            PlayerPrefs.SetInt("DeadStack" + stateIndex, DeadStackValue);
+
+        }
+        else
+        {
+            DeadStackValue++;
+            PlayerPrefs.SetInt("DeadStack" + stateIndex, 1);
+
+        }
+
         if (TrowelInstance == null)
         {
             TrowelInstance = Instantiate(TrowelPrefab, canvas.transform);

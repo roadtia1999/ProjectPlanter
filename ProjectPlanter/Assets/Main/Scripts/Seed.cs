@@ -45,6 +45,8 @@ public class Seed : MonoBehaviour
     int eventOccur;
     int Flowerindex;
     int btnBuble;
+    int GetDeadStack;
+    bool GetDeadStackBool = false;
     [Header("# Harvest")]
     public Canvas canvas;
     public GameObject HarvestPrefab;
@@ -101,6 +103,12 @@ public class Seed : MonoBehaviour
                 else if (PlantType[i] == 2)
                     Plant2(i);
 
+                else if (PlantType[i] == 4)
+                {
+                    Plant3(i);
+                    GetDeadStack = 3;
+                    GetDeadStackBool = true;
+                }
 
             }
         }
@@ -144,13 +152,13 @@ public class Seed : MonoBehaviour
     //-> 영원히 0혹은 전의 스택을 가지고있음.
     void Plant0(int index)
     {
-        if (GrowTime[0].TotalSeconds >= 10 && GrowTime[0].TotalSeconds < 30 && stack[0] == 1)
+        if (GrowTime[index].TotalSeconds >= 10 && GrowTime[index].TotalSeconds < 30 && stack[index] == 1)
             PlayerPrefs.SetInt("GrowStack" + index, 1);
 
-        else if (GrowTime[0].TotalSeconds >= 30 && GrowTime[0].TotalSeconds < 60 && stack[0] == 1)
+        else if (GrowTime[index].TotalSeconds >= 30 && GrowTime[index].TotalSeconds < 60 && stack[index] == 1)
             PlayerPrefs.SetInt("GrowStack" + index, 2);
 
-        else if (GrowTime[0].TotalSeconds >= 60 && stack[0] == 1)
+        else if (GrowTime[index].TotalSeconds >= 60 && stack[index] == 1)
             PlayerPrefs.SetInt("GrowStack" + index, 3);
 
 
@@ -161,13 +169,13 @@ public class Seed : MonoBehaviour
 
     void Plant1(int index)
     {
-        if (GrowTime[1].TotalSeconds >= 10 && GrowTime[1].TotalSeconds < 30 && stack[1] == 1)
+        if (GrowTime[index].TotalSeconds >= 10 && GrowTime[index].TotalSeconds < 30 && stack[index] == 1)
             PlayerPrefs.SetInt("GrowStack" + index, 1);
 
-        else if (GrowTime[1].TotalSeconds >= 30 && GrowTime[1].TotalSeconds < 60 && stack[1] == 1)
+        else if (GrowTime[index].TotalSeconds >= 30 && GrowTime[index].TotalSeconds < 60 && stack[index] == 1)
             PlayerPrefs.SetInt("GrowStack" + index, 2);
 
-        else if (GrowTime[1].TotalSeconds >= 60 && stack[1] == 1)
+        else if (GrowTime[index].TotalSeconds >= 60 && stack[index] == 1)
             PlayerPrefs.SetInt("GrowStack" + index, 3);
 
         CheckMethodPlay(index);
@@ -176,18 +184,34 @@ public class Seed : MonoBehaviour
     void Plant2(int index)
     {
 
-        if (GrowTime[2].TotalSeconds >= 10 && GrowTime[2].TotalSeconds < 59 && stack[2] == 1)
+        if (GrowTime[index].TotalSeconds >= 10 && GrowTime[index].TotalSeconds < 59 && stack[index] == 1)
             PlayerPrefs.SetInt("GrowStack" + index, 1);
 
-        else if (GrowTime[2].TotalSeconds >= 60 && GrowTime[2].TotalSeconds < 80 && stack[2] > 2)
+        else if (GrowTime[index].TotalSeconds >= 59 && GrowTime[index].TotalSeconds < 80 && stack[index] > 2)
             PlayerPrefs.SetInt("GrowStack" + index, 2);
 
-        else if (GrowTime[2].TotalSeconds >= 80 && stack[2] > 3)
+        else if (GrowTime[index].TotalSeconds >= 80 && stack[index] > 3)
             PlayerPrefs.SetInt("GrowStack" + index, 3);
 
 
         CheckMethodPlay(index);
     }
+
+    void Plant3(int index)
+    {
+
+        if (GrowTime[index].TotalSeconds >= 10 && GrowTime[index].TotalSeconds < 80 && stack[index] == 1)
+            PlayerPrefs.SetInt("GrowStack" + index, 1);
+
+        else if (GrowTime[index].TotalSeconds >= 80 && GrowTime[index].TotalSeconds < 180 && stack[index] > 2)
+            PlayerPrefs.SetInt("GrowStack" + index, 2);
+
+        else if (GrowTime[index].TotalSeconds >= 180 && stack[index] > 3)
+            PlayerPrefs.SetInt("GrowStack" + index, 3);
+
+        CheckMethodPlay(index);
+    }
+
 
 
 
@@ -197,10 +221,10 @@ public class Seed : MonoBehaviour
         GrowStack[index] = PlayerPrefs.GetInt("GrowStack" + index);
 
         if (GrowStack[index] > 2)
-            CheckMethod(index, 60);
+            CheckMethod(index, 30);
 
         else if (GrowStack[index] > 1)
-            CheckMethod(index, 30);
+            CheckMethod(index, 20);
 
         else if (GrowStack[index] > 0)
             CheckMethod(index, 10);
@@ -224,6 +248,11 @@ public class Seed : MonoBehaviour
             if (yPlantSprite != null)
                 Plant[index].GetComponent<Image>().sprite = yPlantSprite;
 
+            if (GetDeadStackBool == true)
+            {
+                yPlantSprite = GetY_PlantSprite(GetDeadStack);
+                Plant[index].GetComponent<Image>().sprite = yPlantSprite;
+            }
         }
     }
 
@@ -237,14 +266,24 @@ public class Seed : MonoBehaviour
             Plant[index].SetActive(true);
 
             Sprite fPlantSprite = GetF_PlantSprite(PlantType[index]);
+
             if (fPlantSprite != null)
             {
                 Plant[index].GetComponent<Image>().sprite = fPlantSprite;
                 PlayerPrefs.SetInt("PlantDexScene" + index, 1); // 식물 성장 정보를 PlayerPrefs에 저장
             }
 
+            if (GetDeadStackBool == true)
+            {
+                fPlantSprite = GetF_PlantSprite(GetDeadStack);
+                Plant[index].GetComponent<Image>().sprite = fPlantSprite;
+                PlayerPrefs.SetInt("PlantDexScene" + index, 1); // 식물 성장 정보를 PlayerPrefs에 저장
+            }
+
         }
     }
+
+
 
 
     // 0.프리지아 1. 장미  2. 수국 
@@ -259,6 +298,8 @@ public class Seed : MonoBehaviour
                 return itemData.FlowerSp[1];
             case 2:
                 return itemData.FlowerSp[2];
+            case 3:
+                return itemData.FlowerSp[3];
 
             default:
                 return null;
@@ -270,11 +311,13 @@ public class Seed : MonoBehaviour
         switch (index)
         {
             case 0:
-                return itemData.FlowerSp[3];
-            case 1:
                 return itemData.FlowerSp[4];
-            case 2:
+            case 1:
                 return itemData.FlowerSp[5];
+            case 2:
+                return itemData.FlowerSp[6];
+            case 3:
+                return itemData.FlowerSp[7];
 
             default:
                 return null;
@@ -298,10 +341,10 @@ public class Seed : MonoBehaviour
                     SeedAlpha.alpha = 0;
                     Sprout[index].SetActive(true);
                 }
-                else if (duration == 30)
+                else if (duration == 20)
                     RandomY_Flower(index);
 
-                else if (duration == 60)
+                else if (duration == 30)
                     Random_Flower(index);
 
             }
@@ -432,6 +475,14 @@ public class Seed : MonoBehaviour
                     // PlantingAfterTime0 1 2 에 다른 값들 부여.
                     PlayerPrefs.SetString("PlantingAfterTime" + btnBuble, PlantingAfter);
                     PlayerPrefs.SetInt("PlantType" + btnBuble, plantType[btnBuble]); // 꽃 종류 저장
+
+                    //특정 조건 꽃 추가 ( 시체 꽃 )
+                    int GetDeadStack = PlayerPrefs.GetInt("DeadStack" + btnBuble);
+                    if (GetDeadStack >= 2)
+                    {
+                        PlayerPrefs.SetInt("PlantType" + btnBuble, 4);
+                        PlayerPrefs.DeleteKey("DeadStack" + btnBuble);
+                    }
 
                 }
 

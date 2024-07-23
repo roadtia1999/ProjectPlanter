@@ -15,20 +15,29 @@ public class Trigger : MonoBehaviour
     GameObject[] PlantState = new GameObject[3];
     GameObject[] bubleObject = new GameObject[3];
     int[] plantType = new int[3];
-    int[] x = new int[3];
+    int[] NextImag = new int[3];
     Image[] FlowerImg = new Image[3];
     Image[] StateImg = new Image[3];
-
+    GameObject[] panel = new GameObject[4];
+    
     [Header("# Sprite")]
     public Sprite[] Statespr = new Sprite[3];
     public Sprite[] Flowerspr = new Sprite[3];
 
     [Header("# Etc")]
     int plantindex;
-    Canvas canvas2;
-
+    public Canvas canvas2;
+    public GameObject Panel;
+    public GameObject[] text = new GameObject[4];
+    int currentIndex = 0;
     private void Awake()
     {
+        
+        for (int i = 0; i < 4; i++)
+        {
+
+            panel[i] = Panel.transform.Find("Panel" + i).gameObject;
+        }
 
         for (int i = 0; i < 3; i++)
         {
@@ -38,20 +47,46 @@ public class Trigger : MonoBehaviour
             Flower[i] = Pot[i].transform.Find("FlowerDemo" + i).gameObject;
             PlantState[i] = Pot[i].transform.Find("PlantState" + i).gameObject;
             bubleObject[i] = Pot[i].transform.Find("Button Buble" + i).gameObject;
+            
 
             FlowerImg[i] = Flower[i].GetComponent<Image>();
             StateImg[i] = PlantState[i].GetComponent<Image>();
-            x[i] = 0;
+            NextImag[i] = 0;
         }
 
         if (PlayerPrefs.HasKey("First"))
         {
-            Canvas canvas2 = GameObject.FindObjectOfType<Canvas>();
+            Debug.Log("있음");
             canvas2.gameObject.SetActive(false);
-
+            
+        }
+        else
+        {
+            panel[0].SetActive(true);
+            text[0].SetActive(true);
         }
     }
 
+    public void ClickOff()
+    {
+        
+
+        if (currentIndex >= 3)
+        {
+            
+            canvas2.gameObject.SetActive(false);
+        }
+
+        else if (currentIndex < panel.Length - 1)
+        {
+            text[currentIndex].SetActive(false);
+            panel[currentIndex].SetActive(false);
+            currentIndex++;
+            panel[currentIndex].SetActive(true);
+            text[currentIndex].SetActive(true);
+        }
+
+    }
     public void PlantNum(int num)
     {
         plantindex = num;
@@ -84,8 +119,8 @@ public class Trigger : MonoBehaviour
 
 
             // 다음 이미지로 변경
-            x[plantindex] = (x[plantindex] + 1) % Statespr.Length;
-            StateImg[plantindex].sprite = Statespr[x[plantindex]];
+            NextImag[plantindex] = (NextImag[plantindex] + 1) % Statespr.Length;
+            StateImg[plantindex].sprite = Statespr[NextImag[plantindex]];
 
         }
 

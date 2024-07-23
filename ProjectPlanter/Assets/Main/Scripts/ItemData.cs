@@ -17,13 +17,12 @@ public class ItemData : ScriptableObject
     [Header("# Event Data")]
     /*이벤트 프리팹 , 시간대*/
     public GameObject EventPrefab;
-    public float TimeZone;
 
     [Header("# Plant Data")]
-    // 식물 프리팹, 아이콘 , 성장시간.
-    public GameObject PlantPrefab;
+    // 식물 프리팹, 아이콘 , 성장시간
     public float GrowthTime;
-    public Sprite[] FlowerSp = new Sprite[6];
+    public Sprite[] FlowerSp = new Sprite[8];
+    
 
 
 
