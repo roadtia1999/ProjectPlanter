@@ -258,8 +258,7 @@ public class Seed : MonoBehaviour
 
     void Random_Flower(int index)
     {
-
-        if (Plant[index])
+        if (Plant[index] != null)
         {
             Sprout[index].SetActive(false);
 
@@ -272,14 +271,28 @@ public class Seed : MonoBehaviour
                 Plant[index].GetComponent<Image>().sprite = fPlantSprite;
                 PlayerPrefs.SetInt("PlantDexScene" + index, 1); // 식물 성장 정보를 PlayerPrefs에 저장
             }
-
-            if (GetDeadStackBool == true)
+            else
             {
-                fPlantSprite = GetF_PlantSprite(GetDeadStack);
-                Plant[index].GetComponent<Image>().sprite = fPlantSprite;
-                PlayerPrefs.SetInt("PlantDexScene" + index, 1); // 식물 성장 정보를 PlayerPrefs에 저장
+                Debug.LogWarning("fPlantSprite is null for PlantType " + PlantType[index]);
             }
 
+            if (GetDeadStackBool)
+            {
+                fPlantSprite = GetF_PlantSprite(GetDeadStack);
+                if (fPlantSprite != null)
+                {
+                    Plant[index].GetComponent<Image>().sprite = fPlantSprite;
+                    PlayerPrefs.SetInt("PlantDexScene" + index, 1); // 식물 성장 정보를 PlayerPrefs에 저장
+                }
+                else
+                {
+                    Debug.LogWarning("fPlantSprite is null for GetDeadStack " + GetDeadStack);
+                }
+            }
+        }
+        else
+        {
+            Debug.LogWarning("Plant at index " + index + " is null.");
         }
     }
 

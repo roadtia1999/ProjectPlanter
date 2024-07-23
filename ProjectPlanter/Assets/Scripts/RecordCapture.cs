@@ -28,7 +28,8 @@ public class RecordCapture : MonoBehaviour
         // 씬이 전부 로드될 때까지 대기
         yield return new WaitForEndOfFrame();
 
-        if (GameObject.Find("Canvas2").activeSelf == true) // 게임 튜토리얼이 활성화 된 상태인 경우
+        GameObject canvas2 = GameObject.Find("Canvas2");
+        if (canvas2 != null && canvas2.activeSelf) // 게임 튜토리얼이 활성화 된 상태인 경우
         {
             // 자동 스크린샷 실행하지 않음
             yield break;
