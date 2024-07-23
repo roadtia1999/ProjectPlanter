@@ -28,6 +28,12 @@ public class RecordCapture : MonoBehaviour
         // 씬이 전부 로드될 때까지 대기
         yield return new WaitForEndOfFrame();
 
+        if (GameObject.Find("Canvas2").activeSelf == true) // 게임 튜토리얼이 활성화 된 상태인 경우
+        {
+            // 자동 스크린샷 실행하지 않음
+            yield break;
+        }
+
         // 페이드 인/아웃 때문에 어둡게 스크린샷이 찍히는 경우 방지
         Image fadeImage = GameObject.Find("FadeCanvas").GetComponentInChildren<Image>(); // 씬 전환용 이미지를 가져옴
         Color fadeCheck = fadeImage.color;
