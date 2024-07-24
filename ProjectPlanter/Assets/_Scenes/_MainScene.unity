@@ -141,7 +141,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &47784012
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1235,7 +1235,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &330445935
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1363,6 +1363,7 @@ GameObject:
   - component: {fileID: 384435324}
   - component: {fileID: 384435323}
   - component: {fileID: 384435322}
+  - component: {fileID: 384435325}
   m_Layer: 5
   m_Name: PlantState2
   m_TagString: Untagged
@@ -1496,6 +1497,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 384435320}
   m_CullTransparentMesh: 1
+--- !u!114 &384435325
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 384435320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 780ea8eef542665428133664b84367e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bubbleMove: 15
+  stateMove: 10
+  waitSeconds: 0.75
 --- !u!1 &424615277
 GameObject:
   m_ObjectHideFlags: 0
@@ -2349,6 +2365,7 @@ GameObject:
   - component: {fileID: 637851916}
   - component: {fileID: 637851915}
   - component: {fileID: 637851914}
+  - component: {fileID: 637851917}
   m_Layer: 5
   m_Name: Button Buble2
   m_TagString: Untagged
@@ -2507,6 +2524,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 637851912}
   m_CullTransparentMesh: 1
+--- !u!114 &637851917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 637851912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 780ea8eef542665428133664b84367e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bubbleMove: 15
+  stateMove: 10
+  waitSeconds: 0.75
 --- !u!1 &646738887
 GameObject:
   m_ObjectHideFlags: 0
@@ -3217,7 +3249,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &902642410
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3425,6 +3457,7 @@ GameObject:
   - component: {fileID: 927643795}
   - component: {fileID: 927643794}
   - component: {fileID: 927643793}
+  - component: {fileID: 927643796}
   m_Layer: 5
   m_Name: PlantState1
   m_TagString: Untagged
@@ -3558,6 +3591,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 927643791}
   m_CullTransparentMesh: 1
+--- !u!114 &927643796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 927643791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 780ea8eef542665428133664b84367e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bubbleMove: 15
+  stateMove: 10
+  waitSeconds: 0.75
 --- !u!1 &953630987
 GameObject:
   m_ObjectHideFlags: 0
@@ -3647,6 +3695,7 @@ GameObject:
   - component: {fileID: 962515395}
   - component: {fileID: 962515394}
   - component: {fileID: 962515393}
+  - component: {fileID: 962515396}
   m_Layer: 5
   m_Name: Button Buble1
   m_TagString: Untagged
@@ -3805,6 +3854,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 962515391}
   m_CullTransparentMesh: 1
+--- !u!114 &962515396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 962515391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 780ea8eef542665428133664b84367e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bubbleMove: 15
+  stateMove: 10
+  waitSeconds: 0.75
 --- !u!1 &987869500
 GameObject:
   m_ObjectHideFlags: 0
@@ -3895,6 +3959,7 @@ GameObject:
   - component: {fileID: 997290618}
   - component: {fileID: 997290617}
   - component: {fileID: 997290616}
+  - component: {fileID: 997290619}
   m_Layer: 5
   m_Name: Button Buble0
   m_TagString: Untagged
@@ -4041,6 +4106,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 997290614}
   m_CullTransparentMesh: 1
+--- !u!114 &997290619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 997290614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 780ea8eef542665428133664b84367e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bubbleMove: 15
+  stateMove: 10
+  waitSeconds: 0.75
 --- !u!1 &1056376673
 GameObject:
   m_ObjectHideFlags: 0
@@ -5401,6 +5481,7 @@ GameObject:
   - component: {fileID: 1621580108}
   - component: {fileID: 1621580107}
   - component: {fileID: 1621580106}
+  - component: {fileID: 1621580109}
   m_Layer: 5
   m_Name: PlantState0
   m_TagString: Untagged
@@ -5534,6 +5615,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1621580104}
   m_CullTransparentMesh: 1
+--- !u!114 &1621580109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1621580104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 780ea8eef542665428133664b84367e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bubbleMove: 15
+  stateMove: 10
+  waitSeconds: 0.75
 --- !u!1 &1707870468
 GameObject:
   m_ObjectHideFlags: 0
@@ -6126,7 +6222,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1789862916
 RectTransform:
   m_ObjectHideFlags: 0
