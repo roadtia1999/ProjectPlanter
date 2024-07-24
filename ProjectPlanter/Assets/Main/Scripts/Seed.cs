@@ -32,6 +32,7 @@ public class Seed : MonoBehaviour
     public int[] PlantType = new int[3]; //화분 어디어디로 들어갔는지 확인 가능.
     public int[] stack = new int[3]; //물 얼마나 뿌려졌는지 확인 가능.
     public int[] GrowStack = new int[3];
+    public int[] DeadStack = new int[3];
     public Image[] PlantImage = new Image[3]; //PlantImage 타입별로 성장값 조정
     int[] plantType = new int[3];
     GameObject[] seedObject = new GameObject[3];
@@ -45,7 +46,6 @@ public class Seed : MonoBehaviour
     int eventOccur;
     int Flowerindex;
     int btnBuble;
-    int GetDeadStack;
     bool GetDeadStackBool = false;
     [Header("# Harvest")]
     public Canvas canvas;
@@ -60,9 +60,6 @@ public class Seed : MonoBehaviour
     private void Awake()
     {
         instance = this;
-
-        /*PlantingAfterString = DateTime.Now.ToString();
-        PlayerPrefs.SetString("PlantingAfterRestart", PlantingAfterString);*/
         eventOccur = PlayerPrefs.GetInt("EventOccur");
 
 
@@ -106,7 +103,7 @@ public class Seed : MonoBehaviour
                 else if (PlantType[i] == 4)
                 {
                     Plant3(i);
-                    GetDeadStack = 3;
+                    DeadStack[i] = 3;
                     GetDeadStackBool = true;
                 }
 
@@ -155,10 +152,10 @@ public class Seed : MonoBehaviour
         if (GrowTime[index].TotalSeconds >= 10 && GrowTime[index].TotalSeconds < 30 && stack[index] == 1)
             PlayerPrefs.SetInt("GrowStack" + index, 1);
 
-        else if (GrowTime[index].TotalSeconds >= 30 && GrowTime[index].TotalSeconds < 60 && stack[index] == 1)
+        else if (GrowTime[index].TotalSeconds >= 30 && GrowTime[index].TotalSeconds < 81 && stack[index] == 1)
             PlayerPrefs.SetInt("GrowStack" + index, 2);
 
-        else if (GrowTime[index].TotalSeconds >= 60 && stack[index] == 1)
+        else if (GrowTime[index].TotalSeconds >= 81 && stack[index] == 1)
             PlayerPrefs.SetInt("GrowStack" + index, 3);
 
 
@@ -172,10 +169,10 @@ public class Seed : MonoBehaviour
         if (GrowTime[index].TotalSeconds >= 10 && GrowTime[index].TotalSeconds < 30 && stack[index] == 1)
             PlayerPrefs.SetInt("GrowStack" + index, 1);
 
-        else if (GrowTime[index].TotalSeconds >= 30 && GrowTime[index].TotalSeconds < 60 && stack[index] == 1)
+        else if (GrowTime[index].TotalSeconds >= 30 && GrowTime[index].TotalSeconds < 81 && stack[index] == 1)
             PlayerPrefs.SetInt("GrowStack" + index, 2);
 
-        else if (GrowTime[index].TotalSeconds >= 60 && stack[index] == 1)
+        else if (GrowTime[index].TotalSeconds >= 81 && stack[index] == 1)
             PlayerPrefs.SetInt("GrowStack" + index, 3);
 
         CheckMethodPlay(index);
@@ -187,10 +184,10 @@ public class Seed : MonoBehaviour
         if (GrowTime[index].TotalSeconds >= 10 && GrowTime[index].TotalSeconds < 59 && stack[index] == 1)
             PlayerPrefs.SetInt("GrowStack" + index, 1);
 
-        else if (GrowTime[index].TotalSeconds >= 59 && GrowTime[index].TotalSeconds < 80 && stack[index] > 2)
+        else if (GrowTime[index].TotalSeconds >= 59 && GrowTime[index].TotalSeconds < 130 && stack[index] > 2)
             PlayerPrefs.SetInt("GrowStack" + index, 2);
 
-        else if (GrowTime[index].TotalSeconds >= 80 && stack[index] > 3)
+        else if (GrowTime[index].TotalSeconds >= 130 && stack[index] > 3)
             PlayerPrefs.SetInt("GrowStack" + index, 3);
 
 
@@ -250,7 +247,7 @@ public class Seed : MonoBehaviour
 
             if (GetDeadStackBool == true)
             {
-                yPlantSprite = GetY_PlantSprite(GetDeadStack);
+                yPlantSprite = GetY_PlantSprite(DeadStack[index]);
                 Plant[index].GetComponent<Image>().sprite = yPlantSprite;
             }
         }
@@ -271,29 +268,19 @@ public class Seed : MonoBehaviour
                 Plant[index].GetComponent<Image>().sprite = fPlantSprite;
                 PlayerPrefs.SetInt("PlantDexScene" + index, 1); // 식물 성장 정보를 PlayerPrefs에 저장
             }
-            else
-            {
-                Debug.LogWarning("fPlantSprite is null for PlantType " + PlantType[index]);
-            }
 
             if (GetDeadStackBool)
             {
-                fPlantSprite = GetF_PlantSprite(GetDeadStack);
+                fPlantSprite = GetF_PlantSprite(DeadStack[index]);
                 if (fPlantSprite != null)
                 {
                     Plant[index].GetComponent<Image>().sprite = fPlantSprite;
                     PlayerPrefs.SetInt("PlantDexScene" + index, 1); // 식물 성장 정보를 PlayerPrefs에 저장
                 }
-                else
-                {
-                    Debug.LogWarning("fPlantSprite is null for GetDeadStack " + GetDeadStack);
-                }
+        
             }
         }
-        else
-        {
-            Debug.LogWarning("Plant at index " + index + " is null.");
-        }
+       
     }
 
 
@@ -448,6 +435,7 @@ public class Seed : MonoBehaviour
             stack[i] = PlayerPrefs.GetInt("Stack" + i, 0);
             PlantType[i] = PlayerPrefs.GetInt("PlantType" + i);
             GrowStack[i] = PlayerPrefs.GetInt("GrowStack" + i);
+            DeadStack[i] = PlayerPrefs.GetInt("DeadStack" + i);
             if (string.IsNullOrEmpty(PlantedTimeString))
             {
                 timeDifference = TimeSpan.Zero;
@@ -490,8 +478,8 @@ public class Seed : MonoBehaviour
                     PlayerPrefs.SetInt("PlantType" + btnBuble, plantType[btnBuble]); // 꽃 종류 저장
 
                     //특정 조건 꽃 추가 ( 시체 꽃 )
-                    int GetDeadStack = PlayerPrefs.GetInt("DeadStack" + btnBuble);
-                    if (GetDeadStack >= 2)
+                    DeadStack[btnBuble]= PlayerPrefs.GetInt("DeadStack" + btnBuble);
+                    if (DeadStack[btnBuble] >= 2)
                     {
                         PlayerPrefs.SetInt("PlantType" + btnBuble, 4);
                         PlayerPrefs.DeleteKey("DeadStack" + btnBuble);

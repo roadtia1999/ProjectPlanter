@@ -20,16 +20,17 @@ public class Trigger : MonoBehaviour
     Image[] StateImg = new Image[3];
     GameObject[] panel = new GameObject[4];
     
+    
     [Header("# Sprite")]
     public Sprite[] Statespr = new Sprite[3];
     public Sprite[] Flowerspr = new Sprite[3];
 
-    [Header("# Etc")]
-    int plantindex;
+    [Header("# ETC")]
+    public GameObject[] text = new GameObject[4];
     public Canvas canvas2;
     public GameObject Panel;
-    public GameObject[] text = new GameObject[4];
     int currentIndex = 0;
+    int plantindex;
     private void Awake()
     {
         
@@ -103,6 +104,11 @@ public class Trigger : MonoBehaviour
             if (PlayerPrefs.HasKey("PlantType" + plantindex))
             {
                 Flower[plantindex].SetActive(true);
+                if (!FlowerImg[plantindex].enabled)
+                {
+                    FlowerImg[plantindex].enabled = true;
+
+                }
                 plantType[plantindex] = SeedManager.PlantType[plantindex];
                 FlowerImg[plantindex].sprite = Flowerspr[plantType[plantindex]];
 
@@ -113,10 +119,15 @@ public class Trigger : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.W))
         {
+            Image StateImage = PlantState[plantindex].GetComponent<Image>();
 
             if (!PlantState[plantindex].activeSelf)
+            {
                 PlantState[plantindex].SetActive(true);
-
+                
+            }
+                StateImage.enabled = true;
+            Debug.Log(StateImage.enabled + " 이미지 상태");
 
             // 다음 이미지로 변경
             NextImag[plantindex] = (NextImag[plantindex] + 1) % Statespr.Length;

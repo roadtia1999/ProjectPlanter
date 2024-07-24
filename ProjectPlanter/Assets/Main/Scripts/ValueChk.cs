@@ -14,17 +14,19 @@ public class ValueChk : MonoBehaviour
     [SerializeField] private int[] stack;
     [SerializeField] private int[] Painstack;
     [SerializeField] private int[] Growstack;
-
+    [SerializeField] private int[] Deadstack;
     private void Start()
     {
-        if (SeedManager != null)
-        {
-            seconds = SeedManager.seconds;
-            PlantType = SeedManager.PlantType;
-            stack = SeedManager.stack;
-            Growstack = SeedManager.GrowStack;
-            Painstack = stateManager.painStack;
-        }
+        seconds = SeedManager.seconds;
+        PlantType = SeedManager.PlantType;
+        stack = SeedManager.stack;
+        Growstack = SeedManager.GrowStack;
+        Deadstack = SeedManager.DeadStack;
+
+        Painstack = stateManager.painStack;
+
+
+
 
     }
 
@@ -36,10 +38,12 @@ public class ValueChk : MonoBehaviour
             seconds = SeedManager.seconds;
             PlantType = SeedManager.PlantType;
             stack = SeedManager.stack;
-
+            Growstack = SeedManager.stack;
+            Deadstack = SeedManager.stack;
         }
         if (stateManager != null)
             Painstack = stateManager.painStack;
+            
 
     }
 }

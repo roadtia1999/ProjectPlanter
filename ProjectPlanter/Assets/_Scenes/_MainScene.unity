@@ -3981,18 +3981,6 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1480454273}
         m_TargetAssemblyTypeName: MainBtnManager, Assembly-CSharp
-        m_MethodName: Re_reset
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1480454273}
-        m_TargetAssemblyTypeName: MainBtnManager, Assembly-CSharp
         m_MethodName: BubleCilck
         m_Mode: 2
         m_Arguments:
@@ -4106,6 +4094,7 @@ MonoBehaviour:
   PlantType: 000000000000000000000000
   stack: 000000000000000000000000
   GrowStack: 000000000000000000000000
+  DeadStack: 000000000000000000000000
   PlantImage:
   - {fileID: 1401918887}
   - {fileID: 576970293}
@@ -5239,6 +5228,7 @@ MonoBehaviour:
   stack: 000000000000000000000000
   Painstack: 000000000000000000000000
   Growstack: 000000000000000000000000
+  Deadstack: 000000000000000000000000
 --- !u!1 &1544353023
 GameObject:
   m_ObjectHideFlags: 0
@@ -6349,13 +6339,13 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 168dfa1ae0c63224bb5a03168da8ad99, type: 3}
   - {fileID: 21300000, guid: b35fc8031ac107145bad663bed0acd01, type: 3}
   - {fileID: 21300000, guid: 9ed0e3e70d926194187f799f41af72dc, type: 3}
-  canvas2: {fileID: 424615280}
-  Panel: {fileID: 633641447}
   text:
   - {fileID: 1544353023}
   - {fileID: 2092243720}
   - {fileID: 1754715927}
   - {fileID: 478607788}
+  canvas2: {fileID: 424615280}
+  Panel: {fileID: 633641447}
 --- !u!1 &1826960482
 GameObject:
   m_ObjectHideFlags: 0

@@ -34,7 +34,7 @@ public class EventManager : MonoBehaviour
 
         // 시간 차이가 3초 이상일 때 랜덤 이벤트 발생
         //저장값이 하나라도 있으면 실행
-        if (PlayerPrefs.HasKey("PlantingAfterTime" + 0) || PlayerPrefs.HasKey("PlantingAfterTime" + 1) || PlayerPrefs.HasKey("PlantingAfterTime" + 2))
+        if (CompareHasKey(3))
         {
             if (timeDif.TotalSeconds >= 3)
             {
@@ -44,6 +44,18 @@ public class EventManager : MonoBehaviour
 
         }
 
+    }
+
+    private bool CompareHasKey(int maxIndex)
+    {
+        for (int i = 0; i < maxIndex; i++)
+        {
+            if (PlayerPrefs.HasKey("PlantingAfterTime" + i))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
 
@@ -60,7 +72,7 @@ public class EventManager : MonoBehaviour
         // 프리팹 번호 찾기
         for (int index = 0; index < PoolManager.instance.Event_prefab.Length; index++)
         {
-            if (itemData[randomEvent].EventPrefab == PoolManager.instance.Event_prefab[index])
+            if (itemData[randomEvent].EventPrefab == PoolManager.instance.Event_prefab[index]) 
             {
                 prefabId = index;
                 break;

@@ -236,8 +236,6 @@ public class MainBtnManager : MonoBehaviour
         handInstance.SetActive(false);
     }
 
-    // ¾¾¾Ñ image È°¼ºÈ­1
-    //
     public void Plantingseed()
     {
         GameObject seedObject = GameObject.Find("seed" + bubleIndex);

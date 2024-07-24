@@ -13,10 +13,10 @@ public class PlantStateManager : MonoBehaviour
 
     [Header("# Array")]
     //stack == 화분에 물뿌린 횟수
+    public Sprite[] StateSpr;
     int[] stack = new int[3];
     string[] x = new string[3];
     string[] y = new string[3];
-    public Sprite[] StateSpr;
     GameObject[] PlantState = new GameObject[3];
     Button[] Plantstate = new Button[3];
     GameObject[] Pot = new GameObject[3];
@@ -49,7 +49,7 @@ public class PlantStateManager : MonoBehaviour
     // 클릭된 state의 인덱스
     int stateIndex;
     public Canvas canvas;
-    Image PlantImage;
+    Image[] PlantImage = new Image[3];
 
     private void Start()
     {
@@ -70,18 +70,7 @@ public class PlantStateManager : MonoBehaviour
             Plantstate[i] = plantStateObject.GetComponent<Button>();
 
             Image StateImage = Plantstate[i].GetComponent<Image>();
-            PlantImage = Plant[i].GetComponent<Image>();
-
-            //코루틴 PlantState2 inactive 오류 때문에.
-            /*            if (StateImage.sprite == null)
-                        {
-                            StateImage.enabled = false;
-                        }
-                        else
-                        {
-                            StateImage.enabled = true;
-
-                        }*/
+            PlantImage[i] = Plant[i].GetComponent<Image>();
 
             if (bubleObject[i].activeSelf)
             {
@@ -381,10 +370,15 @@ public class PlantStateManager : MonoBehaviour
             ChangeSeedImageToNone();
         }
 
-        if (PlantImage != null && PlantImage.enabled)
+        if (PlantImage[stateIndex] != null && PlantImage[stateIndex].enabled)
         {
-            PlantImage.enabled = false;
+            Debug.Log(PlantImage[stateIndex] + " 플렌트 이미지 정체");
+            Debug.Log(PlantImage[stateIndex].enabled + " 이미지상태 전");
+            PlantImage[stateIndex].enabled = false;
+            Debug.Log(PlantImage[stateIndex].enabled + " 이미지상태 후");
+
         }
+
     }
     private IEnumerator DestroyTrowelAfterDelay(float delay, Button clickedButton)
     {
