@@ -58,7 +58,6 @@ public class RecordCapture : MonoBehaviour
                 // 화면의 크기를 가지는 텍스쳐를 준비
                 int width = Screen.width;
                 int height = Screen.height;
-                Debug.Log(width + " " + height);
                 Texture2D tex = new Texture2D(width, height, TextureFormat.RGB24, false);
 
                 #if !UNITY_EDITOR
