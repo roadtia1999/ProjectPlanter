@@ -275,10 +275,10 @@ public class Seed : MonoBehaviour
                     Plant[index].GetComponent<Image>().sprite = fPlantSprite;
                     PlayerPrefs.SetInt("PlantDexScene" + index, 1); // 식물 성장 정보를 PlayerPrefs에 저장
                 }
-        
+
             }
         }
-       
+
     }
 
 
@@ -360,18 +360,18 @@ public class Seed : MonoBehaviour
 
     public void harvest()
     {
-        if (HarvestInstance == null)
-        {
-            HarvestInstance = Instantiate(HarvestPrefab, canvas.transform);
-            HarvestInstance.AddComponent<CanvasGroup>();
-        }
-
         buttonImage = PlantState[Flowerindex].GetComponent<Image>();
         if (Plant[Flowerindex].activeSelf)
         {
             if (PlantImage[Flowerindex].sprite == GetF_PlantSprite(0) || PlantImage[Flowerindex].sprite == GetF_PlantSprite(1)
                 || PlantImage[Flowerindex].sprite == GetF_PlantSprite(2))
             {
+                if (HarvestInstance == null)
+                {
+                    HarvestInstance = Instantiate(HarvestPrefab, canvas.transform);
+                    HarvestInstance.AddComponent<CanvasGroup>();
+                }
+
                 Plant[Flowerindex].SetActive(false);
                 if (!Plant[Flowerindex].activeSelf)
                 {
@@ -476,7 +476,7 @@ public class Seed : MonoBehaviour
                     PlayerPrefs.SetInt("PlantType" + btnBuble, plantType[btnBuble]); // 꽃 종류 저장
 
                     //특정 조건 꽃 추가 ( 시체 꽃 )
-                    DeadStack[btnBuble]= PlayerPrefs.GetInt("DeadStack" + btnBuble);
+                    DeadStack[btnBuble] = PlayerPrefs.GetInt("DeadStack" + btnBuble);
                     if (DeadStack[btnBuble] >= 2)
                     {
                         PlayerPrefs.SetInt("PlantType" + btnBuble, 4);

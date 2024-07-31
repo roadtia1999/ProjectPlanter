@@ -43,7 +43,7 @@ public class ValueChk : MonoBehaviour
         }
         if (stateManager != null)
             Painstack = stateManager.painStack;
-            
+
 
     }
 }

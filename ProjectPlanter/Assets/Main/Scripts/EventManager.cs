@@ -72,7 +72,7 @@ public class EventManager : MonoBehaviour
         // 프리팹 번호 찾기
         for (int index = 0; index < PoolManager.instance.Event_prefab.Length; index++)
         {
-            if (itemData[randomEvent].EventPrefab == PoolManager.instance.Event_prefab[index]) 
+            if (itemData[randomEvent].EventPrefab == PoolManager.instance.Event_prefab[index])
             {
                 prefabId = index;
                 break;

@@ -19,8 +19,8 @@ public class Trigger : MonoBehaviour
     Image[] FlowerImg = new Image[3];
     Image[] StateImg = new Image[3];
     GameObject[] panel = new GameObject[4];
-    
-    
+
+
     [Header("# Sprite")]
     public Sprite[] Statespr = new Sprite[3];
     public Sprite[] Flowerspr = new Sprite[3];
@@ -33,7 +33,7 @@ public class Trigger : MonoBehaviour
     int plantindex;
     private void Awake()
     {
-        
+
         for (int i = 0; i < 4; i++)
         {
 
@@ -48,7 +48,7 @@ public class Trigger : MonoBehaviour
             Flower[i] = Pot[i].transform.Find("FlowerDemo" + i).gameObject;
             PlantState[i] = Pot[i].transform.Find("PlantState" + i).gameObject;
             bubleObject[i] = Pot[i].transform.Find("Button Buble" + i).gameObject;
-            
+
 
             FlowerImg[i] = Flower[i].GetComponent<Image>();
             StateImg[i] = PlantState[i].GetComponent<Image>();
@@ -56,11 +56,8 @@ public class Trigger : MonoBehaviour
         }
 
         if (PlayerPrefs.HasKey("First"))
-        {
-            Debug.Log("있음");
             canvas2.gameObject.SetActive(false);
-            
-        }
+
         else
         {
             panel[0].SetActive(true);
@@ -70,11 +67,11 @@ public class Trigger : MonoBehaviour
 
     public void ClickOff()
     {
-        
+
 
         if (currentIndex >= 3)
         {
-            
+
             canvas2.gameObject.SetActive(false);
         }
 
@@ -124,10 +121,10 @@ public class Trigger : MonoBehaviour
             if (!PlantState[plantindex].activeSelf)
             {
                 PlantState[plantindex].SetActive(true);
-                
+
             }
-                StateImage.enabled = true;
-            Debug.Log(StateImage.enabled + " 이미지 상태");
+            StateImage.enabled = true;
+
 
             // 다음 이미지로 변경
             NextImag[plantindex] = (NextImag[plantindex] + 1) % Statespr.Length;

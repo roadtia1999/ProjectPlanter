@@ -368,10 +368,8 @@ public class PlantStateManager : MonoBehaviour
 
         if (PlantImage[stateIndex] != null && PlantImage[stateIndex].enabled)
         {
-            Debug.Log(PlantImage[stateIndex] + " 플렌트 이미지 정체");
-            Debug.Log(PlantImage[stateIndex].enabled + " 이미지상태 전");
             PlantImage[stateIndex].enabled = false;
-            Debug.Log(PlantImage[stateIndex].enabled + " 이미지상태 후");
+
 
         }
 

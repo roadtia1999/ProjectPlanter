@@ -22,7 +22,7 @@ public class ItemData : ScriptableObject
     // 식물 프리팹, 아이콘 , 성장시간
     public float GrowthTime;
     public Sprite[] FlowerSp = new Sprite[8];
-    
+
 
 
 

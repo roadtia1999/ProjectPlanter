@@ -13,7 +13,7 @@ public class TimeManager : MonoBehaviour
     {
         instance = this;
         string first = "";
-        PlayerPrefs.SetString("First" , first);
+        PlayerPrefs.SetString("First", first);
         string savedTimeString = PlayerPrefs.GetString("SavedTime");
         // 종료시간 - 현재 시간
         if (!string.IsNullOrEmpty(savedTimeString))
