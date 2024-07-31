@@ -93,19 +93,15 @@ public class Trigger : MonoBehaviour
 
     private void Update()
     {
-
-
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            plantType[plantindex] = SeedManager.PlantType[plantindex];
             if (PlayerPrefs.HasKey("PlantType" + plantindex))
             {
                 Flower[plantindex].SetActive(true);
                 if (!FlowerImg[plantindex].enabled)
-                {
                     FlowerImg[plantindex].enabled = true;
 
-                }
+
                 plantType[plantindex] = SeedManager.PlantType[plantindex];
                 FlowerImg[plantindex].sprite = Flowerspr[plantType[plantindex]];
 

@@ -116,7 +116,6 @@ public class Seed : MonoBehaviour
 
 
     //Awake -> TimeDifChk -> TimeDifGrow -> CheckMethod -> CheckMethodXX
-    // x 배열로 묶기  묶어서 뽑아오기 . x[0] x[1]
     void TimeDifChk(int i)
     {
 
@@ -145,8 +144,7 @@ public class Seed : MonoBehaviour
 
 
     }
-    //문제.정해진 시간 안에 못들어오면 grow스택값 부여 받지 못함.
-    //-> 영원히 0혹은 전의 스택을 가지고있음.
+
     void Plant0(int index)
     {
         if (GrowTime[index].TotalSeconds >= 10 && GrowTime[index].TotalSeconds < 30 && stack[index] == 1)
