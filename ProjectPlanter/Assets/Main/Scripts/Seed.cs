@@ -20,7 +20,7 @@ public class Seed : MonoBehaviour
     // 게임 시작 시간
     private DateTime seedlastTime;
     //시간 차이 값.
-    private TimeSpan timeDifference;
+    public TimeSpan timeDifference;
     public TimeSpan[] GrowTime = new TimeSpan[3];
 
     [Header("# ItemData")]

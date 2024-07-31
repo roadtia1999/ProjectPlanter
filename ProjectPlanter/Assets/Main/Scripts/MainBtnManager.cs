@@ -28,15 +28,16 @@ public class MainBtnManager : MonoBehaviour
     [Header("etc")]
     public int bubleIndex; // 클릭된 버블의 인덱스
     int potIndex; // 클릭된 화분의 인덱스 
+    PlantDatabase plantDatabase;
 
     [Header("Canvas")]
     public Canvas canvas;
     GameObject[] PlantState = new GameObject[3];
     GameObject[] Pot = new GameObject[3];
+    public GameObject[] timeCheckBubble;
+    public Text[] timeCheckBubbleTxt;
+    public float timeCheckWait;
     public Sprite[] StateSpr;
-
-
-
 
     private void Awake()
     {
@@ -76,6 +77,8 @@ public class MainBtnManager : MonoBehaviour
     private void Start()
     {
         stack = new int[3];
+
+        plantDatabase = GameObject.Find("PlantDatabase").GetComponent<PlantDatabase>();
 
     }
 
@@ -153,9 +156,6 @@ public class MainBtnManager : MonoBehaviour
 
             // 3초 후에 Can 오브젝트를 파괴합니다.
             StartCoroutine(DestroyCanAfterDelay(3f));
-
-            // 상태 초기화
-            CanClicked = false;
         }
     }
 
@@ -163,6 +163,9 @@ public class MainBtnManager : MonoBehaviour
     private IEnumerator DestroyCanAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
+
+        // 상태 초기화
+        CanClicked = false;
         Destroy(canInstance);
     }
 
@@ -261,5 +264,41 @@ public class MainBtnManager : MonoBehaviour
                 break;
             }
         }
+    }
+
+    // 화분 버튼이 클릭되었을 때
+    public void PotButtonClicked(int buttonIndex)
+    {
+        StartCoroutine(TimeLeftBubble(buttonIndex)); // 식물이 성장하기까지 시간이 얼마나 남았는지 확인하는 코루틴 실행
+    }
+
+    // 식물의 완전한 성장까지 시간을 체크, 화면에 잠시 표시하는 코루틴
+    IEnumerator TimeLeftBubble(int index)
+    {
+        Seed seed = GameObject.Find("SeedManager").GetComponent<Seed>();
+
+        seed.timeDifference = TimeSpan.Zero;
+        int tempSeconds = (int)Math.Round(seed.GrowTime[index].TotalSeconds);
+        Debug.Log(tempSeconds);
+        Debug.Log(CanClicked);
+
+        if (tempSeconds == 0 || CanClicked)
+        {
+            yield break;
+        }
+        else if (tempSeconds > plantDatabase.itemData[seed.PlantType[index]].GrowthTime)
+        {
+            timeCheckBubbleTxt[index].text = "식물이 완전히 성장했어요!\n메뉴로 나가서 새로고침해봐요";
+            timeCheckBubble[index].SetActive(true);
+        }
+        else
+        {
+            timeCheckBubbleTxt[index].text = "식물이 완전히 성장하기까지\n" + (plantDatabase.itemData[index].GrowthTime - tempSeconds) + "초 남았어요";
+            timeCheckBubble[index].SetActive(true);
+        }
+
+        yield return new WaitForSeconds(timeCheckWait);
+
+        timeCheckBubble[index].SetActive(false);
     }
 }

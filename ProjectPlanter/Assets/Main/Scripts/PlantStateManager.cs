@@ -50,6 +50,7 @@ public class PlantStateManager : MonoBehaviour
     int stateIndex;
     public Canvas canvas;
     Image[] PlantImage = new Image[3];
+    Seed seedCode;
 
     private void Start()
     {
@@ -96,6 +97,8 @@ public class PlantStateManager : MonoBehaviour
                 InsertTIme(i, y);
             }
         }
+
+        seedCode = GameObject.Find("SeedManager").GetComponent<Seed>();
     }
 
     void InsertTIme(int i, string[] z)
@@ -433,6 +436,7 @@ public class PlantStateManager : MonoBehaviour
                 if (seedImage != null)
                 {
                     seedImage.sprite = null; // 이미지를 None으로 변경
+                    seedCode.seconds[i] = 0;
                 }
             }
         }
