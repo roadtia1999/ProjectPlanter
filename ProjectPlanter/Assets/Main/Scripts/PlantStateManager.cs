@@ -437,6 +437,7 @@ public class PlantStateManager : MonoBehaviour
                 {
                     seedImage.sprite = null; // 이미지를 None으로 변경
                     seedCode.seconds[i] = 0;
+                    seedCode.GrowTime[i] = TimeSpan.Zero;
                 }
             }
         }
