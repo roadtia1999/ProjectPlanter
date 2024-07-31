@@ -86,6 +86,10 @@ public class EventManager : MonoBehaviour
             case 1: Mite(); break;
             default: break;
         }
+
+        // 이벤트가 일부 UI를 가리지 않게 조정
+        transform.SetSiblingIndex(3);
+
         PlayerPrefs.SetInt("EventDexScene" + randomEvent, 1); // 이벤트 발생 정보를 PlayerPrefs에 저장
         PlayerPrefs.SetInt("EventOccur", randomEvent); // 이벤트 발생 값 저장
     }

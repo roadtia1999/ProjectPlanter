@@ -46,8 +46,8 @@ public class Trigger : MonoBehaviour
             Pot[i] = GameObject.Find("Pot" + i);
             Sprout[i] = Pot[i].transform.Find("Sprout" + i).gameObject;
             Flower[i] = Pot[i].transform.Find("FlowerDemo" + i).gameObject;
-            PlantState[i] = Pot[i].transform.Find("PlantState" + i).gameObject;
-            bubleObject[i] = Pot[i].transform.Find("Button Buble" + i).gameObject;
+            PlantState[i] = GameObject.Find("PlantState" + i);
+            bubleObject[i] = GameObject.Find("Button Buble" + i);
 
 
             FlowerImg[i] = Flower[i].GetComponent<Image>();

@@ -9,7 +9,7 @@ public class ButtonAnimation : MonoBehaviour
     public float stateMove;
     public float waitSeconds;
 
-    private void Awake()
+    private void OnEnable()
     {
         if (gameObject.name.Contains("Buble"))
         {
@@ -20,6 +20,7 @@ public class ButtonAnimation : MonoBehaviour
             bubble = false;
         }
 
+        transform.SetAsLastSibling();
         StartCoroutine(ButtonAni());
     }
 

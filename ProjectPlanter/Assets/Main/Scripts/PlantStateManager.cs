@@ -21,7 +21,7 @@ public class PlantStateManager : MonoBehaviour
     Button[] Plantstate = new Button[3];
     GameObject[] Pot = new GameObject[3];
     GameObject[] seed = new GameObject[3];
-    GameObject[] bubleObject = new GameObject[3];
+    public GameObject[] bubleObject = new GameObject[3];
     TimeSpan[] timeDif = new TimeSpan[3];
     public int[] painStack = new int[3]; //pain stack -> 2스택이면 dead 
     public int[] TimeDifseconds = new int[3]; //각 화분에 시간값 체크
@@ -56,14 +56,12 @@ public class PlantStateManager : MonoBehaviour
 
         instance = this;
 
-
         for (int i = 0; i < 3; i++)
         {
             Pot[i] = GameObject.Find("Pot" + i);
             seed[i] = GameObject.Find("seed" + i);
             GameObject plantStateObject = GameObject.Find("PlantState" + i);
-            PlantState[i] = Pot[i].transform.Find("PlantState" + i).gameObject;
-            bubleObject[i] = Pot[i].transform.Find("Button Buble" + i).gameObject;
+            PlantState[i] = GameObject.Find("PlantState" + i);
             Sprout[i] = Pot[i].transform.Find("Sprout" + i).gameObject;
             Plant[i] = Pot[i].transform.Find("FlowerDemo" + i).gameObject;
 
@@ -79,7 +77,6 @@ public class PlantStateManager : MonoBehaviour
             else
             {
                 StateImage.enabled = true;
-
             }
 
             //시차 초기화 코드
@@ -91,20 +88,16 @@ public class PlantStateManager : MonoBehaviour
             y[i] = PlayerPrefs.GetString("StateSaveTime" + i);
             if (string.IsNullOrEmpty(y[i]) && !string.IsNullOrEmpty(x[i]))
             {
-
                 InsertTIme(i, x);
             }
 
             else if (!string.IsNullOrEmpty(y[i]))
             {
-
                 InsertTIme(i, y);
             }
-
-
         }
-
     }
+
     void InsertTIme(int i, string[] z)
     {
 
@@ -136,8 +129,6 @@ public class PlantStateManager : MonoBehaviour
             string nowtime = DateTime.Now.ToString();
             PlayerPrefs.SetString("StateSaveTime" + i, nowtime);
         }
-
-
     }
 
 

@@ -49,7 +49,7 @@ public class MainBtnManager : MonoBehaviour
             seedPlanted = PlayerPrefs.HasKey("Button Buble" + i + "Clicked" + i);
             Pot[i] = GameObject.Find("Pot" + i);
             GameObject seedObject = GameObject.Find("seed" + i);
-            PlantState[i] = Pot[i].transform.Find("PlantState" + i).gameObject;
+            PlantState[i] = GameObject.Find("PlantState" + i);
 
             if (seedPlanted)
             {
@@ -212,9 +212,6 @@ public class MainBtnManager : MonoBehaviour
             handClicked = false;
 
         }
-
-
-
     }
 
     private IEnumerator FadeOutHand(float duration)
@@ -265,8 +262,4 @@ public class MainBtnManager : MonoBehaviour
             }
         }
     }
-
-
-
-
 }
