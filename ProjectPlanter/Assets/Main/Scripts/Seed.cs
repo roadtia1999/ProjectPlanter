@@ -80,7 +80,7 @@ public class Seed : MonoBehaviour
                 seedlastTime = DateTime.Parse(PlantedTimeString);
 
                 // 현재 시작 시간도 DateTime으로 변환
-                DateTime startTime = DateTime./*Parse(PlantingAfterString);*/Now;
+                DateTime startTime = DateTime.Now;
 
                 // 시간 차이 계산 후 클래스 레벨 변수에 저장
                 timeDifference = startTime - seedlastTime;
@@ -119,6 +119,7 @@ public class Seed : MonoBehaviour
     // x 배열로 묶기  묶어서 뽑아오기 . x[0] x[1]
     void TimeDifChk(int i)
     {
+
         if (eventOccur == 0)
         {
             timeDifference += TimeSpan.FromSeconds(10);
@@ -132,7 +133,6 @@ public class Seed : MonoBehaviour
             //물을 안주거나 너무 많이 줬다면 -10초로 성장 방지.
             // 어짜피 수국은 성장 주기가 가장 느리니 조정해도 남기는게 나쁘지 않다고 생각.
             timeDifference = timeDifference - TimeSpan.FromSeconds(10);
-
 
         GrowTime[i] += timeDifference;
 
@@ -158,9 +158,7 @@ public class Seed : MonoBehaviour
         else if (GrowTime[index].TotalSeconds >= 81 && stack[index] == 1)
             PlayerPrefs.SetInt("GrowStack" + index, 3);
 
-
         CheckMethodPlay(index);
-
 
     }
 

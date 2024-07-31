@@ -120,7 +120,7 @@ public class PlantStateManager : MonoBehaviour
         TimeDifseconds[i] = (int)Math.Round(timeDifference.TotalSeconds);
 
         //80초 전 재접시 스택이 0이라면 painStack ++
-        if (timeDifference.TotalSeconds < 80 && stack[i] == 0)
+        if (timeDifference.TotalSeconds < 81 && stack[i] == 0)
         {
             SetPainStack();
             GetPainStack(i);
@@ -241,10 +241,8 @@ public class PlantStateManager : MonoBehaviour
 
                 if (PlantImage.sprite == StateSpr[0])
                 {
-                    // 2번 새싹 , 프리지아 데모.
                     Sprout.SetActive(false);
                     FlowerDemo.SetActive(false);
-
                 }
             }
         }
@@ -260,10 +258,8 @@ public class PlantStateManager : MonoBehaviour
 
             if (PlantImage.sprite == StateSpr[0])
             {
-                // 2번 새싹 , 프리지아 데모.
                 Sprout.SetActive(false);
                 FlowerDemo.SetActive(false);
-
             }
 
         }
