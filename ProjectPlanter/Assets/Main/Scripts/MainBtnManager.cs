@@ -29,6 +29,7 @@ public class MainBtnManager : MonoBehaviour
     public int bubleIndex; // 클릭된 버블의 인덱스
     int potIndex; // 클릭된 화분의 인덱스 
     PlantDatabase plantDatabase;
+    public Sprite deadStateChecker;
 
     [Header("Canvas")]
     public Canvas canvas;
@@ -253,16 +254,17 @@ public class MainBtnManager : MonoBehaviour
     //스택은 올라가게 되있다. 그래서 stack을 초기화 하는것보다 이게 좋은듯 싶다.
     public void StateThirsty(Button clickedButton)
     {
-        Image[] childImages = clickedButton.GetComponentsInChildren<Image>();
+        string buttonIndex = clickedButton.name;
+        buttonIndex = buttonIndex.Replace("Pot", "");
 
-        foreach (Image childImage in childImages)
+        Debug.Log(buttonIndex);
+
+        GameObject plantState = GameObject.Find("PlantState" + buttonIndex);
+        Image stateChecker = plantState.GetComponent<Image>();
+
+        if (stateChecker.sprite = StateSpr[3])
         {
-            if (childImage.sprite == StateSpr[3])
-            {
-                childImage.sprite = StateSpr[1];
-
-                break;
-            }
+            stateChecker.sprite = StateSpr[1];
         }
     }
 
@@ -276,13 +278,15 @@ public class MainBtnManager : MonoBehaviour
     IEnumerator TimeLeftBubble(int index)
     {
         Seed seed = GameObject.Find("SeedManager").GetComponent<Seed>();
+        PlantStateManager plantState = GameObject.Find("PlantStateManager").GetComponent<PlantStateManager>();
+        Image stateChecker = plantState.PlantState[index].GetComponent<Image>();
 
         seed.timeDifference = TimeSpan.Zero;
         int tempSeconds = (int)Math.Round(seed.GrowTime[index].TotalSeconds);
         Debug.Log(tempSeconds);
         Debug.Log(CanClicked);
 
-        if (tempSeconds == 0 || CanClicked)
+        if (tempSeconds == 0 || stateChecker.sprite == deadStateChecker || CanClicked)
         {
             yield break;
         }

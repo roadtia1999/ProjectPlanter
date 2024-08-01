@@ -17,7 +17,7 @@ public class PlantStateManager : MonoBehaviour
     int[] stack = new int[3];
     string[] x = new string[3];
     string[] y = new string[3];
-    GameObject[] PlantState = new GameObject[3];
+    public GameObject[] PlantState = new GameObject[3];
     Button[] Plantstate = new Button[3];
     GameObject[] Pot = new GameObject[3];
     GameObject[] seed = new GameObject[3];

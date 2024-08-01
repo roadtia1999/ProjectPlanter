@@ -1047,7 +1047,7 @@ GameObject:
   - component: {fileID: 225422432}
   - component: {fileID: 225422431}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: MainCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2778,7 +2778,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 170.99982, y: -70.00003}
+  m_AnchoredPosition: {x: 170.99976, y: -70.00003}
   m_SizeDelta: {x: 268.158, y: 210.508}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &637851914
@@ -3869,7 +3869,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -69.00006, y: -90.00006}
+  m_AnchoredPosition: {x: -69.00009, y: -90.00015}
   m_SizeDelta: {x: 209.7837, y: 164.5161}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &927643793
@@ -5595,6 +5595,10 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 61408eacf7f6c1b4d9a0aebf5a320b4f, type: 3}
   - {fileID: 21300000, guid: 5a0feecbceb49114d84e61dae7ba9217, type: 3}
   - {fileID: 21300000, guid: 3f03cc81556f2a84482b6d380b403e1b, type: 3}
+  PlantState:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   bubleObject:
   - {fileID: 997290614}
   - {fileID: 962515391}
@@ -5863,6 +5867,7 @@ MonoBehaviour:
   SeedSpr: {fileID: -323837509, guid: 77126e126038ebf42838fa33345f45c5, type: 3}
   seedPlanted: 0
   bubleIndex: 0
+  deadStateChecker: {fileID: 21300000, guid: d2572378fab6c5a46a897c26f7c01055, type: 3}
   canvas: {fileID: 225422433}
   timeCheckBubble:
   - {fileID: 1833846872}
