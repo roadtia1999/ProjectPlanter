@@ -83,17 +83,17 @@ public class MainBtnManager : MonoBehaviour
 
     }
 
-    public void BubleIndex(int btnIndex)
+    public void BubleIndex(int btnIndex) // Bubble용 인덱스 가져오는 코드
     {
         //버블x 구하기.
         bubleIndex = btnIndex;
 
     }
-    public void PotIndex(int btnIndex)
+
+    public void PotIndex(int btnIndex) // Pot용 인덱스 가져오는 코드
     {
         //potx 구하기.
         potIndex = btnIndex;
-
     }
 
 
@@ -254,12 +254,7 @@ public class MainBtnManager : MonoBehaviour
     //스택은 올라가게 되있다. 그래서 stack을 초기화 하는것보다 이게 좋은듯 싶다.
     public void StateThirsty(Button clickedButton)
     {
-        string buttonIndex = clickedButton.name;
-        buttonIndex = buttonIndex.Replace("Pot", "");
-
-        Debug.Log(buttonIndex);
-
-        GameObject plantState = GameObject.Find("PlantState" + buttonIndex);
+        GameObject plantState = GameObject.Find("PlantState" + potIndex);
         Image stateChecker = plantState.GetComponent<Image>();
 
         if (stateChecker.sprite = StateSpr[3])
