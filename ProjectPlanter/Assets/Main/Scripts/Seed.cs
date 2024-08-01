@@ -456,7 +456,6 @@ public class Seed : MonoBehaviour
                 // 남아 있는 꽃 종류에서 랜덤하게 선택
                 int randomIndex = rand.Next(0, availableTypes.Count);
                 plantType[btnBuble] = availableTypes[randomIndex];
-                availableTypes.RemoveAt(randomIndex); // 선택된 꽃 종류 제거
 
                 // PlayerPrefs에서 값을 읽어옴
                 string savedTime = PlayerPrefs.GetString("PlantingAfterTime" + btnBuble);
