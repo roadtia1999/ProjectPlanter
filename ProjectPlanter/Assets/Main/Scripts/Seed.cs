@@ -40,7 +40,7 @@ public class Seed : MonoBehaviour
     GameObject[] Sprout = new GameObject[3];
     GameObject[] Plant = new GameObject[3];
     GameObject[] PlantState = new GameObject[3];
-    GameObject[] bubleObject = new GameObject[3];
+    public GameObject[] bubleObject = new GameObject[3];
 
     [Header("# ETC")]
     int eventOccur;
@@ -66,7 +66,6 @@ public class Seed : MonoBehaviour
             Sprout[i] = Pot[i].transform.Find("Sprout" + i).gameObject;
             Plant[i] = Pot[i].transform.Find("FlowerDemo" + i).gameObject;
             PlantState[i] = GameObject.Find("PlantState" + i);
-            bubleObject[i] = GameObject.Find("Button Buble" + i);
 
             string PlantedTimeString = PlayerPrefs.GetString("PlantingAfterTime" + i);
 

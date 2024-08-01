@@ -1868,7 +1868,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &424615278
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4566,6 +4566,10 @@ MonoBehaviour:
   - {fileID: 1401918887}
   - {fileID: 576970293}
   - {fileID: 1069827444}
+  bubleObject:
+  - {fileID: 997290614}
+  - {fileID: 962515391}
+  - {fileID: 637851912}
   canvas: {fileID: 225422433}
   HarvestPrefab: {fileID: 880709198340150511, guid: 31298a466794a8843b19f35ea78ef4d1, type: 3}
 --- !u!1 &1069827442
