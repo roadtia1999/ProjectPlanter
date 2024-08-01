@@ -39,6 +39,7 @@ public class MainBtnManager : MonoBehaviour
     public Text[] timeCheckBubbleTxt;
     public float timeCheckWait;
     public Sprite[] StateSpr;
+    public GameObject canMouse;
 
     private void Awake()
     {
@@ -81,6 +82,18 @@ public class MainBtnManager : MonoBehaviour
 
         plantDatabase = GameObject.Find("PlantDatabase").GetComponent<PlantDatabase>();
 
+    }
+
+    private void Update()
+    {
+        if (CanClicked)
+        {
+            canMouse.SetActive(true);
+        }
+        else
+        {
+            canMouse.SetActive(false);
+        }
     }
 
     public void BubleIndex(int btnIndex) // Bubble용 인덱스 가져오는 코드
