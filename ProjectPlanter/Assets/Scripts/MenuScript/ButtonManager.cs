@@ -12,6 +12,7 @@ public class ButtonManager : MonoBehaviour
 {
     public GameObject SettingsBoard;
     public GameObject SoundsBoard;
+    public GameObject noRecords;
     public Slider volumeSlider;
     public Toggle DisableMuteToggle;
 
@@ -70,8 +71,15 @@ public class ButtonManager : MonoBehaviour
 
     public void RecordsButtonClicked() // 관찰기록 버튼 클릭
     {
-        SceneFade sf = GameObject.Find("FadeCanvas").GetComponent<SceneFade>();
-        sf.SceneChange("RecordsScene");
+        if (!PlayerPrefs.HasKey("AutoCaptureDate")) // 스크린샷을 찍은 기록이 없으면 예외처리
+        {
+            StartCoroutine(NoRecords());
+        }
+        else
+        {
+            SceneFade sf = GameObject.Find("FadeCanvas").GetComponent<SceneFade>();
+            sf.SceneChange("RecordsScene");
+        }
     }
 
     public void SoundsButtonClicked() // 소리 메뉴 버튼 클릭
@@ -101,5 +109,12 @@ public class ButtonManager : MonoBehaviour
         {
             PlayerPrefs.SetInt("disableMute", 0);
         }
+    }
+
+    IEnumerator NoRecords() // 스크린샷 PlayerPrefs 없을 때 예외처리
+    {
+        noRecords.SetActive(true);
+        yield return new WaitForSeconds(3f);
+        noRecords.SetActive(false);
     }
 }
