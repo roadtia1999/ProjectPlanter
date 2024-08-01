@@ -155,6 +155,9 @@ public class MainBtnManager : MonoBehaviour
             // Can 오브젝트를 활성화합니다.
             canInstance.SetActive(true);
 
+            // Can 버튼이 한 번 클릭된 상태에서 다른 Pot을 눌렀을 때, 물뿌리개가 비정상적으로 움직이는 현상을 방지합니다
+            CanClicked = false;
+
             // 3초 후에 Can 오브젝트를 파괴합니다.
             StartCoroutine(DestroyCanAfterDelay(3f));
         }
@@ -166,7 +169,6 @@ public class MainBtnManager : MonoBehaviour
         yield return new WaitForSeconds(delay);
 
         // 상태 초기화
-        CanClicked = false;
         Destroy(canInstance);
     }
 
