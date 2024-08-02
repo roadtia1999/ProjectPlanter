@@ -403,14 +403,14 @@ public class PlantStateManager : MonoBehaviour
         FertilizerInstance.SetActive(true);
 
         StartCoroutine(DestroyFertilizerAfterDelay(1f));
-        animationOn = false;
-
+        
         ResetPrefs();
     }
 
     private IEnumerator DestroyFertilizerAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
+        animationOn = false;
         Destroy(FertilizerInstance);
     }
 

@@ -202,6 +202,11 @@ public class MainBtnManager : MonoBehaviour
 
     public void BubleCilck(Button clickedButton)
     {
+        if (handClicked)
+        {
+            return;
+        }
+
         handClicked = true;
 
         if (handInstance == null)
