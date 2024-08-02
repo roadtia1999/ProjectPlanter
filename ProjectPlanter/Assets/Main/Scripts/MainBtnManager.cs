@@ -116,6 +116,11 @@ public class MainBtnManager : MonoBehaviour
     // 버튼 클릭 시
     public void CanBtnClicked()
     {
+        if (canClickedForBubble && !CanClicked) // 물 주는 애니메이션이 실행중일 때에는 동작하지 않게 방지
+        {
+            return;
+        }
+
         CanClicked = !CanClicked;
         canClickedForBubble = !canClickedForBubble;
 
@@ -148,7 +153,6 @@ public class MainBtnManager : MonoBehaviour
     // Can 오브젝트를 해당 버튼 위에 배치
     public void PlaceOnButton(Button clickedButton)
     {
-
         CanStack();
         if (CanClicked)
         {
@@ -230,9 +234,6 @@ public class MainBtnManager : MonoBehaviour
 
             clickedButton.gameObject.SetActive(false);
             PlayerPrefs.SetInt(clickedButton.name + "Clicked" + bubleIndex, 0); // 버튼 상태 저장 false
-            // 상태 초기화
-            handClicked = false;
-
         }
     }
 
@@ -251,6 +252,8 @@ public class MainBtnManager : MonoBehaviour
             yield return null;
         }
 
+        // 상태 초기화
+        handClicked = false;
         canvasGroup.alpha = 0;
         handInstance.SetActive(false);
     }

@@ -34,6 +34,7 @@ public class PlantStateManager : MonoBehaviour
     public GameObject RefreshPrefab;
     private GameObject RefreshInstance;
     private bool RefreshClicked = false;
+    private bool animationOn = false;
 
     [Header("# Trowel")]
     public GameObject TrowelPrefab;
@@ -137,6 +138,11 @@ public class PlantStateManager : MonoBehaviour
 
     public void StateIndex(int btnIndex)
     {
+        if (animationOn) // 애니메이션이 재생 중에 잘못 동작하는 걸 방지
+        {
+            return;
+        }
+
         //statex 구하기.
         stateIndex = btnIndex;
     }
@@ -264,7 +270,13 @@ public class PlantStateManager : MonoBehaviour
 
     public void StatePainOrDead(Button clickedButton)
     {
+        if (animationOn) // 애니메이션 재생이 겹치지 않게 방지
+        {
+            return;
+        }
+
         Image buttonImage = clickedButton.GetComponent<Image>();
+        animationOn = true;
 
         //State 가 Pain 일 때
         if (buttonImage != null && buttonImage.sprite == StateSpr[2])
@@ -275,7 +287,7 @@ public class PlantStateManager : MonoBehaviour
         //Dead 일 때
         else if (buttonImage != null && buttonImage.sprite == StateSpr[0])
         {
-            DaedClick(clickedButton);
+            DeadClick(clickedButton);
             buttonImage.enabled = false; // 숨기기
         }
     }
@@ -311,10 +323,11 @@ public class PlantStateManager : MonoBehaviour
     private IEnumerator DestroyRefreshAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
+        animationOn = false;
         Destroy(RefreshInstance);
     }
 
-    void DaedClick(Button clickedButton)
+    void DeadClick(Button clickedButton)
     {
         TrowelClicked = true;
 
@@ -390,6 +403,7 @@ public class PlantStateManager : MonoBehaviour
         FertilizerInstance.SetActive(true);
 
         StartCoroutine(DestroyFertilizerAfterDelay(1f));
+        animationOn = false;
 
         ResetPrefs();
     }
