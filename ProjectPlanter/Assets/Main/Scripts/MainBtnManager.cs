@@ -13,6 +13,7 @@ public class MainBtnManager : MonoBehaviour
     public GameObject canPrefab;
     private GameObject canInstance;
     private bool CanClicked = false;
+    private bool canClickedForBubble = false;
     int[] stack = new int[3]; // 물뿌리게 스택 체크.
 
     [Header("# Hand")]
@@ -116,6 +117,7 @@ public class MainBtnManager : MonoBehaviour
     public void CanBtnClicked()
     {
         CanClicked = !CanClicked;
+        canClickedForBubble = !canClickedForBubble;
 
         if (CanClicked)
         {
@@ -182,6 +184,7 @@ public class MainBtnManager : MonoBehaviour
         yield return new WaitForSeconds(delay);
 
         // 상태 초기화
+        canClickedForBubble = false;
         Destroy(canInstance);
     }
 
@@ -296,7 +299,7 @@ public class MainBtnManager : MonoBehaviour
         Debug.Log(tempSeconds);
         Debug.Log(CanClicked);
 
-        if (tempSeconds == 0 || stateChecker.sprite == deadStateChecker || CanClicked)
+        if (tempSeconds == 0 || stateChecker.sprite == deadStateChecker || canClickedForBubble)
         {
             yield break;
         }
